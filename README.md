@@ -1,4 +1,4 @@
-# SOAP-Webservices with SpringBoot, JAX-WS, Apache CXF &amp; JAXB - Annotations only, absolutely no XML
+# SOAP-Webservices with SpringBoot, JAX-WS, Apache CXF 3 &amp; JAXB - Annotations only, absolutely no XML
 
 As Example SOAP-Service I did some research, but after all the well-known [Weather-Service] seemed to be the best Use-Case, although (or because?) it is used by nearly every tutorial. It is really hard to find free SOAP-Services on the web.
 
@@ -6,11 +6,11 @@ Nevertheless this example is capable for bigger Use-Cases in Realworld-Scenarios
 
 ### General choices
 
-In the projects I tried to use some relevant technologies for getting SOAP-Services running, like:
+In the project I tried to use some relevant technologies for getting SOAP-Services running, like:
 * [Spring] with absolutely no XML-Configuration needed (just Annotations)
-* [Spring Boot], for easy "not care about Container" (cause it´s embedded) and simple deployment
-* One of the most relevant SOAP-Stack [Apache CXF] as the Webservice-Stack to expose the SOAP-Webservices
-* Oracle´s JAX-WS RI with the [JAX-WS-commons project] as "the Standard" to define Webservices in Java
+* [Spring Boot], for easy "not care about Container" (cause it has an embedded [Tomcat]) and simple deployment
+* One of the most relevant SOAP-Stack [Apache CXF] 3 as the Webservice-Stack to expose the SOAP-Webservices
+* Oracle´s JAX-WS RI (Reference Implementation) with the [JAX-WS-commons project] as "the Standard" to define Webservices in Java
 * [JAXB Java-XML-Binding] for working with XML
 * JAX-WS Commons for Generating the Class-Files for JAXB, managed by the maven plugin [jaxws-maven-plugin]
 
@@ -45,3 +45,4 @@ For testing purposes I would recommend also getting [SOAP-UI], where you can che
 [jaxws-maven-plugin]:https://jax-ws-commons.java.net/jaxws-maven-plugin/
 [JAX-WS-commons project]:https://jax-ws-commons.java.net/spring/
 [Weather-Service]:http://wsf.cdyne.com/WeatherWS/Weather.asmx
+[Tomcat]:http://tomcat.apache.org/
