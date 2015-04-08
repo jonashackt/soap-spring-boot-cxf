@@ -1,4 +1,4 @@
-# SOAP-Webservices with SpringBoot, JAX-WS, Apache CXF 3 &amp; JAXB - Annotations only, absolutely no XML
+# SOAP-Webservices with Apache CXF & SpringBoot using JAX-WS & JAXB - Annotations only, absolutely no XML
 
 As Example SOAP-Service I did some research, but after all the well-known [Weather-Service] seemed to be the best Use-Case, although (or because?) it is used by nearly every tutorial. It is really hard to find free SOAP-Services on the web.
 
