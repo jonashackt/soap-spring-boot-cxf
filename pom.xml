@@ -9,7 +9,7 @@
   <parent>
        <groupId>org.springframework.boot</groupId>
        <artifactId>spring-boot-starter-parent</artifactId>
-       <version>1.2.2.RELEASE</version>
+       <version>1.2.3.RELEASE</version>
    </parent>
    
    <properties>
@@ -54,8 +54,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            
-			
 	        <!-- Generate Java-Classes inkl. JAXB-Bindings from WSDL & imported XSD -->
 	        <!-- See Doku at https://jax-ws-commons.java.net/jaxws-maven-plugin/usage.html -->
 			<plugin>
@@ -63,6 +61,7 @@
 				<artifactId>jaxws-maven-plugin</artifactId>
 				<version>2.3</version>
 				<configuration>
+					<!-- See https://jax-ws-commons.java.net/jaxws-maven-plugin/wsimport-mojo.html -->
 					<wsdlUrls>
 						<wsdlUrl>src/main/resources/Weather1.0.wsdl</wsdlUrl>
 					</wsdlUrls>
@@ -71,10 +70,25 @@
 					<vmArgs>
 			            <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
 			        </vmArgs>
+			        <!-- the binding.xml in the given directory is found automatically, because the directory is scanned for '.xml'-Files -->
+			       	<bindingDirectory>src/main/resources</bindingDirectory>
+			       	<!-- Arguments for JAXB2-Generator behind JAX-WS-Frontend -->
+			       	<args>
+			            <arg>-extension</arg>
+			            <!-- Thats a tricky parameter: The first '-B' is for passing the following argument to JAXB2-Generator
+			                 the second is needed to generate the human readable Namespace-Prefixes -->
+			            <arg>-B-Xnamespace-prefix</arg>
+			        </args>
 				</configuration>
+				<dependencies>
+			    	<dependency>
+			            <groupId>org.jvnet.jaxb2_commons</groupId>
+			            <artifactId>jaxb2-namespace-prefix</artifactId>
+			            <version>1.1</version>
+			        </dependency>
+				</dependencies>
 				<executions>
 					<execution>
-						<id>wsimport1</id>
 						<goals>
 							<goal>wsimport</goal>
 						</goals>

@@ -1,4 +1,4 @@
-package de.codecentric.soap.config;
+package de.codecentric.soap.configuration;
 
 import javax.xml.ws.Endpoint;
 
