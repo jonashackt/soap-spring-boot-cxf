@@ -11,17 +11,17 @@ import com.cdyne.ws.weatherws.ForecastReturn;
 import com.cdyne.ws.weatherws.WeatherReturn;
 import com.cdyne.ws.weatherws.WeatherSoap;
 
-import de.codecentric.soap.transformation.WeatherRepository;
+import de.codecentric.soap.controller.WeatherServiceController;
 
 @WebService(endpointInterface = "com.cdyne.ws.weatherws.WeatherSoap",
 serviceName = "WeatherService")
 public class WeatherServiceEndpoint implements WeatherSoap {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WeatherServiceEndpoint.class);
-    
-    @Autowired
-    private WeatherRepository weatherRepository;
 
+    @Autowired
+    private WeatherServiceController weatherServiceController;
+    
 	@Override
 	public ArrayOfWeatherDescription getWeatherInformation() {
 		LOGGER.debug("getWeatherInformation() was called successfully");
@@ -30,10 +30,10 @@ public class WeatherServiceEndpoint implements WeatherSoap {
 	}
 
 	@Override
-	public ForecastReturn getCityForecastByZIP(String zip) {
-		LOGGER.debug("getCityForecastByZIP() was called successfully");
+	public ForecastReturn getCityForecastByZIP(String request) {
+		LOGGER.debug("getCityForecastByZIP() was called successfully - handing over to internal processing.");
 				
-		return weatherRepository.getForecast(zip);
+		return weatherServiceController.processRequest(request);
 	}
 
 	@Override

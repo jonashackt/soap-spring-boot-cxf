@@ -14,12 +14,15 @@ import com.cdyne.ws.weatherws.WeatherSoap;
 import de.codecentric.soap.endpoint.WeatherServiceEndpoint;
 
 @Configuration
-public class WebServiceConfig {
+public class WebServiceConfiguration {
+	
+	public static final String SERVLET_MAPPING_URL_PATH = "/soap-api";
+	public static final String SERVICE_NAME_URL_PATH = "/WeatherSoapService_1.0";
 	
 	@Bean
     public ServletRegistrationBean dispatcherServlet() {
         CXFServlet cxfServlet = new CXFServlet();
-        return new ServletRegistrationBean(cxfServlet, "/soap-api/*");
+        return new ServletRegistrationBean(cxfServlet, SERVLET_MAPPING_URL_PATH + "/*");
     }
     
     // If you don´t want to import the cxf.xml-Springbean-Config you have to setUp this Bus for yourself
@@ -37,7 +40,7 @@ public class WebServiceConfig {
     @Bean
     public Endpoint endpoint() {
     	EndpointImpl endpoint = new EndpointImpl(springBus(), weatherService());
-    	endpoint.publish("/WeatherSoapService_1.0");
+    	endpoint.publish(SERVICE_NAME_URL_PATH);
     	//TODO: SetWSDL-Location properly
     	return endpoint;
     }
