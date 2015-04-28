@@ -29,6 +29,8 @@ java -jar soap-spring-boot-cxf-0.0.5-SNAPSHOT.jar
 
 For testing purposes I would recommend also getting [SOAP-UI], where you can check WSDL/XSD-compliance of the provided services very easily and you "see" your services.
 
+### Done´s
+* Readable Namespace-Prefixes
 
 ### Todo's
 * Testcases with Apache CXF

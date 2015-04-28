@@ -1,0 +1,3 @@
+<weat:GetCityForecastByZIP xmlns:weat="http://ws.cdyne.com/WeatherWS/">
+   <weat:ZIP>99425</weat:ZIP>
+</weat:GetCityForecastByZIP>

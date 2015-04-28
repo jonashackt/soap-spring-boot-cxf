@@ -29,16 +29,12 @@ public class WeatherServiceEndpoint implements WeatherSoap {
 		return null;
 	}
 
-
-
 	@Override
 	public ForecastReturn getCityForecastByZIP(String zip) {
 		LOGGER.debug("getCityForecastByZIP() was called successfully");
 				
 		return weatherRepository.getForecast(zip);
 	}
-
-
 
 	@Override
 	public WeatherReturn getCityWeatherByZIP(String zip) {

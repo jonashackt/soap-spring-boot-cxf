@@ -37,7 +37,7 @@ public class WebServiceConfig {
     @Bean
     public Endpoint endpoint() {
     	EndpointImpl endpoint = new EndpointImpl(springBus(), weatherService());
-    	endpoint.publish("/WeatherSoapService");
+    	endpoint.publish("/WeatherSoapService_1.0");
     	//TODO: SetWSDL-Location properly
     	return endpoint;
     }
