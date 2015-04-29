@@ -2,6 +2,7 @@ package de.codecentric.soap.configuration;
 
 import javax.xml.ws.Endpoint;
 
+import org.apache.cxf.Bus;
 import org.apache.cxf.bus.spring.SpringBus;
 import org.apache.cxf.jaxws.EndpointImpl;
 import org.apache.cxf.transport.servlet.CXFServlet;
@@ -27,7 +28,7 @@ public class WebServiceConfiguration {
     
     // If you don´t want to import the cxf.xml-Springbean-Config you have to setUp this Bus for yourself
     // <bean id="cxf" class="org.apache.cxf.bus.spring.SpringBus" destroy-method="shutdown"/>
-    @Bean(name="cxf")
+    @Bean(name=Bus.DEFAULT_BUS_ID)
     public SpringBus springBus() {
     	return new SpringBus();
     }
