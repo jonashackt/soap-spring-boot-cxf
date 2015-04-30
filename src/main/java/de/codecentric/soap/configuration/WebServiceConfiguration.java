@@ -3,6 +3,7 @@ package de.codecentric.soap.configuration;
 import javax.xml.ws.Endpoint;
 
 import org.apache.cxf.Bus;
+import org.apache.cxf.binding.soap.interceptor.AbstractSoapInterceptor;
 import org.apache.cxf.bus.spring.SpringBus;
 import org.apache.cxf.jaxws.EndpointImpl;
 import org.apache.cxf.transport.servlet.CXFServlet;
@@ -12,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.cdyne.ws.weatherws.WeatherSoap;
 
+import de.codecentric.soap.configuration.schemavalidation.customfault.WeatherServiceSchemaValidationInterceptor;
 import de.codecentric.soap.endpoint.WeatherServiceEndpoint;
 
 @Configuration
@@ -42,8 +44,14 @@ public class WebServiceConfiguration {
     public Endpoint endpoint() {
     	EndpointImpl endpoint = new EndpointImpl(springBus(), weatherService());
     	endpoint.publish(SERVICE_NAME_URL_PATH);
-    	//TODO: SetWSDL-Location properly
+    	endpoint.setWsdlLocation("Weather1.0.wsdl");
+    	// TODO: Working Interceptor with Exceptions
+    	//endpoint.getOutFaultInterceptors().add(soapInterceptor());
     	return endpoint;
     }
-	
+    
+    @Bean
+    public AbstractSoapInterceptor soapInterceptor() {
+    	return new WeatherServiceSchemaValidationInterceptor();
+    }
 }
