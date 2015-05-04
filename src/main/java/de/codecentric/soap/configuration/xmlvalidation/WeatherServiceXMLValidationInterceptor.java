@@ -1,4 +1,4 @@
-package de.codecentric.soap.configuration.schemavalidation.customfault;
+package de.codecentric.soap.configuration.xmlvalidation;
 
 
 import javax.xml.bind.JAXBContext;
@@ -18,14 +18,16 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-public class WeatherServiceSchemaValidationInterceptor extends AbstractSoapInterceptor {
+import com.cdyne.ws.weatherws.WeatherException;
+
+public class WeatherServiceXMLValidationInterceptor extends AbstractSoapInterceptor {
 
 	private static final String SCHEMA_VALIDATION_ERROR_MESSAGE = "XML Schema-Validierung fehlgeschlagen";
 	private static final String SCHEMA_VALIDATION_ERROR_ID = "00007";
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(WeatherServiceSchemaValidationInterceptor.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(WeatherServiceXMLValidationInterceptor.class);
 	
-	public WeatherServiceSchemaValidationInterceptor() {
+	public WeatherServiceXMLValidationInterceptor() {
 		super(Phase.PRE_STREAM);
 	}
 	

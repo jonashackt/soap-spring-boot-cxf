@@ -58,11 +58,15 @@
   <wsdl:message name="GetCityWeatherByZIPHttpPostOut">
     <wsdl:part name="Body" element="tns:WeatherReturn"/>
   </wsdl:message>
+  <wsdl:message name="WeatherException">
+  	<wsdl:part name="parameters" element="tns:WeatherException" />
+  </wsdl:message>
   <wsdl:portType name="WeatherSoap">
     <wsdl:operation name="GetWeatherInformation">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets Information for each WeatherID</wsdl:documentation>
       <wsdl:input message="tns:GetWeatherInformationSoapIn"/>
       <wsdl:output message="tns:GetWeatherInformationSoapOut"/>
+      <wsdl:fault name="WeatherException" message="tns:WeatherException"/>
     </wsdl:operation>
     <wsdl:operation name="GetCityForecastByZIP">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Allows you to get your City Forecast Over the Next 7 Days, which is updated hourly. U.S. Only</wsdl:documentation>
@@ -119,6 +123,9 @@
       <wsdl:output>
         <soap:body use="literal"/>
       </wsdl:output>
+      <wsdl:fault name="WeatherException">
+      	<soap:fault name="WeatherException" use="literal"/>
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="GetCityForecastByZIP">
       <soap:operation soapAction="http://ws.cdyne.com/WeatherWS/GetCityForecastByZIP" style="document"/>

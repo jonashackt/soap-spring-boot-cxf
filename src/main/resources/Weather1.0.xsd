@@ -111,4 +111,15 @@
       <s:element name="ArrayOfWeatherDescription" nillable="true" type="tns:ArrayOfWeatherDescription"/>
       <s:element name="ForecastReturn" nillable="true" type="tns:ForecastReturn"/>
       <s:element name="WeatherReturn" type="tns:WeatherReturn"/>
+      <s:element name="WeatherException" type="tns:WeatherException">
+      	<s:complexType>
+	        <s:sequence>
+	          <s:element name="Uuid" type="s:string"/>
+	          <s:element name="timestamp" type="s:dateTime"/>
+	          <s:element name="businessErrorId" type="s:string"/>
+	          <s:element name="bigBusinessErrorCausingMoneyLoss" type="s:boolean"/>
+	          <s:element name="exceptionDetails" type="s:string"/>
+	        </s:sequence>
+	      </s:complexType>
+      </s:element>
 </s:schema>
