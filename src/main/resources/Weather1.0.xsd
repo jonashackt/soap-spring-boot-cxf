@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <s:schema xmlns:tns="http://ws.cdyne.com/WeatherWS/"
             xmlns:s="http://www.w3.org/2001/XMLSchema"
+            xmlns:datatypes="http://ws.cdyne.com/WeatherWS/datatypes"
             targetNamespace="http://ws.cdyne.com/WeatherWS/"
             elementFormDefault="qualified"
             version="1.0">
+      
+      <s:import namespace="http://ws.cdyne.com/WeatherWS/datatypes"
+                schemaLocation="Weather-Schemes/weather-datatypes.xsd"/>
+      
       <s:element name="GetWeatherInformation">
         <s:complexType/>
       </s:element>
@@ -111,6 +116,7 @@
       <s:element name="ArrayOfWeatherDescription" nillable="true" type="tns:ArrayOfWeatherDescription"/>
       <s:element name="ForecastReturn" nillable="true" type="tns:ForecastReturn"/>
       <s:element name="WeatherReturn" type="tns:WeatherReturn"/>
+      <!-- 
       <s:element name="WeatherException" type="tns:WeatherException">
       	<s:complexType>
 	        <s:sequence>
@@ -122,4 +128,5 @@
 	        </s:sequence>
 	      </s:complexType>
       </s:element>
+       -->
 </s:schema>

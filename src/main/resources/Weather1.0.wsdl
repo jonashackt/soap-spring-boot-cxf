@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://ws.cdyne.com/WeatherWS/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://ws.cdyne.com/WeatherWS/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema"
+				  xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+				  xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+				  xmlns:tns="http://ws.cdyne.com/WeatherWS/"
+				  xmlns:datatypes="http://ws.cdyne.com/WeatherWS/datatypes"
+				  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+				  xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/"
+				  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+				  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+				  targetNamespace="http://ws.cdyne.com/WeatherWS/"
+				  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema xmlns="http://www.w3.org/2001/XMLSchema"
-                xmlns:s="http://www.w3.org/2001/XMLSchema"
-                targetNamespace="http://ws.cdyne.com/WeatherWS/"
-                elementFormDefault="qualified">
+              xmlns:s="http://www.w3.org/2001/XMLSchema"
+              targetNamespace="http://ws.cdyne.com/WeatherWS/"
+              attributeFormDefault="qualified"
+              elementFormDefault="qualified">
        <s:include schemaLocation="Weather1.0.xsd"/>
     </s:schema>
   </wsdl:types>
@@ -59,7 +70,7 @@
     <wsdl:part name="Body" element="tns:WeatherReturn"/>
   </wsdl:message>
   <wsdl:message name="WeatherException">
-  	<wsdl:part name="parameters" element="tns:WeatherException" />
+  	<wsdl:part name="parameters" element="datatypes:WeatherException" />
   </wsdl:message>
   <wsdl:portType name="WeatherSoap">
     <wsdl:operation name="GetWeatherInformation">
