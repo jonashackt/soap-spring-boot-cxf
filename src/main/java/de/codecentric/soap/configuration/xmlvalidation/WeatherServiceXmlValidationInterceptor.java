@@ -29,20 +29,36 @@ public class WeatherServiceXmlValidationInterceptor extends AbstractSoapIntercep
 	    Throwable faultCause = fault.getCause();
 	    String faultMessage = fault.getMessage();
 
-	    if (faultCause instanceof UnmarshalException) { 
+	    if (containsFaultIndicatingNotSchemeCompliantXml(faultCause, faultMessage)) { 
 	    	LOGGER.debug(FaultConst.SCHEME_VALIDATION_ERROR.getMessage() + ": {}", faultMessage);
 	    	WeatherSoapFaultHelper.buildWeatherFaultAndSet2SoapMessage(soapMessage, FaultConst.SCHEME_VALIDATION_ERROR);
-	    }
-	    
-	    if (faultCause instanceof WstxException
-	    		// If Xml-Header is invalid, there is a wrapped Cause in the original Cause we have to check
-	    		|| isNotNull(faultCause) && faultCause.getCause() instanceof WstxUnexpectedCharException
-	    		// Missing / lead to Faults without Causes, but to Messages like "Unexpected wrapper element XYZ found. Expected"
-	    		|| isNotNull(faultMessage) && faultMessage.contains("Unexpected")
-	    		|| faultCause instanceof IllegalArgumentException) {
+	    }	    
+	    if (containsFaultIndicatingSyntacticallyIncorrectXml(faultCause, faultMessage)) {
 	    	LOGGER.debug(FaultConst.SYNTACTICALLY_INCORRECT_XML_ERROR.getMessage() + ": {}", faultMessage);
 	    	WeatherSoapFaultHelper.buildWeatherFaultAndSet2SoapMessage(soapMessage, FaultConst.SYNTACTICALLY_INCORRECT_XML_ERROR);	        
 	    }
+	}
+
+	private boolean containsFaultIndicatingNotSchemeCompliantXml(Throwable faultCause, String faultMessage) {
+		if(faultCause instanceof UnmarshalException
+	    	// If the root-Element of the SoapBody is syntactically correct, but not scheme-compliant,
+	    	// there is no UnmarshalException and we have to look for
+	    	|| isNotNull(faultMessage) && faultMessage.contains("Unexpected wrapper element")) {
+			return true;
+		}
+		return false;
+	}
+	
+	private boolean containsFaultIndicatingSyntacticallyIncorrectXml(Throwable faultCause, String faultMessage) {
+		if(faultCause instanceof WstxException
+			// If Xml-Header is invalid, there is a wrapped Cause in the original Cause we have to check
+			|| isNotNull(faultCause) && faultCause.getCause() instanceof WstxUnexpectedCharException
+	    	// Missing / lead to Faults without Causes, but to Messages like "Unexpected wrapper element XYZ found. Expected"
+	    	|| isNotNull(faultMessage) && faultMessage.contains("Unexpected wrapper element notRelevantHere found")
+	    	|| faultCause instanceof IllegalArgumentException) {
+			return true;
+		}
+		return false;
 	}
 	
 	private boolean isNotNull(Object object) {

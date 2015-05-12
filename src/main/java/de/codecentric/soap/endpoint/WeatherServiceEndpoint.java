@@ -12,7 +12,7 @@ import de.codecentric.namespace.weatherservice.general.ForecastReturn;
 import de.codecentric.namespace.weatherservice.general.WeatherReturn;
 import de.codecentric.soap.controller.WeatherServiceController;
 
-@WebService(endpointInterface = "com.cdyne.ws.weatherws.WeatherSoap",
+@WebService(endpointInterface = "de.codecentric.namespace.weatherservice.WeatherService",
 serviceName = "WeatherService")
 public class WeatherServiceEndpoint implements WeatherService {
 

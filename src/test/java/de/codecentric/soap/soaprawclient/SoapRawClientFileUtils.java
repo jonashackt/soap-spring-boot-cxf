@@ -14,7 +14,7 @@ import de.codecentric.soap.common.XmlUtils;
 
 public class SoapRawClientFileUtils {
 
-	private static final String XML_FILES_FOLDER = "requests/sbr/";
+	private static final String XML_FILES_FOLDER = "requests/";
 	
 	public static String readFileInClasspath2String(String fileName) throws BusinessException {
 		String file;

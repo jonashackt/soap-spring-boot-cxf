@@ -16,6 +16,7 @@ import de.codecentric.soap.common.XmlUtils;
 public class SoapRawClient {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(SoapRawClient.class);
+	private static final String SOAP_ACTION = "http://www.codecentric.de/namespace/weatherservice/GetCityForecastByZIP";
 	
 	private String soapServiceUrl = null;
 	
@@ -38,7 +39,7 @@ public class SoapRawClient {
 			Response httpResponseContainer = Request
 					.Post(soapServiceUrl)
 					.bodyString(xmlFile, contentTypeTextXmlUtf8())
-					.addHeader("SOAPAction", "\"urn:getQuote\"")
+					.addHeader("SOAPAction", "\"" + SOAP_ACTION + "\"")
 					.execute();
 			
 			HttpResponse httpResponse = httpResponseContainer.returnResponse();			
@@ -54,6 +55,5 @@ public class SoapRawClient {
 	private ContentType contentTypeTextXmlUtf8() {
 		return ContentType.create(ContentType.TEXT_XML.getMimeType(), Consts.UTF_8);
 	}
-	
 	
 }

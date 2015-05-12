@@ -20,7 +20,7 @@ import de.codecentric.soap.soaprawclient.SoapRawClientFileUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes=Application.class)
-@WebIntegrationTest("server.port:8094") // This Configuration overrides the config of the embedded server, that is used (and re-used) in the Tests 
+@WebIntegrationTest("server.port:8093") // This Configuration overrides the config of the embedded server, that is used (and re-used) in the Tests 
 public class WeatherServiceEndpointIntegrationTest {
 	
 	@Autowired
@@ -31,7 +31,7 @@ public class WeatherServiceEndpointIntegrationTest {
 
 		// Given
 		// Use readSoapMessageFromFileAndUnmarshallBody
-		String zip = SoapRawClientFileUtils.readSoapMessageFromFileAndUnmarshallBody2Object("GetCityForecastByZIPTestCase.xml", String.class);
+		String zip = SoapRawClientFileUtils.readSoapMessageFromFileAndUnmarshallBody2Object("GetCityForecastByZIPTest.xml", String.class);
 		
 		// When
 		ForecastReturn forecastReturn = weatherService.getCityForecastByZIP(zip);
