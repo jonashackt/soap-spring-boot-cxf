@@ -27,6 +27,10 @@ public class WeatherServiceEndpointXMLErrorTest {
 	// TODO: Fix Configuration of Url is null
 	private String url = "http://localhost:8092/soap-api/WeatherSoapService_1.0";
 	
+	/*
+	 * Non-Scheme-compliant Errors
+	 */
+	
 	@Test
 	public void xmlErrorNotXmlSchemeCompliantUnderRootElementTest() throws BusinessException {
 		checkXMLErrorNotSchemeCompliant("xmlErrorNotXmlSchemeCompliantUnderRootElementTest.xml");
@@ -37,10 +41,18 @@ public class WeatherServiceEndpointXMLErrorTest {
 		checkXMLErrorNotSchemeCompliant("xmlErrorNotXmlSchemeCompliantRootElementTest.xml");
 	}
 	
+	@Test
+	public void xmlErrorSoapHeaderMissingSlash() throws BusinessException {
+		checkXMLErrorNotSchemeCompliant("xmlErrorSoapHeaderMissingSlash.xml");
+	}
+	
 	private void checkXMLErrorNotSchemeCompliant(String testFileName) throws BusinessException {
 		checkXMLError(testFileName, FaultConst.SCHEME_VALIDATION_ERROR);
 	}	
 	
+	/*
+	 * Errors with syntactically incorrect XML
+	 */
 	
 	@Test
 	public void xmlErrorSoapBodyTagMissingBracketTest() throws BusinessException {
@@ -60,12 +72,7 @@ public class WeatherServiceEndpointXMLErrorTest {
 	@Test
 	public void xmlErrorXMLHeaderDefinitionMissingBracket() throws BusinessException {
 		checkXMLErrorSyntacticallyIncorrect("xmlErrorXMLHeaderDefinitionMissingBracket.xml");
-	}
-	
-	@Test
-	public void xmlErrorSoapHeaderMissingSlash() throws BusinessException {
-		checkXMLErrorSyntacticallyIncorrect("xmlErrorSoapHeaderMissingSlash.xml");
-	}
+	}	
 	
 	@Test
 	public void xmlErrorXMLTagNotClosedInsideBodyTest() throws BusinessException {

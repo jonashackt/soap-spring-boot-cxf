@@ -41,8 +41,10 @@ public class WeatherServiceXmlValidationInterceptor extends AbstractSoapIntercep
 
 	private boolean containsFaultIndicatingNotSchemeCompliantXml(Throwable faultCause, String faultMessage) {
 		if(faultCause instanceof UnmarshalException
-	    	// If the root-Element of the SoapBody is syntactically correct, but not scheme-compliant,
-	    	// there is no UnmarshalException and we have to look for
+	    	// 1.) If the root-Element of the SoapBody is syntactically correct, but not scheme-compliant,
+			// 		there is no UnmarshalException and we have to look for
+			// 2.) Missing / lead to Faults without Causes, but to Messages like "Unexpected wrapper element XYZ found. Expected"
+			// 		One could argue, that this is syntactically incorrect, but here we just take it as Non-Scheme-compliant
 	    	|| isNotNull(faultMessage) && faultMessage.contains("Unexpected wrapper element")) {
 			return true;
 		}
@@ -53,8 +55,6 @@ public class WeatherServiceXmlValidationInterceptor extends AbstractSoapIntercep
 		if(faultCause instanceof WstxException
 			// If Xml-Header is invalid, there is a wrapped Cause in the original Cause we have to check
 			|| isNotNull(faultCause) && faultCause.getCause() instanceof WstxUnexpectedCharException
-	    	// Missing / lead to Faults without Causes, but to Messages like "Unexpected wrapper element XYZ found. Expected"
-	    	|| isNotNull(faultMessage) && faultMessage.contains("Unexpected wrapper element notRelevantHere found")
 	    	|| faultCause instanceof IllegalArgumentException) {
 			return true;
 		}
