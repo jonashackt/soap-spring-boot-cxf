@@ -12,28 +12,28 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import com.cdyne.ws.weatherws.ArrayOfForecast;
-import com.cdyne.ws.weatherws.Forecast;
-import com.cdyne.ws.weatherws.ForecastReturn;
-import com.cdyne.ws.weatherws.ObjectFactory;
-import com.cdyne.ws.weatherws.POP;
-import com.cdyne.ws.weatherws.Temp;
+import de.codecentric.namespace.weatherservice.datatypes.ArrayOfForecast;
+import de.codecentric.namespace.weatherservice.datatypes.Forecast;
+import de.codecentric.namespace.weatherservice.datatypes.POP;
+import de.codecentric.namespace.weatherservice.datatypes.Temp;
+import de.codecentric.namespace.weatherservice.general.ForecastReturn;
 
 @Repository
 public class WeatherRepository {
     
 	private static final Logger LOGGER = LoggerFactory.getLogger(WeatherRepository.class);
 	
-	private ObjectFactory xmlFactory;
+	private de.codecentric.namespace.weatherservice.general.ObjectFactory objectFactoryGeneral;
+	private de.codecentric.namespace.weatherservice.datatypes.ObjectFactory objectFactoryDatatypes;
 
 	@PostConstruct
 	public void initSomeData() {
-		xmlFactory = new ObjectFactory();
+		objectFactoryGeneral = new de.codecentric.namespace.weatherservice.general.ObjectFactory();
 	}
 		
 	public ForecastReturn getForecast(String zip) {      
 	
-		ForecastReturn forecastReturn = xmlFactory.createForecastReturn();
+		ForecastReturn forecastReturn = objectFactoryGeneral.createForecastReturn();
 		forecastReturn.setCity("Weimar");
 		forecastReturn.setState("Thueringen");
 		forecastReturn.setState("Deutschland");
@@ -47,14 +47,14 @@ public class WeatherRepository {
 
 
 	private ArrayOfForecast generateForecastResult(String city) {
-		ArrayOfForecast forecastContainer = xmlFactory.createArrayOfForecast();
+		ArrayOfForecast forecastContainer = objectFactoryDatatypes.createArrayOfForecast();
 		forecastContainer.getForecast().add(generateForecast(city));
 		return forecastContainer;
 	}
 
 
 	private Forecast generateForecast(String city) {
-		Forecast forecast = xmlFactory.createForecast();	
+		Forecast forecast = objectFactoryDatatypes.createForecast();	
 		forecast.setDate(generateCalendarFromNow());
 		forecast.setDesciption("Vorhersage für " + city);
 		forecast.setTemperatures(generateTemp());
@@ -64,7 +64,7 @@ public class WeatherRepository {
 
 	
 	private POP generateRegenwahrscheinlichkeit() {
-		POP pop = xmlFactory.createPOP();
+		POP pop = objectFactoryDatatypes.createPOP();
 		pop.setDaytime("22%");
 		pop.setNighttime("5000%");
 		return pop;
@@ -72,7 +72,7 @@ public class WeatherRepository {
 
 
 	private Temp generateTemp() {
-		Temp temp = xmlFactory.createTemp();
+		Temp temp = objectFactoryDatatypes.createTemp();
 		temp.setDaytimeHigh("90°");
 		temp.setMorningLow("0°");
 		return temp;

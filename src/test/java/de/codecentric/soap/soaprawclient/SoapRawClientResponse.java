@@ -1,13 +1,12 @@
-package de.codecentric.soap;
+package de.codecentric.soap.soaprawclient;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
-import de.codecentric.soap.common.InternalBusinessException;
+import de.codecentric.soap.common.BusinessException;
+import de.codecentric.soap.common.XmlUtils;
 
-
-
-public class EasyRawSoapResponse {
+public class SoapRawClientResponse {
 
 	private int httpStatusCode;
 	private Document httpResponseBody;
@@ -41,7 +40,7 @@ public class EasyRawSoapResponse {
 		return faultstring.getTextContent();
 	}
 	
-	public <T> T getUnmarshalledObjectFromSoapMessage(Class<T> jaxbClass) throws InternalBusinessException {
-		return TestUtils.getUnmarshalledObjectFromSoapMessage(httpResponseBody, jaxbClass);
+	public <T> T getUnmarshalledObjectFromSoapMessage(Class<T> jaxbClass) throws BusinessException {
+		return XmlUtils.getUnmarshalledObjectFromSoapMessage(httpResponseBody, jaxbClass);
 	}
 }

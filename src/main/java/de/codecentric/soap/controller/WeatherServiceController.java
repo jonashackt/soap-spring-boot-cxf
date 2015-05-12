@@ -3,8 +3,7 @@ package de.codecentric.soap.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.cdyne.ws.weatherws.ForecastReturn;
-
+import de.codecentric.namespace.weatherservice.general.ForecastReturn;
 import de.codecentric.soap.transformation.WeatherRepository;
 
 @Component

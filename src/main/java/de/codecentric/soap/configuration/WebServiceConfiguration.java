@@ -11,9 +11,8 @@ import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.cdyne.ws.weatherws.WeatherSoap;
-
-import de.codecentric.soap.configuration.xmlvalidation.WeatherServiceXMLValidationInterceptor;
+import de.codecentric.namespace.weatherservice.WeatherService;
+import de.codecentric.soap.configuration.xmlvalidation.WeatherServiceXmlValidationInterceptor;
 import de.codecentric.soap.endpoint.WeatherServiceEndpoint;
 
 @Configuration
@@ -36,7 +35,7 @@ public class WebServiceConfiguration {
     }
     
     @Bean
-    public WeatherSoap weatherService() {
+    public WeatherService weatherService() {
     	return new WeatherServiceEndpoint();
     }
     
@@ -45,13 +44,13 @@ public class WebServiceConfiguration {
     	EndpointImpl endpoint = new EndpointImpl(springBus(), weatherService());
     	endpoint.publish(SERVICE_NAME_URL_PATH);
     	endpoint.setWsdlLocation("Weather1.0.wsdl");
-    	// TODO: Working Interceptor with Exceptions
-    	//endpoint.getOutFaultInterceptors().add(soapInterceptor());
+    	// Interceptor for custom Schema-validation-SoapFault-Response
+    	endpoint.getOutFaultInterceptors().add(soapInterceptor());
     	return endpoint;
     }
     
     @Bean
     public AbstractSoapInterceptor soapInterceptor() {
-    	return new WeatherServiceXMLValidationInterceptor();
+    	return new WeatherServiceXmlValidationInterceptor();
     }
 }

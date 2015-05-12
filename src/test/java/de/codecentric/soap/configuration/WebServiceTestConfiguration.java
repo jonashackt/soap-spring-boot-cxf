@@ -7,9 +7,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
-import com.cdyne.ws.weatherws.WeatherSoap;
-
-import de.codecentric.soap.EasyRawSOAPTester;
+import de.codecentric.namespace.weatherservice.WeatherService;
+import de.codecentric.soap.soaprawclient.SoapRawClient;
 
 @Configuration
 @PropertySource("classpath:dev-test.properties")
@@ -28,11 +27,11 @@ public class WebServiceTestConfiguration {
 	}
 	
 	@Bean
-	public WeatherSoap weatherService() {
+	public WeatherService weatherService() {
 		JaxWsProxyFactoryBean jaxWsFactory = new JaxWsProxyFactoryBean();
-		jaxWsFactory.setServiceClass(WeatherSoap.class);
+		jaxWsFactory.setServiceClass(WeatherService.class);
 		jaxWsFactory.setAddress(buildUrl());
-		return (WeatherSoap) jaxWsFactory.create();
+		return (WeatherService) jaxWsFactory.create();
 	}
 	
 	private String buildUrl() {
@@ -42,8 +41,8 @@ public class WebServiceTestConfiguration {
 	
 
 	@Bean
-	public EasyRawSOAPTester rawSOAPTester() {
-		EasyRawSOAPTester easyRawSOAPTester = new EasyRawSOAPTester();
+	public SoapRawClient soapRawClient() {
+		SoapRawClient easyRawSOAPTester = new SoapRawClient();
 		easyRawSOAPTester.setUrl(buildUrl());
 		return easyRawSOAPTester;
 	}

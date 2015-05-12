@@ -9,8 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.cdyne.ws.weatherws.ForecastReturn;
-
+import de.codecentric.namespace.weatherservice.general.ForecastReturn;
 import de.codecentric.soap.configuration.ApplicationTestConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)

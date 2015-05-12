@@ -1,4 +1,4 @@
-package de.codecentric.soap;
+package de.codecentric.soap.soaprawclient;
 
 import org.apache.http.Consts;
 import org.apache.http.HttpResponse;
@@ -9,26 +9,29 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import de.codecentric.soap.common.InternalBusinessException;
-
-
+import de.codecentric.soap.common.BusinessException;
+import de.codecentric.soap.common.XmlUtils;
 
 @Component
-public class EasyRawSOAPTester {
+public class SoapRawClient {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(EasyRawSOAPTester.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SoapRawClient.class);
 	
-	private String soapServiceUrl;
+	private String soapServiceUrl = null;
 	
 	public void setUrl(String soapServiceUrl) {
 		this.soapServiceUrl = soapServiceUrl;
 	}
 	
-	public EasyRawSoapResponse callSoapService(String xmlFile) throws InternalBusinessException {
-		EasyRawSoapResponse easyRawSoapResponse = null;
+	public SoapRawClientResponse callSoapService(String xmlFile) throws BusinessException {
+		SoapRawClientResponse easyRawSoapResponse = null;
+		
+		if(soapServiceUrl == null) {
+			throw new BusinessException("Could not Call Soap-Service, because the Url is not set: soapServiceUrl = " + soapServiceUrl);
+		}
 		
 		try {
-			easyRawSoapResponse = new EasyRawSoapResponse();
+			easyRawSoapResponse = new SoapRawClientResponse();
 			
 			LOGGER.debug("Calling SoapService with POST on Apache HTTP-Client and configured URL: {}", soapServiceUrl);
 			
@@ -40,14 +43,14 @@ public class EasyRawSOAPTester {
 			
 			HttpResponse httpResponse = httpResponseContainer.returnResponse();			
 			easyRawSoapResponse.setHttpStatusCode(httpResponse.getStatusLine().getStatusCode());
-			easyRawSoapResponse.setHttpResponseBody(TestUtils.parseContent2Document(httpResponse.getEntity().getContent()));
+			easyRawSoapResponse.setHttpResponseBody(XmlUtils.parseFileStream2Document(httpResponse.getEntity().getContent()));
 			
 		} catch (Exception exception) {
-			throw new InternalBusinessException("Some Error accured while trying to Call SoapService for test: " + exception.getMessage());
+			throw new BusinessException("Some Error accured while trying to Call SoapService for test: " + exception.getMessage());
 		}		
 		return easyRawSoapResponse;
 	}
-	
+
 	private ContentType contentTypeTextXmlUtf8() {
 		return ContentType.create(ContentType.TEXT_XML.getMimeType(), Consts.UTF_8);
 	}

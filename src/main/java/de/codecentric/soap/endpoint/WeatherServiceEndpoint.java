@@ -6,16 +6,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.cdyne.ws.weatherws.ArrayOfWeatherDescription;
-import com.cdyne.ws.weatherws.ForecastReturn;
-import com.cdyne.ws.weatherws.WeatherReturn;
-import com.cdyne.ws.weatherws.WeatherSoap;
-
+import de.codecentric.namespace.weatherservice.WeatherService;
+import de.codecentric.namespace.weatherservice.datatypes.ArrayOfWeatherDescription;
+import de.codecentric.namespace.weatherservice.general.ForecastReturn;
+import de.codecentric.namespace.weatherservice.general.WeatherReturn;
 import de.codecentric.soap.controller.WeatherServiceController;
 
 @WebService(endpointInterface = "com.cdyne.ws.weatherws.WeatherSoap",
 serviceName = "WeatherService")
-public class WeatherServiceEndpoint implements WeatherSoap {
+public class WeatherServiceEndpoint implements WeatherService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WeatherServiceEndpoint.class);
 

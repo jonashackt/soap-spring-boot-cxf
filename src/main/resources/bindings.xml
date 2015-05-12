@@ -8,10 +8,34 @@
 
 	<jxb:bindings schemaLocation="Weather1.0.xsd">
 		<jxb:schemaBindings>
-			<jxb:package name="com.cdyne.ws.weatherws" />
+			<jxb:package name="de.codecentric.namespace.weatherservice" />
 		</jxb:schemaBindings>
 		<jxb:bindings>
 			<namespace:prefix name="weather" />
+		</jxb:bindings>
+	</jxb:bindings>
+	<jxb:bindings schemaLocation="Weather-Schemes/weather-general.xsd">
+		<jxb:schemaBindings>
+			<jxb:package name="de.codecentric.namespace.weatherservice.general" />
+		</jxb:schemaBindings>
+		<jxb:bindings>
+			<namespace:prefix name="general" />
+		</jxb:bindings>
+	</jxb:bindings>
+	<jxb:bindings schemaLocation="Weather-Schemes/weather-datatypes.xsd">
+		<jxb:schemaBindings>
+			<jxb:package name="de.codecentric.namespace.weatherservice.datatypes" />
+		</jxb:schemaBindings>
+		<jxb:bindings>
+			<namespace:prefix name="dtypes" />
+		</jxb:bindings>
+	</jxb:bindings>
+	<jxb:bindings schemaLocation="Weather-Schemes/weather-exception.xsd">
+		<jxb:schemaBindings>
+			<jxb:package name="de.codecentric.namespace.weatherservice.exception" />
+		</jxb:schemaBindings>
+		<jxb:bindings>
+			<namespace:prefix name="exception" />
 		</jxb:bindings>
 	</jxb:bindings>
 </jxb:bindings>
