@@ -35,7 +35,6 @@ public class WeatherRepository {
 	
 		ForecastReturn forecastReturn = objectFactoryGeneral.createForecastReturn();
 		forecastReturn.setCity("Weimar");
-		forecastReturn.setState("Thueringen");
 		forecastReturn.setState("Deutschland");
 		forecastReturn.setSuccess(true);
 		forecastReturn.setWeatherStationCity("Weimar");
