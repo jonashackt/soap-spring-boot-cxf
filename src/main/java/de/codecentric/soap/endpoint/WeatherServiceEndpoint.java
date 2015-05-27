@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import de.codecentric.namespace.weatherservice.WeatherService;
 import de.codecentric.namespace.weatherservice.datatypes.ArrayOfWeatherDescription;
+import de.codecentric.namespace.weatherservice.general.ForecastRequest;
 import de.codecentric.namespace.weatherservice.general.ForecastReturn;
 import de.codecentric.namespace.weatherservice.general.WeatherReturn;
+import de.codecentric.soap.common.BusinessException;
 import de.codecentric.soap.controller.WeatherServiceController;
 
 @WebService(endpointInterface = "de.codecentric.namespace.weatherservice.WeatherService",
@@ -29,10 +31,18 @@ public class WeatherServiceEndpoint implements WeatherService {
 	}
 
 	@Override
-	public ForecastReturn getCityForecastByZIP(String request) {
+	public ForecastReturn getCityForecastByZIP(ForecastRequest forecastRequest) {
 		LOGGER.debug("getCityForecastByZIP() was called successfully - handing over to internal processing.");
 				
-		return weatherServiceController.processRequest(request);
+		try {
+			return weatherServiceController.processRequest(forecastRequest);
+		
+		} catch (BusinessException exception) {
+			ForecastReturn forecastReturn = new ForecastReturn();
+			forecastReturn.setSuccess(false);
+			forecastReturn.setResponseText(exception.getMessage());
+		    return forecastReturn;
+		}
 	}
 
 	@Override

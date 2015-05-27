@@ -5,12 +5,12 @@ import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 
 import de.codecentric.soap.internalmodel.GeneralOutlook;
-import de.codecentric.soap.internalmodel.Postcode;
+import de.codecentric.soap.internalmodel.Site;
 
 @Service
 public class WeatherBackend {
     
-	public GeneralOutlook generateGeneralOutlook(Postcode postcode) {      
+	public GeneralOutlook generateGeneralOutlook(Site postcode) {      
 		/*
 		 * Some incredible Businesslogic...
 		 */

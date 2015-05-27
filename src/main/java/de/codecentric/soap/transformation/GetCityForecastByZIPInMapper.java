@@ -1,12 +1,14 @@
 package de.codecentric.soap.transformation;
 
-import de.codecentric.soap.internalmodel.Postcode;
+import de.codecentric.namespace.weatherservice.general.ForecastRequest;
+import de.codecentric.soap.internalmodel.Site;
 
 public class GetCityForecastByZIPInMapper {
 
-	public static Postcode mapRequest2Zip(String zip) {
-		Postcode postcode = new Postcode();
-		postcode.setCode(zip);
-		return postcode;
+	public static Site mapRequest2Zip(ForecastRequest forecastRequest) {
+		Site site = new Site();
+		site.setPostalCode(forecastRequest.getZIP());
+		site.setFlagColor(forecastRequest.getFlagcolor());
+		return site;
 	}
 }

@@ -33,7 +33,7 @@ public class WeatherServiceEndpointIntegrationTest {
 		GetCityForecastByZIP getCityForecastByZIP = SoapRawClientFileUtils.readSoapMessageFromFileAndUnmarshallBody2Object("GetCityForecastByZIPTest.xml", GetCityForecastByZIP.class);
 		
 		// When
-		ForecastReturn forecastReturn = weatherService.getCityForecastByZIP(getCityForecastByZIP.getZIP());
+		ForecastReturn forecastReturn = weatherService.getCityForecastByZIP(getCityForecastByZIP.getForecastRequest());
 		
 		// Then
 		assertNotNull(forecastReturn);

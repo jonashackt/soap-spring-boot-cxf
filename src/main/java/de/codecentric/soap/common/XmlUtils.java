@@ -65,15 +65,15 @@ public class XmlUtils {
 		return jaxbElement;
 	}	
 	
-	public static <T> String getNamespaceUriFromJaxbClass(Class<T> jaxbClass) {
+	public static <T> String getNamespaceUriFromJaxbClass(Class<T> jaxbClass) throws BusinessException {
 		String nsURI = "";
 	    for(Annotation annotation: jaxbClass.getPackage().getAnnotations()){
 	        if(annotation.annotationType() == XmlSchema.class){
 	            nsURI = ((XmlSchema)annotation).namespace();
-	            break;
+	            return nsURI;
 	        }
 	    }
-	    return nsURI;
+	    throw new BusinessException("namespaceUri not found -> Is it really a JAXB-Class, thats used to call the method?");
 	}
 	
 	public static <T> String getXmlTagNameFromJaxbClass(Class<T> jaxbClass) {

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import de.codecentric.namespace.weatherservice.general.ForecastRequest;
 import de.codecentric.namespace.weatherservice.general.ForecastReturn;
 import de.codecentric.soap.configuration.ApplicationTestConfiguration;
 
@@ -27,14 +28,31 @@ public class WeatherServiceEndpointTest {
 	@Test
 	public void getCityForecastByZIP() {
 		// Given
-		String request = "99425";
+		ForecastRequest forecastRequest = new ForecastRequest();
+		forecastRequest.setZIP("99425");
+		forecastRequest.setFlagcolor("blackblue");
 		
 		// When
-		ForecastReturn forecastReturn = weatherServiceEndpoint.getCityForecastByZIP(request);
+		ForecastReturn forecastReturn = weatherServiceEndpoint.getCityForecastByZIP(forecastRequest);
 		
 		// Then
 		assertNotNull(forecastReturn);
 		assertEquals("Weimar", forecastReturn.getCity());
 		assertEquals("22%", forecastReturn.getForecastResult().getForecast().get(0).getProbabilityOfPrecipiation().getDaytime());
+	}
+	
+	@Test
+	public void getCityForecastByZIPPlausibilityCheck() {
+		// Given
+		ForecastRequest forecastRequest = new ForecastRequest();
+		forecastRequest.setZIP("994257");
+		
+		// When
+		ForecastReturn forecastReturn = weatherServiceEndpoint.getCityForecastByZIP(forecastRequest);
+		
+		// Then
+		assertNotNull(forecastReturn);
+		assertEquals(false, forecastReturn.isSuccess());
+		System.out.println(forecastReturn.getResponseText());
 	}
 }

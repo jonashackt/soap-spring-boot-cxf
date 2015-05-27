@@ -3,10 +3,13 @@ package de.codecentric.soap.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import de.codecentric.namespace.weatherservice.general.ForecastRequest;
 import de.codecentric.namespace.weatherservice.general.ForecastReturn;
 import de.codecentric.soap.backend.WeatherBackend;
+import de.codecentric.soap.common.BusinessException;
 import de.codecentric.soap.internalmodel.GeneralOutlook;
-import de.codecentric.soap.internalmodel.Postcode;
+import de.codecentric.soap.internalmodel.Site;
+import de.codecentric.soap.plausibilitycheck.PlausibilityChecker;
 import de.codecentric.soap.transformation.GetCityForecastByZIPInMapper;
 import de.codecentric.soap.transformation.GetCityForecastByZIPOutMapper;
 
@@ -24,12 +27,14 @@ public class WeatherServiceController {
 	@Autowired
 	private WeatherBackend weatherBackend;
 	
-	public ForecastReturn processRequest(String request) {
+	public ForecastReturn processRequest(ForecastRequest forecastRequest) throws BusinessException {
 		// Transformation incoming JAXB-Bind Objects to internal Model
-		Postcode postcode = GetCityForecastByZIPInMapper.mapRequest2Zip(request);
+		Site site = GetCityForecastByZIPInMapper.mapRequest2Zip(forecastRequest);
+		
+		PlausibilityChecker.checkPostcode(site);
 		
 		// Call Backend with internal Model
-		GeneralOutlook generalOutlook = weatherBackend.generateGeneralOutlook(postcode);
+		GeneralOutlook generalOutlook = weatherBackend.generateGeneralOutlook(site);
 		
 		// Transformation internal Model to outgoing JAXB-Bind Objects
 		return GetCityForecastByZIPOutMapper.mapGeneralOutlook2Forecast(generalOutlook);
