@@ -40,19 +40,4 @@ public class WeatherServiceEndpointTest {
 		assertEquals("Weimar", forecastReturn.getCity());
 		assertEquals("22%", forecastReturn.getForecastResult().getForecast().get(0).getProbabilityOfPrecipiation().getDaytime());
 	}
-	
-	@Test
-	public void getCityForecastByZIPPlausibilityCheck() {
-		// Given
-		ForecastRequest forecastRequest = new ForecastRequest();
-		forecastRequest.setZIP("994257");
-		
-		// When
-		ForecastReturn forecastReturn = weatherServiceEndpoint.getCityForecastByZIP(forecastRequest);
-		
-		// Then
-		assertNotNull(forecastReturn);
-		assertEquals(false, forecastReturn.isSuccess());
-		System.out.println(forecastReturn.getResponseText());
-	}
 }

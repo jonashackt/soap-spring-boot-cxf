@@ -35,7 +35,7 @@ public class WeatherServiceEndpoint implements WeatherService {
 		LOGGER.debug("getCityForecastByZIP() was called successfully - handing over to internal processing.");
 				
 		try {
-			return weatherServiceController.processRequest(forecastRequest);
+			return weatherServiceController.getCityForecastByZIP(forecastRequest);
 		
 		} catch (BusinessException exception) {
 			ForecastReturn forecastReturn = new ForecastReturn();
@@ -46,9 +46,16 @@ public class WeatherServiceEndpoint implements WeatherService {
 	}
 
 	@Override
-	public WeatherReturn getCityWeatherByZIP(String zip) {
+	public WeatherReturn getCityWeatherByZIP(ForecastRequest forecastRequest) {
 		LOGGER.debug("getCityWeatherByZIP() was called successfully");
-		//TODO: Fill with some data
-		return null;
+		try {
+			return weatherServiceController.getCityWeatherByZIP(forecastRequest);
+		
+		} catch (BusinessException exception) {
+			WeatherReturn weatherReturn = new WeatherReturn();
+			weatherReturn.setSuccess(false);
+			weatherReturn.setResponseText(exception.getMessage());
+		    return weatherReturn;
+		}
 	}
 }

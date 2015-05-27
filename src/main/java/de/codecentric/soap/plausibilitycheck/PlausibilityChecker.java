@@ -8,6 +8,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import javax.validation.groups.Default;
 
 import de.codecentric.soap.common.BusinessException;
 import de.codecentric.soap.internalmodel.Site;
@@ -18,23 +19,21 @@ public class PlausibilityChecker {
 	
 	private static Validator validator;
 	
-//	public PlausibilityChecker() {
-//		ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-//		validator = validatorFactory.getValidator();
-//	}
-	
-	public static void checkPostcode(Site postcode) throws BusinessException {
+	/**
+	 * @throws BusinessException, if plausibility check results in errors
+	 */
+	public static void check(Site site, Class<? extends Default> validationClass) throws BusinessException {
 		
 		ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
 		validator = validatorFactory.getValidator();
 		
-		Set<ConstraintViolation<Site>> violations = validator.validate(postcode);
+		Set<ConstraintViolation<Site>> violations = validator.validate(site, validationClass);
 		for(ConstraintViolation<Site> violation : violations) {
 			String variableName = violation.getPropertyPath().toString();
 			
 			String message = violation.getMessage();
 			
-			String errorMessage = "Plausibilitycheck: " + postcode.getClass().getSimpleName() + "." + variableName + " " + message + "\n";
+			String errorMessage = "Plausibilitycheck: " + site.getClass().getSimpleName() + "." + variableName + " " + message + "\n";
 			System.out.println(errorMessage);
 			errors.add(errorMessage);
 		}

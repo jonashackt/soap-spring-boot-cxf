@@ -5,19 +5,23 @@ import org.springframework.stereotype.Component;
 
 import de.codecentric.namespace.weatherservice.general.ForecastRequest;
 import de.codecentric.namespace.weatherservice.general.ForecastReturn;
+import de.codecentric.namespace.weatherservice.general.WeatherReturn;
 import de.codecentric.soap.backend.WeatherBackend;
 import de.codecentric.soap.common.BusinessException;
 import de.codecentric.soap.internalmodel.GeneralOutlook;
 import de.codecentric.soap.internalmodel.Site;
 import de.codecentric.soap.plausibilitycheck.PlausibilityChecker;
-import de.codecentric.soap.transformation.GetCityForecastByZIPInMapper;
+import de.codecentric.soap.plausibilitycheck.servicemethod.CheckWithGetCityForecastByZIP;
+import de.codecentric.soap.plausibilitycheck.servicemethod.CheckWithGetCityWeatherByZIP;
+import de.codecentric.soap.transformation.GetByZIPInMapper;
 import de.codecentric.soap.transformation.GetCityForecastByZIPOutMapper;
+import de.codecentric.soap.transformation.GetCityWeatherByZIPOutMapper;
 
 @Component
 public class WeatherServiceController {
 
 	/*
-	 *  Example of a Controller:
+	 *  Example-Controller:
 	 *  This Class would be responsible for Mapping from Request to internal Datamodel (and backwards),
 	 *  for calling Backend-Services and handling Backend-Exceptions
 	 *  So it decouples the WSDL-generated Classes from the internal Classes - for when the former changes,
@@ -27,16 +31,29 @@ public class WeatherServiceController {
 	@Autowired
 	private WeatherBackend weatherBackend;
 	
-	public ForecastReturn processRequest(ForecastRequest forecastRequest) throws BusinessException {
+	public ForecastReturn getCityForecastByZIP(ForecastRequest forecastRequest) throws BusinessException {
 		// Transformation incoming JAXB-Bind Objects to internal Model
-		Site site = GetCityForecastByZIPInMapper.mapRequest2Zip(forecastRequest);
+		Site site = GetByZIPInMapper.mapRequest2Zip(forecastRequest);
 		
-		PlausibilityChecker.checkPostcode(site);
+		PlausibilityChecker.check(site, CheckWithGetCityForecastByZIP.class);
 		
 		// Call Backend with internal Model
 		GeneralOutlook generalOutlook = weatherBackend.generateGeneralOutlook(site);
 		
 		// Transformation internal Model to outgoing JAXB-Bind Objects
 		return GetCityForecastByZIPOutMapper.mapGeneralOutlook2Forecast(generalOutlook);
+	}
+	
+	public WeatherReturn getCityWeatherByZIP(ForecastRequest forecastRequest) throws BusinessException {
+		// Transformation incoming JAXB-Bind Objects to internal Model
+		Site site = GetByZIPInMapper.mapRequest2Zip(forecastRequest);
+		
+		PlausibilityChecker.check(site, CheckWithGetCityWeatherByZIP.class);
+		
+		// Call Backend with internal Model
+		GeneralOutlook generalOutlook = weatherBackend.generateGeneralOutlook(site);
+		
+		// Transformation internal Model to outgoing JAXB-Bind Objects
+		return GetCityWeatherByZIPOutMapper.mapGeneralOutlook2Weather(generalOutlook);
 	}
 }
