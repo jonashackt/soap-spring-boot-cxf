@@ -3,6 +3,7 @@ package de.codecentric.soap.common;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.lang.annotation.Annotation;
+import java.util.Objects;
 
 import javax.xml.bind.JAXB;
 import javax.xml.bind.JAXBContext;
@@ -51,12 +52,13 @@ public class XmlUtils {
 		return unmarshalledObject;
 	}
 	
-	public static <T> JAXBElement<T> unmarshallNode(Node biproException, Class<T> jaxbClassName) throws BusinessException {
+	public static <T> JAXBElement<T> unmarshallNode(Node node, Class<T> jaxbClassName) throws BusinessException {
+		Objects.requireNonNull(node);
 		JAXBElement<T> jaxbElement = null;
 		try {
 			JAXBContext jaxbContext = JAXBContext.newInstance(jaxbClassName);
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-			jaxbElement = unmarshaller.unmarshal(new DOMSource(biproException), jaxbClassName);
+			jaxbElement = unmarshaller.unmarshal(new DOMSource(node), jaxbClassName);
 		} catch (Exception exception) {
 			throw new BusinessException("Problem beim Unmarshalling der Node in das JAXBElement: " + exception.getMessage());
 		}		

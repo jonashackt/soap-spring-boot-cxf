@@ -3,7 +3,7 @@ package de.codecentric.soap.internalmodel;
 import java.time.LocalDateTime;
 
 public class GeneralOutlook {
-
+	
 	private String city;
 	private String state;
 	private String weatherStation;
@@ -32,7 +32,6 @@ public class GeneralOutlook {
 	}
 	public void setDate(LocalDateTime date) {
 		this.date = date;
-	}
-	
+	}	
 	
 }

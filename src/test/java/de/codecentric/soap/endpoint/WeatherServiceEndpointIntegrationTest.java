@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import de.codecentric.namespace.weatherservice.WeatherException;
 import de.codecentric.namespace.weatherservice.WeatherService;
 import de.codecentric.namespace.weatherservice.general.ForecastReturn;
+import de.codecentric.namespace.weatherservice.general.GetCityForecastByZIP;
 import de.codecentric.soap.Application;
 import de.codecentric.soap.common.BusinessException;
 import de.codecentric.soap.soaprawclient.SoapRawClientFileUtils;
@@ -28,13 +29,11 @@ public class WeatherServiceEndpointIntegrationTest {
 
 	@Test
 	public void getCityForecastByZIP() throws BusinessException, WeatherException {
-
 		// Given
-		// Use readSoapMessageFromFileAndUnmarshallBody
-		String zip = SoapRawClientFileUtils.readSoapMessageFromFileAndUnmarshallBody2Object("GetCityForecastByZIPTest.xml", String.class);
+		GetCityForecastByZIP getCityForecastByZIP = SoapRawClientFileUtils.readSoapMessageFromFileAndUnmarshallBody2Object("GetCityForecastByZIPTest.xml", GetCityForecastByZIP.class);
 		
 		// When
-		ForecastReturn forecastReturn = weatherService.getCityForecastByZIP(zip);
+		ForecastReturn forecastReturn = weatherService.getCityForecastByZIP(getCityForecastByZIP.getZIP());
 		
 		// Then
 		assertNotNull(forecastReturn);

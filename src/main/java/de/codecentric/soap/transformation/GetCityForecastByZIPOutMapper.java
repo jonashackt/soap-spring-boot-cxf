@@ -10,31 +10,27 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Repository;
 
 import de.codecentric.namespace.weatherservice.datatypes.ArrayOfForecast;
 import de.codecentric.namespace.weatherservice.datatypes.Forecast;
 import de.codecentric.namespace.weatherservice.datatypes.POP;
 import de.codecentric.namespace.weatherservice.datatypes.Temp;
 import de.codecentric.namespace.weatherservice.general.ForecastReturn;
+import de.codecentric.soap.backend.WeatherBackend;
+import de.codecentric.soap.internalmodel.GeneralOutlook;
 
-@Repository
-public class WeatherRepository {
-    
-	private static final Logger LOGGER = LoggerFactory.getLogger(WeatherRepository.class);
+public class GetCityForecastByZIPOutMapper {
+
+private static final Logger LOGGER = LoggerFactory.getLogger(WeatherBackend.class);
 	
-	private de.codecentric.namespace.weatherservice.general.ObjectFactory objectFactoryGeneral;
-	private de.codecentric.namespace.weatherservice.datatypes.ObjectFactory objectFactoryDatatypes;
+	private static de.codecentric.namespace.weatherservice.general.ObjectFactory objectFactoryGeneral = new de.codecentric.namespace.weatherservice.general.ObjectFactory();
+	private static de.codecentric.namespace.weatherservice.datatypes.ObjectFactory objectFactoryDatatypes = new de.codecentric.namespace.weatherservice.datatypes.ObjectFactory();
 
-	@PostConstruct
-	public void initSomeData() {
-		objectFactoryGeneral = new de.codecentric.namespace.weatherservice.general.ObjectFactory();
-	}
-		
-	public ForecastReturn getForecast(String zip) {      
+	public static ForecastReturn mapGeneralOutlook2Forecast(GeneralOutlook generalOutlook) {      
 	
 		ForecastReturn forecastReturn = objectFactoryGeneral.createForecastReturn();
-		forecastReturn.setCity("Weimar");
+		forecastReturn.setCity(generalOutlook.getCity());
+		//TODO: Map more fields
 		forecastReturn.setState("Deutschland");
 		forecastReturn.setSuccess(true);
 		forecastReturn.setWeatherStationCity("Weimar");
@@ -45,14 +41,14 @@ public class WeatherRepository {
     }
 
 
-	private ArrayOfForecast generateForecastResult(String city) {
+	private static ArrayOfForecast generateForecastResult(String city) {
 		ArrayOfForecast forecastContainer = objectFactoryDatatypes.createArrayOfForecast();
 		forecastContainer.getForecast().add(generateForecast(city));
 		return forecastContainer;
 	}
 
 
-	private Forecast generateForecast(String city) {
+	private static Forecast generateForecast(String city) {
 		Forecast forecast = objectFactoryDatatypes.createForecast();	
 		forecast.setDate(generateCalendarFromNow());
 		forecast.setDesciption("Vorhersage für " + city);
@@ -62,7 +58,7 @@ public class WeatherRepository {
 	}
 
 	
-	private POP generateRegenwahrscheinlichkeit() {
+	private static POP generateRegenwahrscheinlichkeit() {
 		POP pop = objectFactoryDatatypes.createPOP();
 		pop.setDaytime("22%");
 		pop.setNighttime("5000%");
@@ -70,7 +66,7 @@ public class WeatherRepository {
 	}
 
 
-	private Temp generateTemp() {
+	private static Temp generateTemp() {
 		Temp temp = objectFactoryDatatypes.createTemp();
 		temp.setDaytimeHigh("90°");
 		temp.setMorningLow("0°");
@@ -78,7 +74,7 @@ public class WeatherRepository {
 	}
 
 
-	private XMLGregorianCalendar generateCalendarFromNow() {
+	private static XMLGregorianCalendar generateCalendarFromNow() {
 		GregorianCalendar gregCal = GregorianCalendar.from(ZonedDateTime.now());
 		XMLGregorianCalendar xmlGregCal = null;
 		try {
@@ -88,7 +84,5 @@ public class WeatherRepository {
 		}
 		return xmlGregCal;
 	}
-
-
-   
+	
 }
