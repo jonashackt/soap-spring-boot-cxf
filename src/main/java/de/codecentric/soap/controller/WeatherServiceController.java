@@ -10,7 +10,7 @@ import de.codecentric.soap.backend.WeatherBackend;
 import de.codecentric.soap.common.BusinessException;
 import de.codecentric.soap.internalmodel.GeneralOutlook;
 import de.codecentric.soap.internalmodel.Site;
-import de.codecentric.soap.plausibilitycheck.PlausibilityChecker;
+import de.codecentric.soap.plausibilitycheck.Plausibility;
 import de.codecentric.soap.plausibilitycheck.servicemethod.CheckWithGetCityForecastByZIP;
 import de.codecentric.soap.plausibilitycheck.servicemethod.CheckWithGetCityWeatherByZIP;
 import de.codecentric.soap.transformation.GetByZIPInMapper;
@@ -35,7 +35,7 @@ public class WeatherServiceController {
 		// Transformation incoming JAXB-Bind Objects to internal Model
 		Site site = GetByZIPInMapper.mapRequest2Zip(forecastRequest);
 		
-		PlausibilityChecker.check(site, CheckWithGetCityForecastByZIP.class);
+		Plausibility.check(site, CheckWithGetCityForecastByZIP.class);
 		
 		// Call Backend with internal Model
 		GeneralOutlook generalOutlook = weatherBackend.generateGeneralOutlook(site);
@@ -48,7 +48,7 @@ public class WeatherServiceController {
 		// Transformation incoming JAXB-Bind Objects to internal Model
 		Site site = GetByZIPInMapper.mapRequest2Zip(forecastRequest);
 		
-		PlausibilityChecker.check(site, CheckWithGetCityWeatherByZIP.class);
+		Plausibility.check(site, CheckWithGetCityWeatherByZIP.class);
 		
 		// Call Backend with internal Model
 		GeneralOutlook generalOutlook = weatherBackend.generateGeneralOutlook(site);
