@@ -25,7 +25,7 @@ public class WeatherServiceEndpointXMLErrorTest {
 	@Autowired
 	private SoapRawClient soapRawClient;
 	// TODO: Fix Configuration of Url is null
-	private String url = "http://localhost:8092/soap-api/WeatherSoapService_1.0";
+	private String url = "http://localhost:8093/soap-api/WeatherSoapService_1.0";
 	
 	/*
 	 * Non-Scheme-compliant Errors

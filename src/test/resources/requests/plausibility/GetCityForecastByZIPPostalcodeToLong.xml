@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:gen="http://www.codecentric.de/namespace/weatherservice/general">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <gen:GetCityForecastByZIP>
+         <gen:ForecastRequest>
+            <gen:ZIP>994259</gen:ZIP>
+            <gen:flagcolor>bluewhite</gen:flagcolor>
+         </gen:ForecastRequest>
+      </gen:GetCityForecastByZIP>
+   </soapenv:Body>
+</soapenv:Envelope>

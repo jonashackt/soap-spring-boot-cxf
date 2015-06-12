@@ -1,0 +1,3 @@
+site:
+  postalcodeReqex: "([0-9]{5})"
+  flagcolorMandatory: true
