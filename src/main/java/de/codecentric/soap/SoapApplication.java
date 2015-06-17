@@ -10,7 +10,7 @@ import de.codecentric.soap.plausibilitycheck.rules.SiteRule;
 
 @ComponentScan("de.codecentric.soap")
 @EnableAutoConfiguration
-@EnableConfigurationProperties // needed, to automatically load rules.yml defined properties to Rule-Pojos fields, see http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html
+@EnableConfigurationProperties() // needed, to automatically load rules.yml defined properties to Rule-Pojos fields, see http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html
 public class SoapApplication {
 
     public static void main(String[] args) {
