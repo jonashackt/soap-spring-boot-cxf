@@ -13,7 +13,7 @@ import de.codecentric.soap.common.BusinessException;
 import de.codecentric.soap.internalmodel.GeneralOutlook;
 import de.codecentric.soap.internalmodel.Site;
 import de.codecentric.soap.plausibilitycheck.PlausibilityChecker;
-import de.codecentric.soap.plausibilitycheck.PlausibilityResult;
+import de.codecentric.soap.plausibilitycheck.PlausibilityStatus;
 import de.codecentric.soap.plausibilitycheck.rules.SiteRule;
 import de.codecentric.soap.transformation.GetByZIPInMapper;
 import de.codecentric.soap.transformation.GetCityForecastByZIPOutMapper;
@@ -42,15 +42,22 @@ public class WeatherServiceController {
 		Site site = GetByZIPInMapper.mapRequest2Zip(forecastRequest);
 		
 		LOG.debug("Check functional plausibility of internal Model after Request");
-		siteValid.setSite(site);
-		PlausibilityResult plausibilityResult = PlausibilityChecker.checkRule(siteValid);
-		PlausibilityChecker.checkForError(plausibilityResult);
+		checkPlausibilityGetCityForecastByZIP(site);
 		
 		LOG.debug("Call Backend with internal Model");
 		GeneralOutlook generalOutlook = weatherBackend.generateGeneralOutlook(site);
 		
 		LOG.debug("Transformation internal Model to outgoing JAXB-Bind Objects");
 		return GetCityForecastByZIPOutMapper.mapGeneralOutlook2Forecast(generalOutlook);
+	}
+
+	private void checkPlausibilityGetCityForecastByZIP(Site site) throws BusinessException {
+		PlausibilityChecker plausiChecker = PlausibilityChecker.aNewPlausibilityChecker();
+		siteValid.setSite(site);
+		plausiChecker.addRule(siteValid);
+		PlausibilityStatus plausiStatus = plausiChecker.fireRules();
+		if(PlausibilityStatus.ERROR.equals(plausiStatus))
+			throw new BusinessException(plausiChecker.getMessages().get(0));
 	}
 	
 	public WeatherReturn getCityWeatherByZIP(ForecastRequest forecastRequest) throws BusinessException {

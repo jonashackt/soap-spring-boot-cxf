@@ -1,7 +1,5 @@
 package de.codecentric.soap.plausibilitycheck.rules;
 
-import javax.validation.constraints.NotNull;
-
 import org.easyrules.annotation.Action;
 import org.easyrules.annotation.Condition;
 import org.easyrules.annotation.Rule;
@@ -35,8 +33,8 @@ public class SiteRule extends AbstractRule {
     @Action
     public void then() {
         System.out.println(ERRORTEXT);
-        getResult().setStatus(PlausibilityStatus.ERROR);
-        getResult().setMessage(ERRORTEXT);
+        setStatus(PlausibilityStatus.ERROR);
+        setMessage(ERRORTEXT);
     }
     
     public void setSite(Site site) {

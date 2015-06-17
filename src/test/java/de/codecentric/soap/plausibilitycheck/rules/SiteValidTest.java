@@ -1,6 +1,6 @@
 package de.codecentric.soap.plausibilitycheck.rules;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +12,6 @@ import de.codecentric.soap.Application;
 import de.codecentric.soap.common.BusinessException;
 import de.codecentric.soap.internalmodel.Site;
 import de.codecentric.soap.plausibilitycheck.PlausibilityChecker;
-import de.codecentric.soap.plausibilitycheck.PlausibilityResult;
 import de.codecentric.soap.plausibilitycheck.PlausibilityStatus;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -25,50 +24,56 @@ public class SiteValidTest {
     @Test
     public void flagColorNull() throws BusinessException {
         // Given
-        siteRule.resetStatus();
+        PlausibilityChecker plausiChecker = PlausibilityChecker.aNewPlausibilityChecker();
         Site site = new Site();
         site.setFlagColor(null);
         site.setPostalCode("99425");
         siteRule.setSite(site);
         
+        plausiChecker.addRule(siteRule);
+        
         // When
-        PlausibilityResult plausibilityResult = PlausibilityChecker.checkRule(siteRule);
+        PlausibilityStatus plausiStatus = plausiChecker.fireRules();
         
         // Then
-        assertEquals(PlausibilityStatus.ERROR, plausibilityResult.getStatus());
-        assertEquals(SiteRule.ERRORTEXT, plausibilityResult.getMessage());
+        assertEquals(PlausibilityStatus.ERROR, plausiStatus);
+        assertEquals(SiteRule.ERRORTEXT, plausiChecker.getMessages().get(0));
     }
     
     @Test
     public void flagColorFilled() throws BusinessException {
         // Given
-        siteRule.resetStatus();
+    	PlausibilityChecker plausiChecker = PlausibilityChecker.aNewPlausibilityChecker();    	
         Site site = new Site();
         site.setFlagColor("blue");
         site.setPostalCode("99425");
         siteRule.setSite(site);
         
+        plausiChecker.addRule(siteRule);
+        
         // When
-        PlausibilityResult plausibilityResult = PlausibilityChecker.checkRule(siteRule);
+        PlausibilityStatus plausiStatus = plausiChecker.fireRules();
         
         // Then
-        assertEquals(PlausibilityStatus.SUCCESS, plausibilityResult.getStatus());
+        assertEquals(PlausibilityStatus.SUCCESS, plausiStatus);
     }
     
     @Test
     public void postalcode() {
         // Given
-        siteRule.resetStatus();
+    	PlausibilityChecker plausiChecker = PlausibilityChecker.aNewPlausibilityChecker();    	
         Site site = new Site();
         site.setFlagColor("blue");
         site.setPostalCode("997654");
         siteRule.setSite(site);
         
+        plausiChecker.addRule(siteRule);
+        
         // When
-        PlausibilityResult plausibilityResult = PlausibilityChecker.checkRule(siteRule);
+        PlausibilityStatus plausiStatus = plausiChecker.fireRules();
         
         // Then
-        assertEquals(PlausibilityStatus.ERROR, plausibilityResult.getStatus());
-        assertEquals(SiteRule.ERRORTEXT, plausibilityResult.getMessage());
+        assertEquals(PlausibilityStatus.ERROR, plausiStatus);
+        assertEquals(SiteRule.ERRORTEXT, plausiChecker.getMessages().get(0));
     }
 }
