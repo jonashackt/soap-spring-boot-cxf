@@ -8,14 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.codecentric.soap.Application;
+import de.codecentric.soap.SoapApplication;
 import de.codecentric.soap.common.BusinessException;
 import de.codecentric.soap.internalmodel.Site;
 import de.codecentric.soap.plausibilitycheck.PlausibilityChecker;
 import de.codecentric.soap.plausibilitycheck.PlausibilityStatus;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes=Application.class)
+@SpringApplicationConfiguration(classes=SoapApplication.class)
 public class SiteValidTest {
 
     @Autowired

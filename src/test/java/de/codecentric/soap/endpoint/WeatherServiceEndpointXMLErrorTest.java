@@ -10,7 +10,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.codecentric.soap.Application;
+import de.codecentric.soap.SoapApplication;
 import de.codecentric.soap.common.BusinessException;
 import de.codecentric.soap.common.FaultConst;
 import de.codecentric.soap.soaprawclient.SoapRawClient;
@@ -18,7 +18,7 @@ import de.codecentric.soap.soaprawclient.SoapRawClientFileUtils;
 import de.codecentric.soap.soaprawclient.SoapRawClientResponse;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes=Application.class)
+@SpringApplicationConfiguration(classes=SoapApplication.class)
 @WebIntegrationTest("server.port:8093") // This Configuration overrides the config of the embedded server, that is used (and re-used) in the Tests 
 public class WeatherServiceEndpointXMLErrorTest {
 

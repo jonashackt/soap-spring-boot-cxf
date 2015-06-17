@@ -15,12 +15,12 @@ import de.codecentric.namespace.weatherservice.WeatherException;
 import de.codecentric.namespace.weatherservice.WeatherService;
 import de.codecentric.namespace.weatherservice.general.ForecastReturn;
 import de.codecentric.namespace.weatherservice.general.GetCityForecastByZIP;
-import de.codecentric.soap.Application;
+import de.codecentric.soap.SoapApplication;
 import de.codecentric.soap.common.BusinessException;
 import de.codecentric.soap.soaprawclient.SoapRawClientFileUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes=Application.class)
+@SpringApplicationConfiguration(classes=SoapApplication.class)
 // We sadly can´t use the @WebIntegrationTest Annotation here, because we need Spring Boot to load up our properties and that´s skipped, if we use it 
 public class PlausibilityIntegrationTest {
 

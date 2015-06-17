@@ -27,7 +27,8 @@ public class SiteRule extends AbstractRule {
     
     @Condition
     public boolean when() {
-        return flagcolorMandatory && site.getFlagColor() == null || !site.getPostalCode().matches(postalcodeReqex);
+        System.out.println("############################################" + toString());
+    	return flagcolorMandatory && site.getFlagColor() == null || !site.getPostalCode().matches(postalcodeReqex);
     }
     
     @Action
@@ -47,6 +48,21 @@ public class SiteRule extends AbstractRule {
     public void setFlagcolorMandatory(boolean flagcolorMandatory) {
         this.flagcolorMandatory = flagcolorMandatory;
     }
+
+	public String getPostalcodeReqex() {
+		return postalcodeReqex;
+	}
+
+	public boolean isFlagcolorMandatory() {
+		return flagcolorMandatory;
+	}
+
+	@Override
+	public String toString() {
+		return "SiteRule [postalcodeReqex=" + postalcodeReqex
+				+ ", flagcolorMandatory=" + flagcolorMandatory + "]";
+	}
+    
     
     
 }
