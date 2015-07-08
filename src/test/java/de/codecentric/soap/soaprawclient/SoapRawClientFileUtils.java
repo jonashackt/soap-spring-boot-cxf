@@ -1,9 +1,9 @@
 package de.codecentric.soap.soaprawclient;
 
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -15,6 +15,7 @@ import de.codecentric.soap.common.XmlUtils;
 public class SoapRawClientFileUtils {
 
 	private static final String XML_FILES_FOLDER = "requests/";
+	private static final String ERROR_LOADING_FILE = "Loading Testfile encounters problems: ";
 	
 	public static String readFileInClasspath2String(String fileName) throws BusinessException {
 		String file;
@@ -22,7 +23,7 @@ public class SoapRawClientFileUtils {
 			Path filepath = Paths.get(buildFileUri(fileName));
 			file = Files.lines(filepath).collect(Collectors.joining());
 		} catch (Exception exception) {
-			throw new BusinessException("Problem beim Laden der Datei: " + exception.getMessage());
+			throw new BusinessException(ERROR_LOADING_FILE + exception.getMessage());
 		}
 		return file;
 	}
@@ -31,19 +32,22 @@ public class SoapRawClientFileUtils {
 		return XmlUtils.readSoapMessageFromStreamAndUnmarshallBody2Object(readFileInClasspath2InputStream(fileName), jaxbClass);
 	}
 	
-	public static FileInputStream readFileInClasspath2InputStream(String fileName) throws BusinessException {
-		FileInputStream fileInputStream = null;
+	public static InputStream readFileInClasspath2InputStream(String fileName) throws BusinessException {
+		InputStream inputStream = null;
 		try {
-			File file = new File(buildFileUri(fileName));
-			fileInputStream = new FileInputStream(file);
+			Path filepath = Paths.get(buildFileUri(fileName));
+			inputStream = Files.newInputStream(filepath);
 		} catch (Exception exception) {
-			throw new BusinessException("Problem beim Laden der Datei: " + exception.getMessage());
+			throw new BusinessException(ERROR_LOADING_FILE + exception.getMessage());
 		}
-		return fileInputStream;		
+		return inputStream;		
 	}		
 	
-	private static URI buildFileUri(String fileName) throws URISyntaxException {
-		return SoapRawClientFileUtils.class.getClassLoader().getResource(XML_FILES_FOLDER + fileName).toURI();
+	private static URI buildFileUri(String fileName) throws URISyntaxException, BusinessException {
+		URL fileInClasspath = SoapRawClientFileUtils.class.getClassLoader().getResource(XML_FILES_FOLDER + fileName);
+		if(fileInClasspath == null)
+			throw new BusinessException("Filepath seems to be wrong.");
+		return fileInClasspath.toURI();
 	}
 	
 }
