@@ -6,6 +6,7 @@
          <gen:ForecastRequest>
             <gen:ZIP>99425</gen:ZIP>
             <gen:flagcolor>bluewhite</gen:flagcolor>
+            <gen:productName>ForecastBasic</gen:productName>
          </gen:ForecastRequest>
       </gen:GetCityForecastByZIP>
    </soapenv:Body>

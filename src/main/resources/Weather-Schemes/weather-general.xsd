@@ -42,6 +42,7 @@
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" name="ZIP" type="s:string"/>
           <s:element name="flagcolor" type="s:string"/>
+          <s:element name="productName" type="datatypes:ProductName" />
         </s:sequence>
       </s:complexType>
       

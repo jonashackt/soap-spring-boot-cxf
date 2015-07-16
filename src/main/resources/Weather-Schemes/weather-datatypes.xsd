@@ -52,4 +52,12 @@
         </s:sequence>
       </s:complexType>
       
+      <s:simpleType name="ProductName">
+      	<s:restriction base="s:string">
+	      <s:enumeration value="ForecastBasic" />
+	      <s:enumeration value="ForecastProfessional" />
+	      <s:enumeration value="ForecastUltimateXL" />
+	    </s:restriction>
+      </s:simpleType>
+      
 </s:schema>

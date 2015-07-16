@@ -41,6 +41,8 @@ For testing end-to-end purposes I would recommend also getting [SOAP-UI], where 
 But getting to know, how stuff is working, it´s often better to have a look at some tests. There should be a amount of test-cases, that show standard (JAX-WS with CXF) ways to test webservices, but also non-standard approaches to test some
 UseCases i came across developing e.g. the custom SoapFaults on incorrect XML-messages.
 
+
+
 ### Done´s
 * No XML-configuration, also for undocumented CXF-details :)
 * Readable Namespace-Prefixes
@@ -49,7 +51,7 @@ UseCases i came across developing e.g. the custom SoapFaults on incorrect XML-me
 * Tests with Raw HTTP-Client for Reaction on syntactically incorrect XML
 * Custom Exception in Weather-WSDL/XSDs
 * Example of Controller and Mappers, that map to and from an internal Domain-Model - for loose coupling between generated JAXB-Classes and Backends
-* Bean Validation for plausibility check of internal domain-model
+* Functional plausibility check of request-data with [decision tables]
 
 ### Todo's
 
@@ -67,3 +69,4 @@ UseCases i came across developing e.g. the custom SoapFaults on incorrect XML-me
 [JAX-WS-commons project]:https://jax-ws-commons.java.net/spring/
 [Weather-Service]:http://wsf.cdyne.com/WeatherWS/Weather.asmx
 [Tomcat]:http://tomcat.apache.org/
+[decision tables]:https://en.wikipedia.org/wiki/Decision_table

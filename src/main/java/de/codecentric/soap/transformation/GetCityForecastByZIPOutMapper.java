@@ -3,7 +3,6 @@ package de.codecentric.soap.transformation;
 import java.time.ZonedDateTime;
 import java.util.GregorianCalendar;
 
-import javax.annotation.PostConstruct;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;

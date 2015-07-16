@@ -12,9 +12,6 @@ import de.codecentric.soap.backend.WeatherBackend;
 import de.codecentric.soap.common.BusinessException;
 import de.codecentric.soap.internalmodel.GeneralOutlook;
 import de.codecentric.soap.internalmodel.Site;
-import de.codecentric.soap.plausibilitycheck.PlausibilityChecker;
-import de.codecentric.soap.plausibilitycheck.PlausibilityStatus;
-import de.codecentric.soap.plausibilitycheck.rules.SiteRule;
 import de.codecentric.soap.transformation.GetByZIPInMapper;
 import de.codecentric.soap.transformation.GetCityForecastByZIPOutMapper;
 import de.codecentric.soap.transformation.GetCityWeatherByZIPOutMapper;
@@ -34,9 +31,6 @@ public class WeatherServiceController {
 	@Autowired
 	private WeatherBackend weatherBackend;
 	
-	@Autowired
-	private SiteRule siteValid;
-	
 	public ForecastReturn getCityForecastByZIP(ForecastRequest forecastRequest) throws BusinessException {
 	    LOG.debug("Transformation incoming JAXB-Bind Objects to internal Model");
 		Site site = GetByZIPInMapper.mapRequest2Zip(forecastRequest);
@@ -52,12 +46,9 @@ public class WeatherServiceController {
 	}
 
 	private void checkPlausibilityGetCityForecastByZIP(Site site) throws BusinessException {
-		PlausibilityChecker plausiChecker = PlausibilityChecker.aNewPlausibilityChecker();
-		siteValid.setSite(site);
-		plausiChecker.addRule(siteValid);
-		PlausibilityStatus plausiStatus = plausiChecker.fireRules();
-		if(PlausibilityStatus.ERROR.equals(plausiStatus))
-			throw new BusinessException(plausiChecker.getMessages().get(0));
+		//TODO:
+		if(false)
+			throw new BusinessException("Error");
 	}
 	
 	public WeatherReturn getCityWeatherByZIP(ForecastRequest forecastRequest) throws BusinessException {

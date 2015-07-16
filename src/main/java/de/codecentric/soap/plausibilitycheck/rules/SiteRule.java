@@ -7,8 +7,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import de.codecentric.soap.internalmodel.Site;
-import de.codecentric.soap.plausibilitycheck.AbstractRule;
-import de.codecentric.soap.plausibilitycheck.PlausibilityStatus;
 
 /**
  * When Sites` flagColor is mandatory {@value #flagcolorMandatory} but is Null or the postalcode doesn´t match {@value #postalcodeReqex},
@@ -17,7 +15,7 @@ import de.codecentric.soap.plausibilitycheck.PlausibilityStatus;
 @Component
 @ConfigurationProperties(locations="rules.yml", prefix="site", ignoreUnknownFields=false) // this should load configuration via spring autoconfiguration to the rules fields
 @Rule(name="SiteValid")
-public class SiteRule extends AbstractRule {
+public class SiteRule {
 
     public static final String ERRORTEXT = "Site´s data isn´t valid!";
     
@@ -34,8 +32,7 @@ public class SiteRule extends AbstractRule {
     @Action
     public void then() {
         System.out.println(ERRORTEXT);
-        setStatus(PlausibilityStatus.ERROR);
-        setMessage(ERRORTEXT);
+        
     }
     
     public void setSite(Site site) {

@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.codecentric.namespace.weatherservice.WeatherException;
@@ -21,7 +22,7 @@ import de.codecentric.soap.soaprawclient.SoapRawClientFileUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes=SoapApplication.class)
-// We sadly can´t use the @WebIntegrationTest Annotation here, because we need Spring Boot to load up our properties and that´s skipped, if we use it 
+@WebIntegrationTest("server.port:8093") // This Configuration overrides the config of the embedded server, that is used (and re-used) in the Tests 
 public class PlausibilityIntegrationTest {
 
     private String path2plausibility = "plausibility/";
