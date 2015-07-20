@@ -77,7 +77,7 @@
           <text>flagcolor</text>
         </inputEntry>
       </clause>
-      <clause camunda:name="result" id="clause4" name="Check Result">
+      <clause camunda:name="mandatory" id="clause4" name="Field Mandatory">
         <outputDefinition href="#itemDefinition4"/>
         <outputEntry id="outputEntry1">
           <text>optional</text>
@@ -89,7 +89,7 @@
           <text>irrelevant</text>
         </outputEntry>
       </clause>
-      <clause camunda:name="reason" id="clause5" name="Plausibility">
+      <clause camunda:name="plausibility" id="clause5" name="Plausibility">
         <outputDefinition href="#itemDefinition5"/>
         <outputEntry id="outputEntry4">
           <text>([0-9]{5})</text>
