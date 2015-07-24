@@ -57,9 +57,11 @@ public class FileUtils {
 		// We have to create a FileSystem, otherwise we´ll get a FileSystemNotFoundException, when running SpringBoot-fatjar with java -jar
 		// http://stackoverflow.com/questions/25032716/getting-filesystemnotfoundexception-from-zipfilesystemprovider-when-creating-a-p
 		// http://docs.oracle.com/javase/7/docs/technotes/guides/io/fsp/zipfilesystemprovider.html
-		Map<String, String> env = new HashMap<String, String>(); 
-		env.put("create", "true");
-		FileSystems.newFileSystem(fileUri, env);
+		if(fileUri.toString().startsWith("jar")) {
+			Map<String, String> env = new HashMap<String, String>(); 
+			env.put("create", "true");
+			FileSystems.newFileSystem(fileUri, env);
+		}	
 		return Paths.get(fileUri);
 	}	
 	
