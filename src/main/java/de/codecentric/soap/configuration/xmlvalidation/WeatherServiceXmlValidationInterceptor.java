@@ -33,7 +33,7 @@ public class WeatherServiceXmlValidationInterceptor extends AbstractSoapIntercep
 	    	LOGGER.debug(FaultConst.SCHEME_VALIDATION_ERROR.getMessage() + ": {}", faultMessage);
 	    	WeatherSoapFaultHelper.buildWeatherFaultAndSet2SoapMessage(soapMessage, FaultConst.SCHEME_VALIDATION_ERROR);
 	    }	    
-	    if (containsFaultIndicatingSyntacticallyIncorrectXml(faultCause, faultMessage)) {
+	    if (containsFaultIndicatingSyntacticallyIncorrectXml(faultCause)) {
 	    	LOGGER.debug(FaultConst.SYNTACTICALLY_INCORRECT_XML_ERROR.getMessage() + ": {}", faultMessage);
 	    	WeatherSoapFaultHelper.buildWeatherFaultAndSet2SoapMessage(soapMessage, FaultConst.SYNTACTICALLY_INCORRECT_XML_ERROR);	        
 	    }
@@ -51,7 +51,7 @@ public class WeatherServiceXmlValidationInterceptor extends AbstractSoapIntercep
 		return false;
 	}
 	
-	private boolean containsFaultIndicatingSyntacticallyIncorrectXml(Throwable faultCause, String faultMessage) {
+	private boolean containsFaultIndicatingSyntacticallyIncorrectXml(Throwable faultCause) {
 		if(faultCause instanceof WstxException
 			// If Xml-Header is invalid, there is a wrapped Cause in the original Cause we have to check
 			|| isNotNull(faultCause) && faultCause.getCause() instanceof WstxUnexpectedCharException
@@ -62,10 +62,6 @@ public class WeatherServiceXmlValidationInterceptor extends AbstractSoapIntercep
 	}
 	
 	private boolean isNotNull(Object object) {
-		if(object != null) {
-			return true;
-		} else {
-			return false;
-		}		
+		return object != null;
 	}
 }

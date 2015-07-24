@@ -5,6 +5,9 @@ import de.codecentric.soap.internalmodel.GeneralOutlook;
 
 public class GetCityWeatherByZIPOutMapper {
 	
+	// private Constructor for Utility-Class
+	private GetCityWeatherByZIPOutMapper() {};
+	
 	private static de.codecentric.namespace.weatherservice.general.ObjectFactory objectFactoryGeneral = new de.codecentric.namespace.weatherservice.general.ObjectFactory();
 	
 	public static WeatherReturn mapGeneralOutlook2Weather(GeneralOutlook generalOutlook) {      

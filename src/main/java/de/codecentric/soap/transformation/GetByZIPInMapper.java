@@ -5,6 +5,9 @@ import de.codecentric.soap.internalmodel.Site;
 
 public class GetByZIPInMapper {
 
+	// private Constructor for Utility-Class
+	private GetByZIPInMapper() {};
+	
 	public static Site mapRequest2Zip(ForecastRequest forecastRequest) {
 		Site site = new Site();
 		site.setPostalCode(forecastRequest.getZIP());

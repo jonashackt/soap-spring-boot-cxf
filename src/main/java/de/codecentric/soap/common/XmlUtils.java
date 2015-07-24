@@ -24,13 +24,16 @@ import org.w3c.dom.Node;
 
 public class XmlUtils {
 
+	// private Constructor for Utility-Class
+	private XmlUtils() {};
+	
 	public static <T> T readSoapMessageFromStreamAndUnmarshallBody2Object(InputStream fileStream, Class<T> jaxbClass) throws BusinessException {
 		T unmarshalledObject = null;
 		try {
 			Document soapMessage = parseFileStream2Document(fileStream);
 			unmarshalledObject = getUnmarshalledObjectFromSoapMessage(soapMessage, jaxbClass);			
 		} catch (Exception exception) {
-			throw new BusinessException("Problem beim unmarshalling des JAXBObjects " + jaxbClass.getSimpleName() + " aus der SoapMessage.");
+			throw new BusinessException("Problem beim unmarshalling des JAXBObjects " + jaxbClass.getSimpleName() + " aus der SoapMessage.", exception);
 		}			
 		return unmarshalledObject;
 	}
@@ -47,7 +50,7 @@ public class XmlUtils {
 			JAXBElement<T> jaxbElement = unmarshallNode(nodeFromSoapMessage, jaxbClass);
 			unmarshalledObject = jaxbElement.getValue();
 		} catch (Exception exception) {
-			throw new BusinessException("Die SoapMessage enthaelt keine Representation des JAXBObjects " + jaxbClass.getSimpleName());
+			throw new BusinessException("Die SoapMessage enthaelt keine Representation des JAXBObjects " + jaxbClass.getSimpleName(), exception);
 		}
 		return unmarshalledObject;
 	}
@@ -60,7 +63,7 @@ public class XmlUtils {
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 			jaxbElement = unmarshaller.unmarshal(new DOMSource(node), jaxbClassName);
 		} catch (Exception exception) {
-			throw new BusinessException("Problem beim Unmarshalling der Node in das JAXBElement: " + exception.getMessage());
+			throw new BusinessException("Problem beim Unmarshalling der Node in das JAXBElement: " + exception.getMessage(), exception);
 		}		
 		return jaxbElement;
 	}	
@@ -92,7 +95,7 @@ public class XmlUtils {
 		try {
 	        parsedDoc = setUpDocumentBuilder().parse(contentAsStream);
 		} catch (Exception exception) {
-			throw new BusinessException("Problem beim Parsen des InputStream in ein Document: " + exception.getMessage());
+			throw new BusinessException("Problem beim Parsen des InputStream in ein Document: " + exception.getMessage(), exception);
 		}
 		return parsedDoc;
 	}
@@ -104,7 +107,7 @@ public class XmlUtils {
 			documentBuilderFactory.setNamespaceAware(true);
 			documentBuilder = documentBuilderFactory.newDocumentBuilder();
 		} catch (ParserConfigurationException parserConfigurationException) {
-			throw new BusinessException("Problem beim Erstellen des DocumentBuilders: " + parserConfigurationException.getMessage());
+			throw new BusinessException("Problem beim Erstellen des DocumentBuilders: " + parserConfigurationException.getMessage(), parserConfigurationException);
 		}
 		return documentBuilder;
 	}
@@ -116,7 +119,7 @@ public class XmlUtils {
 			jaxbDoc = createNewDocument();        	
 			marshaller.marshal(jaxbElement, jaxbDoc);			
 		} catch (Exception exception) {
-			throw new BusinessException("Problem beim marshallen des JAXBElements in ein Document: " + exception.getMessage());
+			throw new BusinessException("Problem beim marshallen des JAXBElements in ein Document: " + exception.getMessage(), exception);
 		}
         return jaxbDoc;
 	}

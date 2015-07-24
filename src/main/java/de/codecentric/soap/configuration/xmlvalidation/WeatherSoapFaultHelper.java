@@ -13,6 +13,9 @@ import de.codecentric.soap.transformation.WeatherOutError;
 
 public class WeatherSoapFaultHelper {
 
+	// private Constructor for Utility-Class
+	private WeatherSoapFaultHelper() {};
+	
 	private static final Logger LOGGER = LoggerFactory.getLogger(WeatherSoapFaultHelper.class);
 	
 	public static void buildWeatherFaultAndSet2SoapMessage(SoapMessage message, FaultConst faultContent) {

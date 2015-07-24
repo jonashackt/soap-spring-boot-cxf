@@ -20,7 +20,10 @@ import de.codecentric.soap.internalmodel.GeneralOutlook;
 
 public class GetCityForecastByZIPOutMapper {
 
-private static final Logger LOGGER = LoggerFactory.getLogger(WeatherBackend.class);
+	// private Constructor for Utility-Class
+	private GetCityForecastByZIPOutMapper() {};
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(WeatherBackend.class);
 	
 	private static de.codecentric.namespace.weatherservice.general.ObjectFactory objectFactoryGeneral = new de.codecentric.namespace.weatherservice.general.ObjectFactory();
 	private static de.codecentric.namespace.weatherservice.datatypes.ObjectFactory objectFactoryDatatypes = new de.codecentric.namespace.weatherservice.datatypes.ObjectFactory();
