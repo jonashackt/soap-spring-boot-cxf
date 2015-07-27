@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="76ec8713-127d-4114-b6af-1951ca059782" activeEnvironment="Default" name="Weather1.0" resourceRoot="" soapui-version="5.2.0" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="02ecea30-cedc-47b6-8604-df18b5d2fd15" wsaVersion="NONE" name="WeatherService" type="wsdl" bindingName="{http://www.codecentric.de/namespace/weatherservice/}WeatherService" soapVersion="1_1" anonymous="optional" definition="file:/C:/dev/temp/soap-spring-boot-cxf/src/main/resources/Weather1.0.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:\C:\dev\temp\soap-spring-boot-cxf\src\main\resources\Weather1.0.wsdl"><con:part><con:url>file:\C:\dev\temp\soap-spring-boot-cxf\src\main\resources\Weather1.0.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://www.codecentric.de/namespace/weatherservice/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:weather="http://www.codecentric.de/namespace/weatherservice/" xmlns:general="http://www.codecentric.de/namespace/weatherservice/general" xmlns:exception="http://www.codecentric.de/namespace/weatherservice/exception" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema targetNamespace="http://www.codecentric.de/namespace/weatherservice/" attributeFormDefault="qualified" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema">
+      <s:include schemaLocation="Weather1.0.xsd"/>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetWeatherInformationIn">
+    <wsdl:part name="parameters" element="general:GetWeatherInformation"/>
+  </wsdl:message>
+  <wsdl:message name="GetWeatherInformationOut">
+    <wsdl:part name="parameters" element="general:GetWeatherInformationResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetCityForecastByZIPIn">
+    <wsdl:part name="parameters" element="general:GetCityForecastByZIP"/>
+  </wsdl:message>
+  <wsdl:message name="GetCityForecastByZIPOut">
+    <wsdl:part name="parameters" element="general:GetCityForecastByZIPResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetCityWeatherByZIPIn">
+    <wsdl:part name="parameters" element="general:GetCityWeatherByZIP"/>
+  </wsdl:message>
+  <wsdl:message name="GetCityWeatherByZIPOut">
+    <wsdl:part name="parameters" element="general:GetCityWeatherByZIPResponse"/>
+  </wsdl:message>
+  <wsdl:message name="WeatherException">
+    <wsdl:part name="parameters" element="exception:WeatherException"/>
+  </wsdl:message>
+  <wsdl:portType name="WeatherService">
+    <wsdl:operation name="GetWeatherInformation">
+      <wsdl:documentation>Gets Information for each WeatherID</wsdl:documentation>
+      <wsdl:input message="weather:GetWeatherInformationIn"/>
+      <wsdl:output message="weather:GetWeatherInformationOut"/>
+      <wsdl:fault name="WeatherException" message="weather:WeatherException"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetCityForecastByZIP">
+      <wsdl:documentation>Allows you to get your City Forecast Over the Next 7 Days, which is updated hourly. U.S. Only</wsdl:documentation>
+      <wsdl:input message="weather:GetCityForecastByZIPIn"/>
+      <wsdl:output message="weather:GetCityForecastByZIPOut"/>
+      <wsdl:fault name="WeatherException" message="weather:WeatherException"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetCityWeatherByZIP">
+      <wsdl:documentation>Allows you to get your City's Weather, which is updated hourly. U.S. Only</wsdl:documentation>
+      <wsdl:input message="weather:GetCityWeatherByZIPIn"/>
+      <wsdl:output message="weather:GetCityWeatherByZIPOut"/>
+      <wsdl:fault name="WeatherException" message="weather:WeatherException"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WeatherService" type="weather:WeatherService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetWeatherInformation">
+      <soap:operation soapAction="http://www.codecentric.de/namespace/weatherservice/GetWeatherInformation" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="WeatherException">
+        <soap:fault name="WeatherException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetCityForecastByZIP">
+      <soap:operation soapAction="http://www.codecentric.de/namespace/weatherservice/GetCityForecastByZIP" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="WeatherException">
+        <soap:fault name="WeatherException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetCityWeatherByZIP">
+      <soap:operation soapAction="http://www.codecentric.de/namespace/weatherservice/GetCityWeatherByZIP" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="WeatherException">
+        <soap:fault name="WeatherException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Weather">
+    <wsdl:port name="WeatherService" binding="weather:WeatherService">
+      <soap:address location="http://wsf.cdyne.com/WeatherWS/Weather.asmx"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\C:\dev\temp\soap-spring-boot-cxf\src\main\resources\Weather1.0.xsd</con:url><con:content>&lt;s:schema targetNamespace="http://www.codecentric.de/namespace/weatherservice/" elementFormDefault="qualified" version="1.0" xmlns:weather="http://www.codecentric.de/namespace/weatherservice/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:datatypes="http://www.codecentric.de/namespace/weatherservice/datatypes" xmlns:exception="http://www.codecentric.de/namespace/weatherservice/exception">
+  &lt;s:import namespace="http://www.codecentric.de/namespace/weatherservice/general" schemaLocation="Weather-Schemes/weather-general.xsd"/>
+  &lt;s:import namespace="http://www.codecentric.de/namespace/weatherservice/exception" schemaLocation="Weather-Schemes/weather-exception.xsd"/>
+&lt;/s:schema></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\dev\temp\soap-spring-boot-cxf\src\main\resources\Weather-Schemes\weather-general.xsd</con:url><con:content><![CDATA[<s:schema targetNamespace="http://www.codecentric.de/namespace/weatherservice/general" elementFormDefault="qualified" version="1.0" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns="http://www.codecentric.de/namespace/weatherservice/general" xmlns:datatypes="http://www.codecentric.de/namespace/weatherservice/datatypes" xmlns:general="http://www.codecentric.de/namespace/weatherservice/general">
+  <s:import namespace="http://www.codecentric.de/namespace/weatherservice/datatypes" schemaLocation="weather-datatypes.xsd"/>
+  <s:element name="GetWeatherInformation">
+    <s:complexType/>
+  </s:element>
+  <s:element name="GetWeatherInformationResponse">
+    <s:complexType>
+      <s:sequence>
+        <s:element minOccurs="0" maxOccurs="1" name="GetWeatherInformationResult" type="datatypes:ArrayOfWeatherDescription"/>
+      </s:sequence>
+    </s:complexType>
+  </s:element>
+  <s:element name="GetCityForecastByZIP">
+    <s:complexType>
+      <s:sequence>
+        <s:element minOccurs="0" maxOccurs="1" name="ForecastRequest" type="general:ForecastRequest"/>
+      </s:sequence>
+    </s:complexType>
+  </s:element>
+  <s:element name="GetCityForecastByZIPResponse">
+    <s:complexType>
+      <s:sequence>
+        <s:element minOccurs="0" maxOccurs="1" name="GetCityForecastByZIPResult" type="general:ForecastReturn"/>
+      </s:sequence>
+    </s:complexType>
+  </s:element>
+  <s:complexType name="ForecastRequest">
+    <s:sequence>
+      <s:element minOccurs="0" maxOccurs="1" name="ZIP" type="s:string"/>
+      <s:element name="flagcolor" type="s:string"/>
+    </s:sequence>
+  </s:complexType>
+  <s:complexType name="ForecastReturn">
+    <s:sequence>
+      <s:element minOccurs="1" maxOccurs="1" name="Success" type="s:boolean"/>
+      <s:element minOccurs="0" maxOccurs="1" name="ResponseText" type="s:string"/>
+      <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string"/>
+      <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string"/>
+      <s:element minOccurs="0" maxOccurs="1" name="WeatherStationCity" type="s:string"/>
+      <s:element minOccurs="0" maxOccurs="1" name="ForecastResult" type="datatypes:ArrayOfForecast"/>
+    </s:sequence>
+  </s:complexType>
+  <s:element name="GetCityWeatherByZIP">
+    <s:complexType>
+      <s:sequence>
+        <s:element minOccurs="0" maxOccurs="1" name="ForecastRequest" type="general:ForecastRequest"/>
+      </s:sequence>
+    </s:complexType>
+  </s:element>
+  <s:element name="GetCityWeatherByZIPResponse">
+    <s:complexType>
+      <s:sequence>
+        <s:element minOccurs="1" maxOccurs="1" name="GetCityWeatherByZIPResult" type="general:WeatherReturn"/>
+      </s:sequence>
+    </s:complexType>
+  </s:element>
+  <s:complexType name="WeatherReturn">
+    <s:sequence>
+      <s:element minOccurs="1" maxOccurs="1" name="Success" type="s:boolean"/>
+      <s:element minOccurs="0" maxOccurs="1" name="ResponseText" type="s:string"/>
+      <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string"/>
+      <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string"/>
+      <s:element minOccurs="0" maxOccurs="1" name="WeatherStationCity" type="s:string"/>
+      <s:element minOccurs="1" maxOccurs="1" name="WeatherID" type="s:short"/>
+      <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string"/>
+      <s:element minOccurs="0" maxOccurs="1" name="Temperature" type="s:string"/>
+      <s:element minOccurs="0" maxOccurs="1" name="RelativeHumidity" type="s:string"/>
+      <s:element minOccurs="0" maxOccurs="1" name="Wind" type="s:string"/>
+      <s:element minOccurs="0" maxOccurs="1" name="Pressure" type="s:string"/>
+      <s:element minOccurs="0" maxOccurs="1" name="Visibility" type="s:string"/>
+      <s:element minOccurs="0" maxOccurs="1" name="WindChill" type="s:string"/>
+      <s:element minOccurs="0" maxOccurs="1" name="Remarks" type="s:string"/>
+    </s:sequence>
+  </s:complexType>
+  <s:element name="ForecastReturn" nillable="true" type="general:ForecastReturn"/>
+  <s:element name="WeatherReturn" type="general:WeatherReturn"/>
+</s:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\dev\temp\soap-spring-boot-cxf\src\main\resources\Weather-Schemes\weather-datatypes.xsd</con:url><con:content><![CDATA[<s:schema targetNamespace="http://www.codecentric.de/namespace/weatherservice/datatypes" elementFormDefault="qualified" version="1.0" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns="http://www.codecentric.de/namespace/weatherservice/datatypes" xmlns:datatypes="http://www.codecentric.de/namespace/weatherservice/datatypes">
+  <s:element name="ArrayOfWeatherDescription" nillable="true" type="datatypes:ArrayOfWeatherDescription"/>
+  <s:complexType name="ArrayOfWeatherDescription">
+    <s:sequence>
+      <s:element minOccurs="0" maxOccurs="unbounded" name="WeatherDescription" type="datatypes:WeatherDescription"/>
+    </s:sequence>
+  </s:complexType>
+  <s:complexType name="WeatherDescription">
+    <s:sequence>
+      <s:element minOccurs="1" maxOccurs="1" name="WeatherID" type="s:short"/>
+      <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string"/>
+      <s:element minOccurs="0" maxOccurs="1" name="PictureURL" type="s:string"/>
+    </s:sequence>
+  </s:complexType>
+  <s:complexType name="ArrayOfForecast">
+    <s:sequence>
+      <s:element minOccurs="0" maxOccurs="unbounded" name="Forecast" nillable="true" type="datatypes:Forecast"/>
+    </s:sequence>
+  </s:complexType>
+  <s:complexType name="Forecast">
+    <s:sequence>
+      <s:element minOccurs="1" maxOccurs="1" name="Date" type="s:dateTime"/>
+      <s:element minOccurs="1" maxOccurs="1" name="WeatherID" type="s:short"/>
+      <s:element minOccurs="0" maxOccurs="1" name="Desciption" type="s:string"/>
+      <s:element minOccurs="1" maxOccurs="1" name="Temperatures" type="datatypes:temp"/>
+      <s:element minOccurs="1" maxOccurs="1" name="ProbabilityOfPrecipiation" type="datatypes:POP"/>
+    </s:sequence>
+  </s:complexType>
+  <s:complexType name="temp">
+    <s:sequence>
+      <s:element minOccurs="0" maxOccurs="1" name="MorningLow" type="s:string"/>
+      <s:element minOccurs="0" maxOccurs="1" name="DaytimeHigh" type="s:string"/>
+    </s:sequence>
+  </s:complexType>
+  <s:complexType name="POP">
+    <s:sequence>
+      <s:element minOccurs="0" maxOccurs="1" name="Nighttime" type="s:string"/>
+      <s:element minOccurs="0" maxOccurs="1" name="Daytime" type="s:string"/>
+    </s:sequence>
+  </s:complexType>
+</s:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\dev\temp\soap-spring-boot-cxf\src\main\resources\Weather-Schemes\weather-exception.xsd</con:url><con:content><![CDATA[<s:schema targetNamespace="http://www.codecentric.de/namespace/weatherservice/exception" elementFormDefault="qualified" version="1.0" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns="http://www.codecentric.de/namespace/weatherservice/exception" xmlns:exception="http://www.codecentric.de/namespace/weatherservice/exception">
+  <s:element name="WeatherException">
+    <s:complexType>
+      <s:sequence>
+        <s:element name="Uuid" type="s:string"/>
+        <s:element name="timestamp" type="s:dateTime"/>
+        <s:element name="businessErrorId" type="s:string"/>
+        <s:element name="bigBusinessErrorCausingMoneyLoss" type="s:boolean"/>
+        <s:element name="exceptionDetails" type="s:string"/>
+      </s:sequence>
+    </s:complexType>
+  </s:element>
+</s:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://wsf.cdyne.com/WeatherWS/Weather.asmx</con:endpoint></con:endpoints><con:operation id="090cd7ba-a991-4641-a51f-23deb6b7a0be" isOneWay="false" action="http://www.codecentric.de/namespace/weatherservice/GetCityForecastByZIP" name="GetCityForecastByZIP" bindingOperationName="GetCityForecastByZIP" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="64229454-9934-494a-b25a-f21d45cc58e1" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8095/soap-api/WeatherSoapService_1.0</con:endpoint><con:request><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:gen="http://www.codecentric.de/namespace/weatherservice/general">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <gen:GetCityForecastByZIP>
+         <gen:ForecastRequest>
+            <gen:ZIP>99425</gen:ZIP>
+            <gen:flagcolor>bluewhite</gen:flagcolor>
+            <gen:productName>ForecastBasic</gen:productName>
+         </gen:ForecastRequest>
+      </gen:GetCityForecastByZIP>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.codecentric.de/namespace/weatherservice/GetCityForecastByZIP"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="4953ffde-3507-43e9-bb3d-cc7af7b6f200" isOneWay="false" action="http://www.codecentric.de/namespace/weatherservice/GetCityWeatherByZIP" name="GetCityWeatherByZIP" bindingOperationName="GetCityWeatherByZIP" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="b0fd88e9-5e52-41ee-9f5d-7291c8dbed90" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://wsf.cdyne.com/WeatherWS/Weather.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:gen="http://www.codecentric.de/namespace/weatherservice/general">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <gen:GetCityWeatherByZIP>\r
+         <!--Optional:-->\r
+         <gen:ForecastRequest>\r
+            <!--Optional:-->\r
+            <gen:ZIP>?</gen:ZIP>\r
+            <gen:flagcolor>?</gen:flagcolor>\r
+         </gen:ForecastRequest>\r
+      </gen:GetCityWeatherByZIP>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.codecentric.de/namespace/weatherservice/GetCityWeatherByZIP"/></con:call></con:operation><con:operation id="7da7ee7a-ad48-4662-b8c2-0cb67c376ea1" isOneWay="false" action="http://www.codecentric.de/namespace/weatherservice/GetWeatherInformation" name="GetWeatherInformation" bindingOperationName="GetWeatherInformation" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="f2d6a312-e9e6-4c29-b966-e2475ce528f2" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://wsf.cdyne.com/WeatherWS/Weather.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:gen="http://www.codecentric.de/namespace/weatherservice/general">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <gen:GetWeatherInformation/>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.codecentric.de/namespace/weatherservice/GetWeatherInformation"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/></con:soapui-project>

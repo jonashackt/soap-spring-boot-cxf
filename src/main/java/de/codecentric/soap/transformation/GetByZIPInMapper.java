@@ -3,7 +3,7 @@ package de.codecentric.soap.transformation;
 import de.codecentric.namespace.weatherservice.general.ForecastRequest;
 import de.codecentric.soap.internalmodel.Site;
 
-public class GetByZIPInMapper {
+public final class GetByZIPInMapper {
 
 	// private Constructor for Utility-Class
 	private GetByZIPInMapper() {};

@@ -4,7 +4,7 @@ import de.codecentric.namespace.weatherservice.exception.WeatherException;
 import de.codecentric.soap.common.FaultConst;
 
 
-public class WeatherOutError {
+public final class WeatherOutError {
 
 	// private Constructor for Utility-Class
 	private WeatherOutError() {};

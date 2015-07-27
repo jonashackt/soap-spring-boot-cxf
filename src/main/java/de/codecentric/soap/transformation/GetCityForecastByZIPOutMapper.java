@@ -18,7 +18,7 @@ import de.codecentric.namespace.weatherservice.general.ForecastReturn;
 import de.codecentric.soap.backend.WeatherBackend;
 import de.codecentric.soap.internalmodel.GeneralOutlook;
 
-public class GetCityForecastByZIPOutMapper {
+public final class GetCityForecastByZIPOutMapper {
 
 	// private Constructor for Utility-Class
 	private GetCityForecastByZIPOutMapper() {};

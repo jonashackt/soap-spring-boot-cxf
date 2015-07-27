@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 import de.codecentric.soap.common.BusinessException;
 
-public class FileUtils {
+public final class FileUtils {
 
 	private static final String ERROR_MSG_START = "Loading Testfile encounters problems: "; 
 	

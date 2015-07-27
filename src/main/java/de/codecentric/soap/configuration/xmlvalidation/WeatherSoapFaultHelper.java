@@ -11,7 +11,7 @@ import de.codecentric.soap.common.FaultConst;
 import de.codecentric.soap.common.XmlUtils;
 import de.codecentric.soap.transformation.WeatherOutError;
 
-public class WeatherSoapFaultHelper {
+public final class WeatherSoapFaultHelper {
 
 	// private Constructor for Utility-Class
 	private WeatherSoapFaultHelper() {};

@@ -1,5 +1,8 @@
 package de.codecentric.soap.configuration;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.xml.ws.Endpoint;
 
 import org.apache.cxf.Bus;
@@ -20,11 +23,17 @@ public class WebServiceConfiguration {
 	
 	public static final String SERVLET_MAPPING_URL_PATH = "/soap-api";
 	public static final String SERVICE_NAME_URL_PATH = "/WeatherSoapService_1.0";
+	public static final String SERVICE_LIST_TITLE = "BigWeatherCompanies´ List of Weather Services";
 	
 	@Bean
     public ServletRegistrationBean dispatcherServlet() {
         CXFServlet cxfServlet = new CXFServlet();
-        return new ServletRegistrationBean(cxfServlet, SERVLET_MAPPING_URL_PATH + "/*");
+        ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(cxfServlet, SERVLET_MAPPING_URL_PATH + "/*");
+        // Add custom Title to CXF´s ServiceList
+        Map<String, String> initParameters = servletRegistrationBean.getInitParameters();
+        initParameters.put("service-list-title", SERVICE_LIST_TITLE);
+        
+        return servletRegistrationBean;
     }
     
     // If you don´t want to import the cxf.xml-Springbean-Config you have to setUp this Bus for yourself

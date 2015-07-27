@@ -3,7 +3,7 @@ package de.codecentric.soap.transformation;
 import de.codecentric.namespace.weatherservice.general.WeatherReturn;
 import de.codecentric.soap.internalmodel.GeneralOutlook;
 
-public class GetCityWeatherByZIPOutMapper {
+public final class GetCityWeatherByZIPOutMapper {
 	
 	// private Constructor for Utility-Class
 	private GetCityWeatherByZIPOutMapper() {};
