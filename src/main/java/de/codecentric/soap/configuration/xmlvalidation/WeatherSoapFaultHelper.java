@@ -34,7 +34,7 @@ public final class WeatherSoapFaultHelper {
 	    	// we append it to a new Element, which then gets deleted again
 	    	weatherExceptionElementAppended = XmlUtils.appendAsChildElement2NewElement(weatherExcecption);
 		} catch (Exception exception) {
-			LOGGER.error("Failed to build Weather-compliant SoapFault-details: " + exception.getMessage());
+			LOGGER.error("Failed to build Weather-compliant SoapFault-details: " + exception.getMessage() + exception);
 			// We don´t want an Exception in the Exceptionhandling
 		}
 		return weatherExceptionElementAppended;

@@ -6,10 +6,11 @@ import de.codecentric.soap.common.FaultConst;
 
 public final class WeatherOutError {
 
-	// private Constructor for Utility-Class
-	private WeatherOutError() {};
+	private WeatherOutError() {
+	 // private Constructor for Utility-Class
+	};
 	
-	private static de.codecentric.namespace.weatherservice.exception.ObjectFactory objectFactoryDatatypes = new de.codecentric.namespace.weatherservice.exception.ObjectFactory();
+	private static final de.codecentric.namespace.weatherservice.exception.ObjectFactory objectFactoryDatatypes = new de.codecentric.namespace.weatherservice.exception.ObjectFactory();
 	
 	public static WeatherException createWeatherException(FaultConst faultContent, String originalFaultMessage) {
 		// Build SOAP-Fault detail <datatypes:WeatherException>

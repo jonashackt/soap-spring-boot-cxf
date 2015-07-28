@@ -81,8 +81,8 @@ public final class GetCityForecastByZIPOutMapper {
 		XMLGregorianCalendar xmlGregCal = null;
 		try {
 			xmlGregCal = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregCal);
-		} catch (DatatypeConfigurationException e) {
-			LOGGER.debug("Kein vernuenftiger Calender gesetzt - ist aber egal");
+		} catch (DatatypeConfigurationException exception) {
+			LOGGER.debug("Calendermapping not working, but it´s ok here: " + exception);
 		}
 		return xmlGregCal;
 	}
