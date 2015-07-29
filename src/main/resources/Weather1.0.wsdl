@@ -49,13 +49,13 @@
       <wsdl:fault name="WeatherException" message="weather:WeatherException"/>
     </wsdl:operation>
     <wsdl:operation name="GetCityForecastByZIP">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Allows you to get your City Forecast Over the Next 7 Days, which is updated hourly. U.S. Only</wsdl:documentation>
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Allows you to get your City Forecast Over the Next 7 Days, which is updated hourly.</wsdl:documentation>
       <wsdl:input message="weather:GetCityForecastByZIPIn"/>
       <wsdl:output message="weather:GetCityForecastByZIPOut"/>
       <wsdl:fault name="WeatherException" message="weather:WeatherException"/>
     </wsdl:operation>
     <wsdl:operation name="GetCityWeatherByZIP">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Allows you to get your City's Weather, which is updated hourly. U.S. Only</wsdl:documentation>
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Allows you to get your City's Weather, which is updated hourly.</wsdl:documentation>
       <wsdl:input message="weather:GetCityWeatherByZIPIn"/>
       <wsdl:output message="weather:GetCityWeatherByZIPOut"/>
       <wsdl:fault name="WeatherException" message="weather:WeatherException"/>

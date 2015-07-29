@@ -43,8 +43,19 @@
           <s:element minOccurs="0" maxOccurs="1" name="ZIP" type="s:string"/>
           <s:element name="flagcolor" type="s:string"/>
           <s:element name="productName" type="datatypes:ProductName" />
+		  <s:element name="ForecastCustomer" type="general:ForecastCustomer"/>
         </s:sequence>
       </s:complexType>
+      
+
+	  <s:complexType name="ForecastCustomer">
+	    <s:sequence>
+	      <s:element name="Age" type="s:int"/>
+	      <s:element name="Contribution" type="s:int"/>
+	      <s:element name="MethodOfPayment" type="s:string"/>
+	    </s:sequence>
+	  </s:complexType>
+
       
       <s:complexType name="ForecastReturn">
         <s:sequence>
