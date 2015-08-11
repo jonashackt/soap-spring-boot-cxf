@@ -1,6 +1,8 @@
 package de.codecentric.soap.endpoint;
 
+import javax.annotation.Resource;
 import javax.jws.WebService;
+import javax.xml.ws.WebServiceContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +24,9 @@ public class WeatherServiceEndpoint implements WeatherService {
 
     @Autowired
     private WeatherServiceController weatherServiceController;
+    
+    @Resource  
+	WebServiceContext wsContext;  
     
 	@Override
 	public ArrayOfWeatherDescription getWeatherInformation() {

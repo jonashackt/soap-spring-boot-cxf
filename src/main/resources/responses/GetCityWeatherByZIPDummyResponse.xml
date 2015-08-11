@@ -1,0 +1,13 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <soap:Body>
+      <general:GetCityWeatherByZIPResponse xmlns:dtypes="http://www.codecentric.de/namespace/weatherservice/datatypes" xmlns:exception="http://www.codecentric.de/namespace/weatherservice/exception" xmlns:general="http://www.codecentric.de/namespace/weatherservice/general">
+         <general:GetCityWeatherByZIPResult>
+            <general:Success>true</general:Success>
+            <general:State>Deutschland</general:State>
+            <general:City>Weimar</general:City>
+            <general:WeatherStationCity>Weimar</general:WeatherStationCity>
+            <general:WeatherID>0</general:WeatherID>
+         </general:GetCityWeatherByZIPResult>
+      </general:GetCityWeatherByZIPResponse>
+   </soap:Body>
+</soap:Envelope>

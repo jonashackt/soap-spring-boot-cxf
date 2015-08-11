@@ -1,6 +1,5 @@
 package de.codecentric.soap.configuration;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.ws.Endpoint;

@@ -1,0 +1,27 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <soap:Body>
+      <general:GetCityForecastByZIPResponse xmlns:dtypes="http://www.codecentric.de/namespace/weatherservice/datatypes" xmlns:exception="http://www.codecentric.de/namespace/weatherservice/exception" xmlns:general="http://www.codecentric.de/namespace/weatherservice/general">
+         <general:GetCityForecastByZIPResult>
+            <general:Success>true</general:Success>
+            <general:State>Deutschland</general:State>
+            <general:City>Weimar</general:City>
+            <general:WeatherStationCity>Weimar</general:WeatherStationCity>
+            <general:ForecastResult>
+               <dtypes:Forecast>
+                  <dtypes:Date>2015-07-29T11:20:25.271+02:00</dtypes:Date>
+                  <dtypes:WeatherID>0</dtypes:WeatherID>
+                  <dtypes:Desciption>Vorhersage für Weimar</dtypes:Desciption>
+                  <dtypes:Temperatures>
+                     <dtypes:MorningLow>0°</dtypes:MorningLow>
+                     <dtypes:DaytimeHigh>90°</dtypes:DaytimeHigh>
+                  </dtypes:Temperatures>
+                  <dtypes:ProbabilityOfPrecipiation>
+                     <dtypes:Nighttime>5000%</dtypes:Nighttime>
+                     <dtypes:Daytime>22%</dtypes:Daytime>
+                  </dtypes:ProbabilityOfPrecipiation>
+               </dtypes:Forecast>
+            </general:ForecastResult>
+         </general:GetCityForecastByZIPResult>
+      </general:GetCityForecastByZIPResponse>
+   </soap:Body>
+</soap:Envelope>

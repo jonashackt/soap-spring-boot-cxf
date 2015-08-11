@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 import de.codecentric.soap.backend.WeatherBackend;
 import de.codecentric.soap.controller.WeatherServiceController;
+import de.codecentric.soap.controller.WeatherServiceControllerImpl;
 import de.codecentric.soap.endpoint.WeatherServiceEndpoint;
 
 @Configuration
@@ -17,7 +18,7 @@ public class ApplicationTestConfiguration {
 	
 	@Bean 
 	public WeatherServiceController weatherServiceController() {
-		return new WeatherServiceController();
+		return new WeatherServiceControllerImpl();
 	}
 	
 	@Bean
