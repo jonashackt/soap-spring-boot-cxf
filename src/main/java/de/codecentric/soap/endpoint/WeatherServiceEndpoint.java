@@ -4,8 +4,6 @@ import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.WebServiceContext;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import de.codecentric.namespace.weatherservice.WeatherService;
@@ -14,15 +12,16 @@ import de.codecentric.namespace.weatherservice.general.ForecastRequest;
 import de.codecentric.namespace.weatherservice.general.ForecastReturn;
 import de.codecentric.namespace.weatherservice.general.WeatherReturn;
 import de.codecentric.soap.common.BusinessException;
+import de.codecentric.soap.common.SoapFrameworkLogger;
 import de.codecentric.soap.controller.WeatherServiceController;
 
 @WebService(endpointInterface = "de.codecentric.namespace.weatherservice.WeatherService",
 serviceName = "WeatherService")
 public class WeatherServiceEndpoint implements WeatherService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(WeatherServiceEndpoint.class);
-
-    @Autowired
+	private static final SoapFrameworkLogger LOG = SoapFrameworkLogger.getLogger(WeatherServiceEndpoint.class);
+	
+	@Autowired
     private WeatherServiceController weatherServiceController;
     
     @Resource  
@@ -30,19 +29,20 @@ public class WeatherServiceEndpoint implements WeatherService {
     
 	@Override
 	public ArrayOfWeatherDescription getWeatherInformation() {
-		LOGGER.debug("getWeatherInformation() was called successfully");
+		LOG.successfullyCalledServeEndpointWithMethod("getWeatherInformation");
 		//TODO: Fill with some data
 		return null;
 	}
 
 	@Override
 	public ForecastReturn getCityForecastByZIP(ForecastRequest forecastRequest) {
-		LOGGER.debug("getCityForecastByZIP() was called successfully - handing over to internal processing.");
-				
+		LOG.successfullyCalledServeEndpointWithMethod("getCityForecastByZIP");
+		
 		try {
 			return weatherServiceController.getCityForecastByZIP(forecastRequest);
 		
 		} catch (BusinessException exception) {
+			LOG.errorAccuredInBackendProcessing(exception);
 			ForecastReturn forecastReturn = new ForecastReturn();
 			forecastReturn.setSuccess(false);
 			forecastReturn.setResponseText(exception.getMessage());
@@ -52,11 +52,12 @@ public class WeatherServiceEndpoint implements WeatherService {
 
 	@Override
 	public WeatherReturn getCityWeatherByZIP(ForecastRequest forecastRequest) {
-		LOGGER.debug("getCityWeatherByZIP() was called successfully");
+		LOG.successfullyCalledServeEndpointWithMethod("getCityWeatherByZIP");
 		try {
 			return weatherServiceController.getCityWeatherByZIP(forecastRequest);
 		
 		} catch (BusinessException exception) {
+			LOG.errorAccuredInBackendProcessing(exception);
 			WeatherReturn weatherReturn = new WeatherReturn();
 			weatherReturn.setSuccess(false);
 			weatherReturn.setResponseText(exception.getMessage());

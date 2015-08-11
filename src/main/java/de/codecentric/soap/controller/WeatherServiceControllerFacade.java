@@ -2,9 +2,8 @@ package de.codecentric.soap.controller;
 
 import java.io.IOException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import de.codecentric.namespace.weatherservice.general.ForecastRequest;
@@ -13,6 +12,7 @@ import de.codecentric.namespace.weatherservice.general.GetCityForecastByZIPRespo
 import de.codecentric.namespace.weatherservice.general.GetCityWeatherByZIPResponse;
 import de.codecentric.namespace.weatherservice.general.WeatherReturn;
 import de.codecentric.soap.common.BusinessException;
+import de.codecentric.soap.common.SoapFrameworkLogger;
 import de.codecentric.soap.common.XmlUtils;
 
 /*
@@ -23,36 +23,35 @@ import de.codecentric.soap.common.XmlUtils;
 @Component
 public class WeatherServiceControllerFacade implements WeatherServiceController {
     	
-    private static final Logger LOG = LoggerFactory.getLogger(WeatherServiceControllerFacade.class);
+    private static final SoapFrameworkLogger LOG = SoapFrameworkLogger.getLogger(WeatherServiceControllerFacade.class);
 	
     @Value(value="classpath:responses/GetCityForecastByZIPDummyResponse.xml")
-    private org.springframework.core.io.Resource dummyResponseGetCityForecastByZIP;
+    private Resource dummyResponseGetCityForecastByZIP;
     
     @Value(value="classpath:responses/GetCityWeatherByZIPDummyResponse.xml")
-    private org.springframework.core.io.Resource dummyResponseGetCityWeatherByZIP;
+    private Resource dummyResponseGetCityWeatherByZIP;
 	
 	@Override
 	public ForecastReturn getCityForecastByZIP(ForecastRequest forecastRequest) throws BusinessException {
-	    LOG.debug("Facade-Mode: Returning Dummy-Response");
-	    GetCityForecastByZIPResponse dummyResponse = null;
-		try {
-			dummyResponse = XmlUtils.readSoapMessageFromStreamAndUnmarshallBody2Object(dummyResponseGetCityForecastByZIP.getInputStream(), GetCityForecastByZIPResponse.class);
-		} catch (IOException ioException) {
-			throw new BusinessException("Problem reading or marshalling Dummy-Response: " + ioException.getMessage(), ioException);
-		}
-		return dummyResponse.getGetCityForecastByZIPResult();
+	    LOG.facadeModeReturningDummyResponseWithResponseType(ForecastReturn.class);
+		return getResponseObjectFromFile(dummyResponseGetCityForecastByZIP, GetCityForecastByZIPResponse.class).getGetCityForecastByZIPResult();
 	}	
 	
 	@Override
 	public WeatherReturn getCityWeatherByZIP(ForecastRequest forecastRequest) throws BusinessException {
-		LOG.debug("Facade-Mode: Returning Dummy-Response");
-		GetCityWeatherByZIPResponse dummyResponse = null;
-		try {
-			dummyResponse = XmlUtils.readSoapMessageFromStreamAndUnmarshallBody2Object(dummyResponseGetCityWeatherByZIP.getInputStream(), GetCityWeatherByZIPResponse.class);
-		} catch (IOException ioException) {
-			throw new BusinessException("Problem reading or marshalling Dummy-Response: " + ioException.getMessage(), ioException);
-		}
-		return dummyResponse.getGetCityWeatherByZIPResult();
-		
+		LOG.facadeModeReturningDummyResponseWithResponseType(WeatherReturn.class);
+		return getResponseObjectFromFile(dummyResponseGetCityWeatherByZIP, GetCityWeatherByZIPResponse.class).getGetCityWeatherByZIPResult();
 	}
+
+	private <R> R getResponseObjectFromFile(Resource dummyFile, Class<R> responseClass) throws BusinessException {
+		R dummyResponse = null;
+		try {
+			dummyResponse = XmlUtils.readSoapMessageFromStreamAndUnmarshallBody2Object(dummyFile.getInputStream(), responseClass);
+		} catch (IOException ioException) {
+			throw LOG.problemReadingOrMarshallingDummyResponse(ioException);
+		}
+		return dummyResponse;
+	}
+	
+	
 }

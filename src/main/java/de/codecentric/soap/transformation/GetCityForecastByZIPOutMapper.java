@@ -7,15 +7,12 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import de.codecentric.namespace.weatherservice.datatypes.ArrayOfForecast;
 import de.codecentric.namespace.weatherservice.datatypes.Forecast;
 import de.codecentric.namespace.weatherservice.datatypes.POP;
 import de.codecentric.namespace.weatherservice.datatypes.Temp;
 import de.codecentric.namespace.weatherservice.general.ForecastReturn;
-import de.codecentric.soap.backend.WeatherBackend;
+import de.codecentric.soap.common.SoapFrameworkLogger;
 import de.codecentric.soap.internalmodel.GeneralOutlook;
 
 public final class GetCityForecastByZIPOutMapper {
@@ -23,7 +20,7 @@ public final class GetCityForecastByZIPOutMapper {
 	// private Constructor for Utility-Class
 	private GetCityForecastByZIPOutMapper() {};
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(WeatherBackend.class);
+	private static final SoapFrameworkLogger LOG = SoapFrameworkLogger.getLogger(GetCityForecastByZIPOutMapper.class);
 	
 	private static de.codecentric.namespace.weatherservice.general.ObjectFactory objectFactoryGeneral = new de.codecentric.namespace.weatherservice.general.ObjectFactory();
 	private static de.codecentric.namespace.weatherservice.datatypes.ObjectFactory objectFactoryDatatypes = new de.codecentric.namespace.weatherservice.datatypes.ObjectFactory();
@@ -82,7 +79,7 @@ public final class GetCityForecastByZIPOutMapper {
 		try {
 			xmlGregCal = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregCal);
 		} catch (DatatypeConfigurationException exception) {
-			LOGGER.debug("Calendermapping not working, but it´s ok here: " + exception);
+			LOG.calenderMappingNotWorking(exception);
 		}
 		return xmlGregCal;
 	}

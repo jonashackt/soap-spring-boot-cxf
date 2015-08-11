@@ -7,17 +7,16 @@ import org.apache.cxf.binding.soap.SoapMessage;
 import org.apache.cxf.binding.soap.interceptor.AbstractSoapInterceptor;
 import org.apache.cxf.interceptor.Fault;
 import org.apache.cxf.phase.Phase;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.ctc.wstx.exc.WstxException;
 import com.ctc.wstx.exc.WstxUnexpectedCharException;
 
 import de.codecentric.soap.common.FaultConst;
+import de.codecentric.soap.common.SoapFrameworkLogger;
 
 public class WeatherServiceXmlValidationInterceptor extends AbstractSoapInterceptor {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(WeatherServiceXmlValidationInterceptor.class);
+	private static final SoapFrameworkLogger LOG = SoapFrameworkLogger.getLogger(WeatherServiceXmlValidationInterceptor.class);
 	
 	public WeatherServiceXmlValidationInterceptor() {
 		super(Phase.PRE_STREAM);
@@ -30,11 +29,11 @@ public class WeatherServiceXmlValidationInterceptor extends AbstractSoapIntercep
 	    String faultMessage = fault.getMessage();
 
 	    if (containsFaultIndicatingNotSchemeCompliantXml(faultCause, faultMessage)) { 
-	    	LOGGER.debug(FaultConst.SCHEME_VALIDATION_ERROR.getMessage() + ": {}", faultMessage);
+	    	LOG.schemaValidationError(FaultConst.SCHEME_VALIDATION_ERROR, faultMessage);
 	    	WeatherSoapFaultHelper.buildWeatherFaultAndSet2SoapMessage(soapMessage, FaultConst.SCHEME_VALIDATION_ERROR);
 	    }	    
 	    if (containsFaultIndicatingSyntacticallyIncorrectXml(faultCause)) {
-	    	LOGGER.debug(FaultConst.SYNTACTICALLY_INCORRECT_XML_ERROR.getMessage() + ": {}", faultMessage);
+	    	LOG.schemaValidationError(FaultConst.SYNTACTICALLY_INCORRECT_XML_ERROR, faultMessage);
 	    	WeatherSoapFaultHelper.buildWeatherFaultAndSet2SoapMessage(soapMessage, FaultConst.SYNTACTICALLY_INCORRECT_XML_ERROR);	        
 	    }
 	}

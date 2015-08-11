@@ -2,12 +2,11 @@ package de.codecentric.soap.configuration.xmlvalidation;
 
 import org.apache.cxf.binding.soap.SoapMessage;
 import org.apache.cxf.interceptor.Fault;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import de.codecentric.soap.common.FaultConst;
+import de.codecentric.soap.common.SoapFrameworkLogger;
 import de.codecentric.soap.common.XmlUtils;
 import de.codecentric.soap.transformation.WeatherOutError;
 
@@ -16,7 +15,7 @@ public final class WeatherSoapFaultHelper {
 	// private Constructor for Utility-Class
 	private WeatherSoapFaultHelper() {};
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(WeatherSoapFaultHelper.class);
+	private static final SoapFrameworkLogger LOG = SoapFrameworkLogger.getLogger(WeatherSoapFaultHelper.class);
 	
 	public static void buildWeatherFaultAndSet2SoapMessage(SoapMessage message, FaultConst faultContent) {
 		Fault exceptionFault = (Fault) message.getContent(Exception.class);
@@ -34,7 +33,7 @@ public final class WeatherSoapFaultHelper {
 	    	// we append it to a new Element, which then gets deleted again
 	    	weatherExceptionElementAppended = XmlUtils.appendAsChildElement2NewElement(weatherExcecption);
 		} catch (Exception exception) {
-			LOGGER.error("Failed to build Weather-compliant SoapFault-details: " + exception.getMessage() + exception);
+			LOG.failedToBuildWeatherServiceCompliantSoapFaultDetails(exception);
 			// We don´t want an Exception in the Exceptionhandling
 		}
 		return weatherExceptionElementAppended;
