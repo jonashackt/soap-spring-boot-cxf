@@ -57,6 +57,7 @@ For this Scenario, Spring´s powerful but yet easy to use [Profile-Mechanism] wi
 * Example of Controller and Mappers, that map to and from an internal Domain-Model - for loose coupling between generated JAXB-Classes and Backends
 * Functional plausibility check of request-data with [decision tables]
 * Facade-Mode, that only returns Dummy-Responses, if configured
+* Logging-Framework for centralization of logging and message-creation, including chance to define individial logging-Ids
 
 ### Todo's
 
