@@ -42,8 +42,6 @@ public class WebServiceTestConfiguration {
 
 	@Bean
 	public SoapRawClient soapRawClient() {
-		SoapRawClient easyRawSOAPTester = new SoapRawClient();
-		easyRawSOAPTester.setUrl(buildUrl());
-		return easyRawSOAPTester;
+		return new SoapRawClient(buildUrl());
 	}
 }

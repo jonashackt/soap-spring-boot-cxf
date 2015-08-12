@@ -20,11 +20,14 @@ public class SoapRawClient {
 	private static final Logger LOGGER = LoggerFactory.getLogger(SoapRawClient.class);
 	private static final String SOAP_ACTION = "http://www.codecentric.de/namespace/weatherservice/GetCityForecastByZIP";
 	
-	private String soapServiceUrl = null;
+	private String soapServiceUrl;
 	
-	public void setUrl(String soapServiceUrl) {
+	public SoapRawClient(String soapServiceUrl) {
 		this.soapServiceUrl = soapServiceUrl;
 	}
+	
+	// Invisible Constructor, because soapServiceUrl is mandatory
+	private SoapRawClient() {};
 	
 	public SoapRawClientResponse callSoapService(InputStream xmlFile) throws BusinessException {
 		SoapRawClientResponse easyRawSoapResponse = null;
@@ -41,7 +44,6 @@ public class SoapRawClient {
 			Response httpResponseContainer = Request
 					.Post(soapServiceUrl)
 					.bodyStream(xmlFile, contentTypeTextXmlUtf8())
-					//.bodyString(xmlFile, contentTypeTextXmlUtf8())
 					.addHeader("SOAPAction", "\"" + SOAP_ACTION + "\"")
 					.execute();
 			
