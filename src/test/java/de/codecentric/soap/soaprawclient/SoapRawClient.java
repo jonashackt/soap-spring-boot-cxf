@@ -1,5 +1,7 @@
 package de.codecentric.soap.soaprawclient;
 
+import java.io.InputStream;
+
 import org.apache.http.Consts;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.fluent.Request;
@@ -24,7 +26,7 @@ public class SoapRawClient {
 		this.soapServiceUrl = soapServiceUrl;
 	}
 	
-	public SoapRawClientResponse callSoapService(String xmlFile) throws BusinessException {
+	public SoapRawClientResponse callSoapService(InputStream xmlFile) throws BusinessException {
 		SoapRawClientResponse easyRawSoapResponse = null;
 		
 		if(soapServiceUrl == null) {
@@ -38,7 +40,8 @@ public class SoapRawClient {
 			
 			Response httpResponseContainer = Request
 					.Post(soapServiceUrl)
-					.bodyString(xmlFile, contentTypeTextXmlUtf8())
+					.bodyStream(xmlFile, contentTypeTextXmlUtf8())
+					//.bodyString(xmlFile, contentTypeTextXmlUtf8())
 					.addHeader("SOAPAction", "\"" + SOAP_ACTION + "\"")
 					.execute();
 			

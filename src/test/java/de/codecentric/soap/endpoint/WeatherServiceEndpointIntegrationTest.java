@@ -4,11 +4,15 @@ package de.codecentric.soap.endpoint;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.io.IOException;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
+import org.springframework.core.io.Resource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.codecentric.namespace.weatherservice.WeatherException;
@@ -17,7 +21,7 @@ import de.codecentric.namespace.weatherservice.general.ForecastReturn;
 import de.codecentric.namespace.weatherservice.general.GetCityForecastByZIP;
 import de.codecentric.soap.SoapApplication;
 import de.codecentric.soap.common.BusinessException;
-import de.codecentric.soap.soaprawclient.SoapRawClientFileUtils;
+import de.codecentric.soap.common.XmlUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes=SoapApplication.class) 
@@ -27,10 +31,14 @@ public class WeatherServiceEndpointIntegrationTest {
 	@Autowired
 	private WeatherService weatherService;
 
+	@Value(value="classpath:requests/GetCityForecastByZIPTest.xml")
+	private Resource GetCityForecastByZIPTestXml;
+	
 	@Test
-	public void getCityForecastByZIP() throws BusinessException, WeatherException {
+	public void getCityForecastByZIP() throws BusinessException, WeatherException, IOException {
 		// Given
-		GetCityForecastByZIP getCityForecastByZIP = SoapRawClientFileUtils.readSoapMessageFromFileAndUnmarshallBody2Object("GetCityForecastByZIPTest.xml", GetCityForecastByZIP.class);
+		GetCityForecastByZIP getCityForecastByZIP = XmlUtils.readSoapMessageFromStreamAndUnmarshallBody2Object(
+				GetCityForecastByZIPTestXml.getInputStream(), GetCityForecastByZIP.class);
 		
 		// When
 		ForecastReturn forecastReturn = weatherService.getCityForecastByZIP(getCityForecastByZIP.getForecastRequest());
