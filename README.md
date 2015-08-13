@@ -55,15 +55,16 @@ For this Scenario, Spring´s powerful but yet easy to use [Profile-Mechanism] wi
 * Tests with Raw HTTP-Client for Reaction on syntactically incorrect XML
 * Custom Exception in Weather-WSDL/XSDs
 * Example of Controller and Mappers, that map to and from an internal Domain-Model - for loose coupling between generated JAXB-Classes and Backends
-* Functional plausibility check of request-data with [decision tables]
 * Facade-Mode, that only returns Dummy-Responses, if configured
 * Logging-Framework for centralization of logging and message-creation, including chance to define individial logging-Ids
+* Log SoapMessages to logfile (configurable)
 
 ### Todo's
 
 * Use Spring Boot Admin / actuator 
 * Monitor with e.g. ELK
 * Spring Boot Starter CXF
+* Functional plausibility check of request-data with [decision tables]
 
 [Spring]:https://spring.io
 [Spring Boot]:http://projects.spring.io/spring-boot/

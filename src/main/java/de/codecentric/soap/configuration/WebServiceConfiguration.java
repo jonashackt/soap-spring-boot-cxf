@@ -38,9 +38,10 @@ public class WebServiceConfiguration {
     // If you don´t want to import the cxf.xml-Springbean-Config you have to setUp this Bus for yourself
     // <bean id="cxf" class="org.apache.cxf.bus.spring.SpringBus" destroy-method="shutdown"/>
     @Bean(name=Bus.DEFAULT_BUS_ID)
-    public SpringBus springBus() {
+    public SpringBus springBus() {    	
     	return new SpringBus();
     }
+    
     
     @Bean
     public WeatherService weatherService() {

@@ -30,17 +30,11 @@ public class SoapRawClient {
 	private SoapRawClient() {};
 	
 	public SoapRawClientResponse callSoapService(InputStream xmlFile) throws BusinessException {
-		SoapRawClientResponse easyRawSoapResponse = null;
+		SoapRawClientResponse easyRawSoapResponse = new SoapRawClientResponse();
 		
-		if(soapServiceUrl == null) {
-			throw new BusinessException("Could not Call Soap-Service, because the Url is not set: soapServiceUrl = " + soapServiceUrl);
-		}
+		LOGGER.debug("Calling SoapService with POST on Apache HTTP-Client and configured URL: {}", soapServiceUrl);
 		
 		try {
-			easyRawSoapResponse = new SoapRawClientResponse();
-			
-			LOGGER.debug("Calling SoapService with POST on Apache HTTP-Client and configured URL: {}", soapServiceUrl);
-			
 			Response httpResponseContainer = Request
 					.Post(soapServiceUrl)
 					.bodyStream(xmlFile, contentTypeTextXmlUtf8())
