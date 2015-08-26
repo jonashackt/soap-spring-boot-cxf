@@ -30,7 +30,7 @@ public class WebServiceMessageLoggerConfiguration {
 	@Bean
 	public AbstractLoggingInterceptor logInInterceptor() {
 		LoggingInInterceptor logInInterceptor = new LoggingInInterceptor();
-		// The In-Messages are pretty without setting it
+		// The In-Messages are pretty without setting it, when setting it Apache CXF throws empty lines into the In-Messages
 		return logInInterceptor; 
 	}
 	

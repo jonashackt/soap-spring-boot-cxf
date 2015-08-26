@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <!--<logger name="org.springframework.web" level="DEBUG"/>  -->
+    <logger name="de.codecentric.soap" level="DEBUG"/>
+    <logger name="org.apache.cxf" level="INFO"/>
+    <!-- 
+    <appender name="stash" class="net.logstash.logback.appender.LogstashSocketAppender">
+		<host>MyAwesomeSyslogServer</host>
+		 port is optional (default value shown)
+		<port>514</port>
+	</appender>
+	<root level="all">
+	  <appender-ref ref="stash" />
+	</root>
+	 -->
+</configuration>
