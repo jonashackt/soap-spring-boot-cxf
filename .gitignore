@@ -17,3 +17,5 @@ target
 
 # Intellij #
 .idea
+*.iml
+*.log
