@@ -49,7 +49,12 @@ For this Scenario, Spring´s powerful but yet easy to use [Profile-Mechanism] wi
 
 ### Loganalysis with [ELK-Stack]
 
-If you´re going some steps further into a more production-ready environment, you´ll need a more indepth view what´s going on with your SOAP-Infrastructure. I used the [ELK-Stack] with Logstash -> Elasticsearch -> Kibana. For me, I avoided the grunk-Configuration and instead used the [logstash-logback-encoder]  for getting JSONized Logoutputs. Making your SpringBoot-App ready for logstash, you have to add a maven-dependency and a logback.xml-File with the apropriate configuration, also described in [logstash-logback-encoder]. Before doing so, you need a running ELK-Stack, for me I used a docker-compose(ition) from [docker-elk] (for Mac-Users remember the new [docker-machine] superseeding boot2docker).
+If you´re going some steps further into a more production-ready environment, you´ll need a more indepth view what´s going on with your SOAP-Infrastructure. I used the [ELK-Stack] with Logstash -> Elasticsearch -> Kibana. I used the [logstash-logback-encoder] for getting JSONized Logoutputs directly into logstash´s input-phase.
+
+Making your SpringBoot-App ready for logstash, you have to add a maven-dependency and a logback.xml-File with the apropriate configuration, also described in [logstash-logback-encoder]. Before doing so, you need a running ELK-Stack, for me I used a docker-compose(ition) from [docker-elk].
+For Mac-Users remember the new [docker-machine] superseeding boot2docker.
+
+Testing your configured ELK-Stack is easy by using [SOAP-UI]´s Load-Test-Feature.
 
 ### Done´s
 * No XML-configuration, also for undocumented CXF-details :)
