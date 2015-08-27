@@ -47,6 +47,10 @@ Sometimes, you are in need of a facade-mode, where your implementation doesn´t 
 
 For this Scenario, Spring´s powerful but yet easy to use [Profile-Mechanism] will serve you well. In combination with using org.springframework.core.io.Resource to load your Dummy-Response-Files instead of Java´s NIO.2 (that could [fuck you up] because of classloader-differences in other environments than your local machine), your done with that task quite fast.
 
+### Loganalysis with [ELK-Stack]
+
+If you´re going some steps further into a more production-ready environment, you´ll need a more indepth view what´s going on with your SOAP-Infrastructure. I used the [ELK-Stack] with Logstash -> Elasticsearch -> Kibana. For me, I avoided the grunk-Configuration and instead used the [logstash-logback-encoder]  for getting JSONized Logoutputs. Making your SpringBoot-App ready for logstash, you have to add a maven-dependency and a logback.xml-File with the apropriate configuration, also described in [logstash-logback-encoder]. Before doing so, you need a running ELK-Stack, for me I used a docker-compose(ition) from [docker-elk] (for Mac-Users remember the new [docker-machine] superseeding boot2docker).
+
 ### Done´s
 * No XML-configuration, also for undocumented CXF-details :)
 * Readable Namespace-Prefixes
@@ -58,6 +62,7 @@ For this Scenario, Spring´s powerful but yet easy to use [Profile-Mechanism] wi
 * Facade-Mode, that only returns Dummy-Responses, if configured
 * Logging-Framework for centralization of logging and message-creation, including chance to define individial logging-Ids
 * Log SoapMessages to logfile (configurable)
+* Loganalysis with ELK-Stack
 
 ### Todo's
 
@@ -65,6 +70,7 @@ For this Scenario, Spring´s powerful but yet easy to use [Profile-Mechanism] wi
 * Monitor with e.g. ELK
 * Spring Boot Starter CXF
 * Functional plausibility check of request-data with [decision tables]
+* SOAP-Messages logged and formatted for Analysis
 
 [Spring]:https://spring.io
 [Spring Boot]:http://projects.spring.io/spring-boot/
@@ -79,3 +85,7 @@ For this Scenario, Spring´s powerful but yet easy to use [Profile-Mechanism] wi
 [decision tables]:https://en.wikipedia.org/wiki/Decision_table
 [Profile-Mechanism]:http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-profiles.html
 [fuck you up]:https://github.com/jonashackt/springbootreadfilejar
+[ELK-Stack]:https://www.elastic.co/products
+[logstash-logback-encoder]:https://github.com/logstash/logstash-logback-encoder/tree/logstash-logback-encoder-4.5
+[docker-elk]:https://github.com/jonashackt/docker-elk
+[docker-machine]:https://docs.docker.com/machine/get-started/

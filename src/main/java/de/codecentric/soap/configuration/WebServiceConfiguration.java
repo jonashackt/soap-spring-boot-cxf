@@ -62,4 +62,5 @@ public class WebServiceConfiguration {
     public AbstractSoapInterceptor soapInterceptor() {
     	return new WeatherServiceXmlValidationInterceptor();
     }
+
 }

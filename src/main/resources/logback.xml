@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
-    <!--<logger name="org.springframework.web" level="DEBUG"/>  -->
+    <logger name="org.springframework" level="WARN"/>
     <logger name="de.codecentric.soap" level="DEBUG"/>
     <logger name="org.apache.cxf" level="INFO"/>
-    <!-- 
-    <appender name="stash" class="net.logstash.logback.appender.LogstashSocketAppender">
-		<host>MyAwesomeSyslogServer</host>
-		 port is optional (default value shown)
-		<port>514</port>
+    
+    <!-- Logstash-Configuration -->
+	<!-- For details see https://github.com/logstash/logstash-logback-encoder/tree/logstash-logback-encoder-4.5 -->
+	<appender name="stash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+		<destination>192.168.99.100:5000</destination>
+		<!-- encoder is required -->
+	   <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+	   	<includeCallerData>true</includeCallerData>
+	   	<customFields>{"appname":"SOAPWeatherService"}</customFields>
+	   	<fieldNames>
+	   		<message>log-msg</message>
+	   	</fieldNames>
+	   </encoder>
+	   <keepAliveDuration>5 minutes</keepAliveDuration>
 	</appender>
-	<root level="all">
-	  <appender-ref ref="stash" />
+	
+	<root level="DEBUG">
+	    <appender-ref ref="stash" />
 	</root>
-	 -->
+	
 </configuration>
