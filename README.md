@@ -51,6 +51,8 @@ For this Scenario, Spring´s powerful but yet easy to use [Profile-Mechanism] wi
 
 If you´re going some steps further into a more production-ready environment, you´ll need a more indepth view what´s going on with your SOAP-Infrastructure. I used the [ELK-Stack] with Logstash -> Elasticsearch -> Kibana. I used the [logstash-logback-encoder] for getting JSONized Logoutputs directly into logstash´s input-phase.
 
+![Kibana SOAP-Message Analytics](https://github.com/jonashackt/soap-spring-boot-cxf/blob/master/kibana_SOAP-Message-Analytics.png)
+
 Making your SpringBoot-App ready for logstash, you have to add a maven-dependency and a logback.xml-File with the apropriate configuration, also described in [logstash-logback-encoder]. Before doing so, you need a running ELK-Stack, for me I used a docker-compose(ition) from [docker-elk].
 For Mac-Users remember the new [docker-machine] superseeding boot2docker.
 
