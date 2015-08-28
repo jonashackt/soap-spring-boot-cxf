@@ -68,6 +68,7 @@ Testing your configured ELK-Stack is easy by using [SOAP-UI]´s Load-Test-Featur
 * Logging-Framework for centralization of logging and message-creation, including chance to define individial logging-Ids
 * Log SoapMessages to logfile (configurable)
 * Loganalysis with ELK-Stack
+* SOAP-Messages-Only logged and formatted for Analysis
 
 ### Todo's
 
@@ -75,7 +76,7 @@ Testing your configured ELK-Stack is easy by using [SOAP-UI]´s Load-Test-Featur
 * Monitor with e.g. ELK
 * Spring Boot Starter CXF
 * Functional plausibility check of request-data with [decision tables]
-* SOAP-Messages logged and formatted for Analysis
+
 
 [Spring]:https://spring.io
 [Spring Boot]:http://projects.spring.io/spring-boot/
