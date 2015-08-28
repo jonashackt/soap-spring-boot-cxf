@@ -3,8 +3,10 @@ package de.codecentric.soap.common;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.util.Objects;
 
+import javax.jws.WebMethod;
 import javax.xml.bind.JAXB;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -69,11 +71,9 @@ public final class XmlUtils {
 	}	
 	
 	public static <T> String getNamespaceUriFromJaxbClass(Class<T> jaxbClass) throws BusinessException {
-		String nsURI = "";
 	    for(Annotation annotation: jaxbClass.getPackage().getAnnotations()){
 	        if(annotation.annotationType() == XmlSchema.class){
-	            nsURI = ((XmlSchema)annotation).namespace();
-	            return nsURI;
+	            return ((XmlSchema)annotation).namespace();
 	        }
 	    }
 	    throw new BusinessException("namespaceUri not found -> Is it really a JAXB-Class, thats used to call the method?");
@@ -89,6 +89,38 @@ public final class XmlUtils {
 	    }
 	    return xmlTagName;
 	}
+	
+	public static <T> String getSoapActionFromJaxWsServiceInterface(Class<T> jaxWsServiceInterfaceClass, String jaxWsServiceInvokedMethodName) throws BusinessException {
+	    Method method = null;
+        try {
+            method = jaxWsServiceInterfaceClass.getDeclaredMethod(jaxWsServiceInvokedMethodName);
+        } catch (Exception exception) {
+            throw new BusinessException("jaxWsServiceInvokedMethodName not found -> Is it really a Method of the JaxWsServiceInterfaceClass?");
+        }       	    
+	    return getSoapActionAnnotationFromMethod(method); 
+    }
+	
+	public static <T> String getSoapActionFromJaxWsServiceInterface(Class<T> jaxWsServiceInterfaceClass) throws BusinessException {
+        Method method = null;
+        try {
+            // Getting any of the Webservice-Methods of the WebserviceInterface to get a valid SoapAction
+            method = jaxWsServiceInterfaceClass.getDeclaredMethods()[0];
+        } catch (Exception exception) {
+            throw new BusinessException("jaxWsServiceInvokedMethodName not found -> Is it really a Method of the JaxWsServiceInterfaceClass?");
+        }            
+        return getSoapActionAnnotationFromMethod(method); 
+    }
+
+    private static String getSoapActionAnnotationFromMethod(Method method) throws BusinessException {
+        for(Annotation annotation: method.getAnnotations()) {
+            if(annotation.annotationType() == WebMethod.class) {
+                return ((WebMethod)annotation).action();
+            }
+        }
+        throw new BusinessException("SoapAction from JaxWsServiceInterface not found");
+    }
+	
+	
 	
 	public static Document parseFileStream2Document(InputStream contentAsStream) throws BusinessException {
 		Document parsedDoc = null;

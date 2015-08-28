@@ -8,6 +8,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 import de.codecentric.namespace.weatherservice.WeatherService;
+import de.codecentric.soap.common.BusinessException;
 import de.codecentric.soap.soaprawclient.SoapRawClient;
 
 @Configuration
@@ -41,7 +42,7 @@ public class WebServiceTestConfiguration {
 	
 
 	@Bean
-	public SoapRawClient soapRawClient() {
-		return new SoapRawClient(buildUrl());
+	public SoapRawClient soapRawClient() throws BusinessException {
+		return new SoapRawClient(buildUrl(), WeatherService.class);
 	}
 }
