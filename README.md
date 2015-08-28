@@ -74,8 +74,6 @@ Testing your configured ELK-Stack is easy by using [SOAP-UI]´s Load-Test-Featur
 
 ### Todo's
 
-* Use Spring Boot Admin / actuator 
-* Monitor with e.g. ELK
 * Spring Boot Starter CXF
 * Functional plausibility check of request-data with [decision tables]
 
