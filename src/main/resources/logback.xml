@@ -12,7 +12,7 @@
 		<!-- encoder is required -->
 	   <encoder class="net.logstash.logback.encoder.LogstashEncoder">
 	   	<includeCallerData>true</includeCallerData>
-	   	<customFields>{"appname":"SOAPWeatherService"}</customFields>
+	   	<customFields>{"service_name":"WeatherService 1.0"}</customFields>
 	   	<fieldNames>
 	   		<message>log-msg</message>
 	   	</fieldNames>
