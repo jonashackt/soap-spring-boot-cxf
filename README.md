@@ -72,13 +72,13 @@ Testing your configured ELK-Stack is easy by using [SOAP-UI]´s Load-Test-Featur
 * Loganalysis with ELK-Stack
 * SOAP-Messages-Only logged and formatted for Analysis
 * Webservice-Method that returns a PDF-File (you can view the base64-encoded String inside the Webservice´ Response with a small Angular/Boot-App I wrote for that: [base64gular])
+* PDF-Test with asserts of the PDF-contents via [Pdfbox]
 
 ### Todo's
 
 * Spring Boot Starter CXF
 * Functional plausibility check of request-data with [decision tables]
 * Configure Servicename in logback.xml from static fields
-* PDF-Test with asserts of the PDF-contents via [Pdfbox]
 
 
 [Spring]:https://spring.io
