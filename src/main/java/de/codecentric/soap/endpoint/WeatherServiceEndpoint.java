@@ -7,9 +7,10 @@ import javax.xml.ws.WebServiceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import de.codecentric.namespace.weatherservice.WeatherService;
-import de.codecentric.namespace.weatherservice.datatypes.ArrayOfWeatherDescription;
+import de.codecentric.namespace.weatherservice.datatypes.WeatherOverviewPdf;
 import de.codecentric.namespace.weatherservice.general.ForecastRequest;
 import de.codecentric.namespace.weatherservice.general.ForecastReturn;
+import de.codecentric.namespace.weatherservice.general.WeatherInformationReturn;
 import de.codecentric.namespace.weatherservice.general.WeatherReturn;
 import de.codecentric.soap.common.BusinessException;
 import de.codecentric.soap.common.SoapFrameworkLogger;
@@ -28,10 +29,18 @@ public class WeatherServiceEndpoint implements WeatherService {
 	WebServiceContext wsContext;  
     
 	@Override
-	public ArrayOfWeatherDescription getWeatherInformation() {
+	public WeatherInformationReturn getWeatherInformation(String zip) {
 		LOG.successfullyCalledServeEndpointWithMethod("getWeatherInformation");
-		//TODO: Fill with some data
-		return null;
+		try {
+			return weatherServiceController.getWeatherInformation(zip);
+		
+		} catch (BusinessException exception) {
+			LOG.errorAccuredInBackendProcessing(exception);
+			WeatherInformationReturn weatherInformationReturn = new WeatherInformationReturn();
+			weatherInformationReturn.setSuccess(false);
+			weatherInformationReturn.setResponseText(exception.getMessage());
+		    return weatherInformationReturn;
+		}
 	}
 
 	@Override

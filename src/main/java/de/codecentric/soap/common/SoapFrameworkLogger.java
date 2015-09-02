@@ -70,6 +70,10 @@ public class SoapFrameworkLogger {
 	public BusinessException problemReadingOrMarshallingDummyResponse(Throwable cause) {
 		return new BusinessException(logDebugAndBuildExceptionMessage("905", "Problem reading or marshalling Dummy-Response: {}", cause.getMessage()), cause);
 	}
+	
+	public BusinessException problemReadingPdf(Throwable cause) {
+		return new BusinessException(logDebugAndBuildExceptionMessage("906", "Problem reading Pdf-File: {}", cause.getMessage()), cause);
+	}
 
 	
 	

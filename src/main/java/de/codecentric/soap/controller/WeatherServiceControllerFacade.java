@@ -10,6 +10,8 @@ import de.codecentric.namespace.weatherservice.general.ForecastRequest;
 import de.codecentric.namespace.weatherservice.general.ForecastReturn;
 import de.codecentric.namespace.weatherservice.general.GetCityForecastByZIPResponse;
 import de.codecentric.namespace.weatherservice.general.GetCityWeatherByZIPResponse;
+import de.codecentric.namespace.weatherservice.general.GetWeatherInformationResponse;
+import de.codecentric.namespace.weatherservice.general.WeatherInformationReturn;
 import de.codecentric.namespace.weatherservice.general.WeatherReturn;
 import de.codecentric.soap.common.BusinessException;
 import de.codecentric.soap.common.SoapFrameworkLogger;
@@ -30,6 +32,9 @@ public class WeatherServiceControllerFacade implements WeatherServiceController 
     
     @Value(value="classpath:responses/GetCityWeatherByZIPDummyResponse.xml")
     private Resource dummyResponseGetCityWeatherByZIP;
+    
+    @Value(value="classpath:responses/GetWeatherInformationDummyResponse.xml")
+    private Resource dummyResponseGetWeatherInformation;
 	
 	@Override
 	public ForecastReturn getCityForecastByZIP(ForecastRequest forecastRequest) throws BusinessException {
@@ -43,6 +48,12 @@ public class WeatherServiceControllerFacade implements WeatherServiceController 
 		return getResponseObjectFromFile(dummyResponseGetCityWeatherByZIP, GetCityWeatherByZIPResponse.class).getGetCityWeatherByZIPResult();
 	}
 
+	@Override
+	public WeatherInformationReturn getWeatherInformation(String zip) throws BusinessException {
+		LOG.facadeModeReturningDummyResponseWithResponseType(WeatherInformationReturn.class);
+		return getResponseObjectFromFile(dummyResponseGetWeatherInformation, GetWeatherInformationResponse.class).getGetWeatherInformationResult();
+	}
+	
 	private <R> R getResponseObjectFromFile(Resource dummyFile, Class<R> responseClass) throws BusinessException {
 		R dummyResponse = null;
 		try {

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import de.codecentric.namespace.weatherservice.general.ForecastRequest;
 import de.codecentric.namespace.weatherservice.general.ForecastReturn;
+import de.codecentric.namespace.weatherservice.general.WeatherInformationReturn;
 import de.codecentric.namespace.weatherservice.general.WeatherReturn;
 import de.codecentric.soap.backend.WeatherBackend;
 import de.codecentric.soap.common.BusinessException;
@@ -14,6 +15,7 @@ import de.codecentric.soap.internalmodel.Site;
 import de.codecentric.soap.transformation.GetByZIPInMapper;
 import de.codecentric.soap.transformation.GetCityForecastByZIPOutMapper;
 import de.codecentric.soap.transformation.GetCityWeatherByZIPOutMapper;
+import de.codecentric.soap.transformation.GetWeatherInformationOutMapper;
 
 /*
  *  Example-Controller:
@@ -61,5 +63,17 @@ public class WeatherServiceControllerImpl implements WeatherServiceController {
 		
 		LOG.transformInternalModel2OutgoingJaxbObjects();
 		return GetCityWeatherByZIPOutMapper.mapGeneralOutlook2Weather(generalOutlook);
+	}
+
+	@Override
+	public WeatherInformationReturn getWeatherInformation(String zip) throws BusinessException {
+		LOG.transformIncomingJaxbObjects2InternalModel();
+		// Nothing to do here
+		
+		LOG.callBackendWithInternalModel();
+		byte[] pdf = weatherBackend.getWeatherInformationPdf(zip);
+		
+		LOG.transformInternalModel2OutgoingJaxbObjects();
+		return GetWeatherInformationOutMapper.mapPdf2WeatherOverviewPdf(pdf);
 	}
 }
