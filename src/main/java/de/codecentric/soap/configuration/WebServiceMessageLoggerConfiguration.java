@@ -1,6 +1,7 @@
 package de.codecentric.soap.configuration;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.Filter;
 
 import org.apache.cxf.bus.spring.SpringBus;
 import org.apache.cxf.interceptor.AbstractLoggingInterceptor;
@@ -42,5 +43,11 @@ public class WebServiceMessageLoggerConfiguration {
 		LoggingOutInterceptor logOutInterceptor = new LoggingOutInterceptorXmlOnly();
 		logOutInterceptor.setPrettyLogging(true);
 		return logOutInterceptor; 
+	}
+	
+	// Register Filter for Correlating Logmessages from the same Service-Consumer
+	@Bean
+	public Filter filter() {
+	    return new WebServiceLogCorrelationFilter();
 	}
 }

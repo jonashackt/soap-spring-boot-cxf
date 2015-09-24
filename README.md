@@ -73,6 +73,7 @@ Testing your configured ELK-Stack is easy by using [SOAP-UI]´s Load-Test-Featur
 * SOAP-Messages-Only logged and formatted for Analysis
 * Webservice-Method that returns a PDF-File (you can view the base64-encoded String inside the Webservice´ Response with a small Angular/Boot-App I wrote for that: [base64gular])
 * PDF-Test with asserts of the PDF-contents via [Pdfbox]
+* Correlate all Log-Messages (Selfmade + ApacheCXFs SOAP-Messages) within one Service-Consumer`s Call in Kibana via logback´s [MDC], placed in a Servlet-Filter
 
 ### Todo's
 
@@ -100,3 +101,4 @@ Testing your configured ELK-Stack is easy by using [SOAP-UI]´s Load-Test-Featur
 [docker-machine]:https://docs.docker.com/machine/get-started/
 [Pdfbox]:https://pdfbox.apache.org/index.html
 [base64gular]:https://github.com/jonashackt/base64gular
+[MDC]:http://logback.qos.ch/manual/mdc.html
