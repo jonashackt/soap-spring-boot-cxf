@@ -1,4 +1,4 @@
-package de.codecentric.soap.configuration;
+package de.codecentric.soap.configuration.logging;
 
 import java.io.IOException;
 import java.util.UUID;
