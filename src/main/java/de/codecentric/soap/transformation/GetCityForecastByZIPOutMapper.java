@@ -12,8 +12,8 @@ import de.codecentric.namespace.weatherservice.datatypes.Forecast;
 import de.codecentric.namespace.weatherservice.datatypes.POP;
 import de.codecentric.namespace.weatherservice.datatypes.Temp;
 import de.codecentric.namespace.weatherservice.general.ForecastReturn;
-import de.codecentric.soap.common.SoapFrameworkLogger;
 import de.codecentric.soap.internalmodel.GeneralOutlook;
+import de.codecentric.soap.logging.SoapFrameworkLogger;
 
 public final class GetCityForecastByZIPOutMapper {
 

@@ -12,7 +12,7 @@ import com.ctc.wstx.exc.WstxException;
 import com.ctc.wstx.exc.WstxUnexpectedCharException;
 
 import de.codecentric.soap.common.FaultConst;
-import de.codecentric.soap.common.SoapFrameworkLogger;
+import de.codecentric.soap.logging.SoapFrameworkLogger;
 
 public class WeatherServiceXmlValidationInterceptor extends AbstractSoapInterceptor {
 

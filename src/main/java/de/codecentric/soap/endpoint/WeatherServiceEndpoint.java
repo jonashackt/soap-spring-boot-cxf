@@ -13,8 +13,8 @@ import de.codecentric.namespace.weatherservice.general.ForecastReturn;
 import de.codecentric.namespace.weatherservice.general.WeatherInformationReturn;
 import de.codecentric.namespace.weatherservice.general.WeatherReturn;
 import de.codecentric.soap.common.BusinessException;
-import de.codecentric.soap.common.SoapFrameworkLogger;
 import de.codecentric.soap.controller.WeatherServiceController;
+import de.codecentric.soap.logging.SoapFrameworkLogger;
 
 @WebService(endpointInterface = "de.codecentric.namespace.weatherservice.WeatherService",
 serviceName = "WeatherService")

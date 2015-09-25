@@ -1,8 +1,11 @@
-package de.codecentric.soap.common;
+package de.codecentric.soap.logging;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.helpers.MessageFormatter;
+
+import de.codecentric.soap.common.BusinessException;
+import de.codecentric.soap.common.FaultConst;
 
 public class SoapFrameworkLogger {
 

@@ -9,9 +9,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import de.codecentric.soap.common.BusinessException;
-import de.codecentric.soap.common.SoapFrameworkLogger;
 import de.codecentric.soap.internalmodel.GeneralOutlook;
 import de.codecentric.soap.internalmodel.Site;
+import de.codecentric.soap.logging.SoapFrameworkLogger;
 
 @Service
 public class WeatherBackend {

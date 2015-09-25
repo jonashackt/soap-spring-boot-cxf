@@ -14,8 +14,8 @@ import de.codecentric.namespace.weatherservice.general.GetWeatherInformationResp
 import de.codecentric.namespace.weatherservice.general.WeatherInformationReturn;
 import de.codecentric.namespace.weatherservice.general.WeatherReturn;
 import de.codecentric.soap.common.BusinessException;
-import de.codecentric.soap.common.SoapFrameworkLogger;
 import de.codecentric.soap.common.XmlUtils;
+import de.codecentric.soap.logging.SoapFrameworkLogger;
 
 /*
  *  Facade-Controller:

@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Profile;
 
 import de.codecentric.soap.configuration.logging.LoggingInInterceptorXmlOnly;
 import de.codecentric.soap.configuration.logging.LoggingOutInterceptorXmlOnly;
-import de.codecentric.soap.configuration.logging.WebServiceLogCorrelationFilter;
+import de.codecentric.soap.logging.LogCorrelationFilter;
 
 @Configuration
 @Profile("logsoapmessages")
@@ -49,6 +49,6 @@ public class WebServiceMessageLoggerConfiguration {
 	// Register Filter for Correlating Logmessages from the same Service-Consumer
 	@Bean
 	public Filter filter() {
-	    return new WebServiceLogCorrelationFilter();
+	    return new LogCorrelationFilter();
 	}
 }

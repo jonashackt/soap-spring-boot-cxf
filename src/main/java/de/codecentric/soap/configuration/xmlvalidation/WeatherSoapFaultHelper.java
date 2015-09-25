@@ -6,8 +6,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import de.codecentric.soap.common.FaultConst;
-import de.codecentric.soap.common.SoapFrameworkLogger;
 import de.codecentric.soap.common.XmlUtils;
+import de.codecentric.soap.logging.SoapFrameworkLogger;
 import de.codecentric.soap.transformation.WeatherOutError;
 
 public final class WeatherSoapFaultHelper {

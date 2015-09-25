@@ -1,4 +1,4 @@
-package de.codecentric.soap.configuration.logging;
+package de.codecentric.soap.logging;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -32,7 +32,7 @@ import org.slf4j.MDC;
  * For that requirement a Servlet-Filter comes in handy, because it´s ability in giving a starting
  * point before CXF and a finally-block after it. 
  */
-public class WebServiceLogCorrelationFilter implements Filter {
+public class LogCorrelationFilter implements Filter {
 
     public static final String ID_KEY = "service-call-id";
     
