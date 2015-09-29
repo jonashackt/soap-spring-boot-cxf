@@ -80,6 +80,7 @@ Testing your configured ELK-Stack is easy by using [SOAP-UI]´s Load-Test-Featur
 * Spring Boot Starter CXF
 * Functional plausibility check of request-data with [decision tables]
 * Configure Servicename in logback.xml from static fields
+* Fault Tolerance with Hystrix (e.g. to avoid problems because of accumulated TimeOuts)
 
 
 [Spring]:https://spring.io
