@@ -1,0 +1,1 @@
+web java -Dserver.port=$PORT $JAVA_OPTS -jar target/soap-spring-boot-cxf-0.0.5-SNAPSHOT.jar
