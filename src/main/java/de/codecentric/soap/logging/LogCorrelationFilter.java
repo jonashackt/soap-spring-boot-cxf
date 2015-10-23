@@ -48,7 +48,7 @@ public class LogCorrelationFilter implements Filter {
             chain.doFilter(request, response);
         } finally {
             // finally remove unique-Logging-Id, so that it could´nt be accidentally
-            // reused for another Customer-Request
+            // reused for another Consumer-Request
             MDC.remove(ID_KEY);
         }       
     }

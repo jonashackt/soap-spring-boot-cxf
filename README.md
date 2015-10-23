@@ -74,6 +74,7 @@ Testing your configured ELK-Stack is easy by using [SOAP-UI]´s Load-Test-Featur
 * Webservice-Method that returns a PDF-File (you can view the base64-encoded String inside the Webservice´ Response with a small Angular/Boot-App I wrote for that: [base64gular])
 * PDF-Test with asserts of the PDF-contents via [Pdfbox]
 * Correlate all Log-Messages (Selfmade + ApacheCXFs SOAP-Messages) within the Scope of one Service-Consumer`s Call in Kibana via logback´s [MDC], placed in a Servlet-Filter
+* Deployment to [Heroku], with inspiration from my colleague´s [blogpost] - see it in action (maybe you have to wait a while, cause it´s just a free Heroku-Dyno) [here] - or call it via [SOAP-UI]
 
 ### Todo's
 
@@ -81,6 +82,7 @@ Testing your configured ELK-Stack is easy by using [SOAP-UI]´s Load-Test-Featur
 * Functional plausibility check of request-data with [decision tables]
 * Configure Servicename in logback.xml from static fields
 * Fault Tolerance with Hystrix (e.g. to avoid problems because of accumulated TimeOuts)
+
 
 
 [Spring]:https://spring.io
@@ -103,3 +105,6 @@ Testing your configured ELK-Stack is easy by using [SOAP-UI]´s Load-Test-Featur
 [Pdfbox]:https://pdfbox.apache.org/index.html
 [base64gular]:https://github.com/jonashackt/base64gular
 [MDC]:http://logback.qos.ch/manual/mdc.html
+[Heroku]:https://www.heroku.com/home
+[blogpost]:https://blog.codecentric.de/en/2015/10/deploying-spring-boot-applications-to-heroku/
+[here]:https://soap-spring-boot-cxf.herokuapp.com/soap-api
