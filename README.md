@@ -58,6 +58,13 @@ For Mac-Users remember the new [docker-machine] superseeding boot2docker.
 
 Testing your configured ELK-Stack is easy by using [SOAP-UI]´s Load-Test-Feature.
 
+After having set up your ELK-Stack and logs are transferred via logstash into Elasticsearch and you activated SOAP-Message-Logging as shown in the CXF-WebService-Configuration, you for shure want to play aroung with the [Kibana´s Visualisation-Features]. And in the end you also want a [Dashboard] configured to show all your stylish Visualisations. You could end up with something like that:
+
+![Kibana-Dashboard for SOAP-Message Analytics](https://github.com/jonashackt/soap-spring-boot-cxf/blob/master/kibana_SOAP-Analytics_dashboard.png)
+
+If if you can´t wait to start or the tutorials are [tldr;], then import my [kibana_export.json](https://github.com/jonashackt/soap-spring-boot-cxf/blob/master/kibana_export.json) as an example.
+
+
 ### Done´s
 * No XML-configuration, also for undocumented CXF-details :)
 * Readable Namespace-Prefixes
@@ -70,10 +77,10 @@ Testing your configured ELK-Stack is easy by using [SOAP-UI]´s Load-Test-Featur
 * Logging-Framework for centralization of logging and message-creation, including chance to define individial logging-Ids
 * Log SoapMessages to logfile (configurable)
 * Loganalysis with ELK-Stack
+* Correlate all Log-Messages (Selfmade + ApacheCXFs SOAP-Messages) within the Scope of one Service-Consumer`s Call in Kibana via logback´s [MDC], placed in a Servlet-Filter
 * SOAP-Messages-Only logged and formatted for Analysis
 * Webservice-Method that returns a PDF-File (you can view the base64-encoded String inside the Webservice´ Response with a small Angular/Boot-App I wrote for that: [base64gular])
 * PDF-Test with asserts of the PDF-contents via [Pdfbox]
-* Correlate all Log-Messages (Selfmade + ApacheCXFs SOAP-Messages) within the Scope of one Service-Consumer`s Call in Kibana via logback´s [MDC], placed in a Servlet-Filter
 * Deployment to [Heroku], with inspiration from my colleague´s [blogpost] - see it in action (maybe you have to wait a while, cause it´s just a free Heroku-Dyno) [here] - or call it via [SOAP-UI]
 
 ### Todo's
@@ -108,3 +115,6 @@ Testing your configured ELK-Stack is easy by using [SOAP-UI]´s Load-Test-Featur
 [Heroku]:https://www.heroku.com/home
 [blogpost]:https://blog.codecentric.de/en/2015/10/deploying-spring-boot-applications-to-heroku/
 [here]:https://soap-spring-boot-cxf.herokuapp.com/soap-api
+[Kibana´s Visualisation-Features]:https://www.timroes.de/2015/02/07/kibana-4-tutorial-part-3-visualize/
+[Dashboard]:https://www.timroes.de/2015/02/07/kibana-4-tutorial-part-4-dashboard/
+[tldr;]:https://en.wiktionary.org/wiki/TLDR
