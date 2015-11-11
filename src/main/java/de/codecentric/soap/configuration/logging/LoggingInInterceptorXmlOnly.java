@@ -27,15 +27,29 @@ public class LoggingInInterceptorXmlOnly extends LoggingInInterceptor {
     }
 
 	private String extractSoapMethodNameFromHttpHeader(String header) {
-		// Without Escapes for Java-String: (?<=SOAPAction=\["urn:)[a-zA-Z]+(?=\"]) 
-		String regex_find_soap_method_name_in_http_header = "(?<=SOAPAction=\\[\"urn:)[a-zA-Z]+(?=\"])";
+		// Regex for SOAPAction with "urn:" inside - Without Escapes for Java-String: (?<=SOAPAction=\["urn:)[a-zA-Z]+(?=\"]) 
+	    String regex_find_soap_method_name_in_http_header_format_with_urn = "(?<=SOAPAction=\\[\"urn:)[a-zA-Z]+(?=\"])";
+	    // Regex for SOAPAction with an URL inside - Without Escapes for Java-String: (?<=SOAPAction=\[")[:./a-zA-Z]+(?=\"]) 
+		String regex_find_soap_method_name_in_http_header_format_with_url = "(?<=SOAPAction=\\[\")[:./a-zA-Z]+(?=\"])";
 		
-        Pattern pattern = Pattern.compile(regex_find_soap_method_name_in_http_header);
-        Matcher matcher = pattern.matcher(header);
-        if (matcher.find())
-        {
-            return(matcher.group(0));
+        Matcher matcher = buildMatcher(header, regex_find_soap_method_name_in_http_header_format_with_urn);
+        if (matcher.find()) {
+            return matcher.group(0);
+        }
+        matcher = buildMatcher(header, regex_find_soap_method_name_in_http_header_format_with_url);
+        if (matcher.find()) {
+            return eliminateStartingUrl(matcher.group(0));
         }
         return ""; // This should´nt happen in reality, because the SOAP-Spec demands the SOAP-Service-Method as SOAPAction
 	}
+
+    private String eliminateStartingUrl(String methodWithUrl) {
+        int lastSlash = methodWithUrl.lastIndexOf("/");
+        return methodWithUrl.substring(lastSlash + 1);
+    }
+
+    private Matcher buildMatcher(String string2SearchIn, String regex) {
+        Pattern pattern = Pattern.compile(regex);
+        return pattern.matcher(string2SearchIn);
+    }
 }
