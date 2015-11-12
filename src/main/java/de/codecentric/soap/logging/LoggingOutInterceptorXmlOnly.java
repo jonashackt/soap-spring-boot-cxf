@@ -1,4 +1,4 @@
-package de.codecentric.soap.configuration.logging;
+package de.codecentric.soap.logging;
 
 import org.apache.cxf.interceptor.LoggingMessage;
 import org.apache.cxf.interceptor.LoggingOutInterceptor;

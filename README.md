@@ -78,6 +78,7 @@ If if you can´t wait to start or the tutorials are [tldr;], then import my [kib
 * Log SoapMessages to logfile (configurable)
 * Loganalysis with ELK-Stack
 * Correlate all Log-Messages (Selfmade + ApacheCXFs SOAP-Messages) within the Scope of one Service-Consumer`s Call in Kibana via logback´s [MDC], placed in a Servlet-Filter
+* Extract SOAP-Service-Method for Loganalysis
 * SOAP-Messages-Only logged and formatted for Analysis
 * Webservice-Method that returns a PDF-File (you can view the base64-encoded String inside the Webservice´ Response with a small Angular/Boot-App I wrote for that: [base64gular])
 * PDF-Test with asserts of the PDF-contents via [Pdfbox]
