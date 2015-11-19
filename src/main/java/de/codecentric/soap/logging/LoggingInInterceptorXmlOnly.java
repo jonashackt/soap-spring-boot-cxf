@@ -15,10 +15,11 @@ public class LoggingInInterceptorXmlOnly extends LoggingInInterceptor {
         StringBuilder buffer = new StringBuilder();
         
         String headers = loggingMessage.getHeader().toString();
-        LOG.logHttpHeader(headers);
         
         String soapMethodName = CxfLoggingSoapActionUtil.extractSoapMethodNameFromHttpHeader(headers);
         MDC.put(SOAP_METHOD_LOG_NAME, soapMethodName);
+        
+        LOG.logHttpHeader(headers);
         
         // Only write the Payload (SOAP-Xml) to Logger
         if (loggingMessage.getPayload().length() > 0) {
