@@ -1,5 +1,7 @@
 package de.codecentric.soap.logging;
 
+import static net.logstash.logback.marker.Markers.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.helpers.MessageFormatter;
@@ -20,31 +22,41 @@ public class SoapFrameworkLogger {
 	}
 	
 	/*
-	 * Infos
+	 * Framework - 0xx
 	 */
+	public void logHttpHeader(String headers) {
+		// see https://github.com/logstash/logstash-logback-encoder/tree/logstash-logback-encoder-4.5#event-specific-custom-fields
+		// net.logstash.logback.marker.Markers.append() enables to directly push a field into elasticsearch, only for one message
+		delegateLogger.info(append("http-header-inbound", headers), "000 >>> Header in Inbound-HTTP-Message: {}", headers);
+	}
+	
 	public void successfullyCalledServeEndpointWithMethod(String calledServiceMethod) {
 		logInfo("001", "The Serviceendpoint was called successfully with the Method '{}()' - handing over to internal processing.", calledServiceMethod);
 	}
 	
+	
+	/*
+	 * Controller procedure - 1xx
+	 */
 	public void transformIncomingJaxbObjects2InternalModel() {
-		logInfo("002", "Transformation of incoming JAXB-Bind Objects to internal Model");
+		logInfo("100", "Transformation of incoming JAXB-Bind Objects to internal Model");
 	}
 	
 	public void callBackendWithInternalModel() {
-		logInfo("003", "Call Backend with internal Model");
+		logInfo("101", "Call Backend with internal Model");
 	}
 	
 	public void transformInternalModel2OutgoingJaxbObjects() {
-		logInfo("004", "Transformation internal Model to outgoing JAXB-Bind Objects");
+		logInfo("102", "Transformation internal Model to outgoing JAXB-Bind Objects");
 	}
 	
 	public void checkInternalModelsFunctionalPlausibilityAfterRequest() {
-		logInfo("005", "Check internal models functional plausibility after Request");
+		logInfo("103", "Check internal models functional plausibility after Request");
 	}
 	
 	
 	/*
-	 * Facade-Mode
+	 * Facade-Mode - 5xx
 	 */
 	public <T> void facadeModeReturningDummyResponseWithResponseType(Class<T> responseType) {
 		logDebug("501", "Facade-Mode: Returning Dummy-Response with ResponseType {}", responseType);
@@ -52,7 +64,7 @@ public class SoapFrameworkLogger {
 	
 	
 	/*
-	 * Errors
+	 * Errors - 9xx
 	 */
 	public void errorAccuredInBackendProcessing(Throwable cause) {
 		logError("901", "An Error accured in backend-processing: {}", cause.getMessage());
