@@ -25,6 +25,24 @@ public class CxfLoggingSoapActionUtilTest {
     }
     
     @Test
+    public void testSoapActionStringWithUrnWithoutQuotes() {
+     // Given
+        String soapActionString = "{accept-encoding=[gzip,deflate], "
+                + "connection=[Keep-Alive], "
+                + "Content-Length=[260], "
+                + "content-type=[text/xml;charset=UTF-8], "
+                + "host=[localhost:8095], "
+                + "SOAPAction=[urn:GetWeatherInformation], "
+                + "user-agent=[Apache-HttpClient/4.1.1 (java 1.5)]}";
+        
+        // When
+        String soapMethodName = CxfLoggingSoapActionUtil.extractSoapMethodNameFromHttpHeader(soapActionString);
+        
+        // Then
+        assertEquals("GetWeatherInformation", soapMethodName);
+    }
+    
+    @Test
     public void testSoapActionStringWithUrl() {
         // Given
         String soapActionString = "{accept-encoding=[gzip,deflate], "

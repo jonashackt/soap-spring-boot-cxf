@@ -7,6 +7,8 @@ public final class CxfLoggingSoapActionUtil {
 
     // (?<=SOAPAction=\["urn:)[a-zA-Z]+(?=\"]) 
     private static final String REGEX_FIND_SOAP_METHOD_NAME_IN_HTTP_HEADER_WITH_URN = "(?<=SOAPAction=\\[\"urn:)[a-zA-Z]+(?=\"])";
+    // (?<=SOAPAction=\[urn:)[a-zA-Z]+(?=\]) 
+    private static final String REGEX_FIND_SOAP_METHOD_NAME_IN_HTTP_HEADER_WITH_URN_WITHOUT_QUOTES = "(?<=SOAPAction=\\[urn:)[a-zA-Z]+(?=\\])";
     // (?<=SOAPAction=\[")[:./a-zA-Z]+(?=\"]) 
     private static final String REGEX_FIND_SOAP_METHOD_NAME_IN_HTTP_HEADER_WITH_URL = "(?<=SOAPAction=\\[\")[:./a-zA-Z]+(?=\"])";
      
@@ -14,6 +16,10 @@ public final class CxfLoggingSoapActionUtil {
         Matcher matcher = buildMatcher(header, REGEX_FIND_SOAP_METHOD_NAME_IN_HTTP_HEADER_WITH_URN);
         if (matcher.find()) {
             return matcher.group(0);
+        }
+        matcher = buildMatcher(header, REGEX_FIND_SOAP_METHOD_NAME_IN_HTTP_HEADER_WITH_URN_WITHOUT_QUOTES);
+        if (matcher.find()) {
+        	 return matcher.group(0);
         }
         matcher = buildMatcher(header, REGEX_FIND_SOAP_METHOD_NAME_IN_HTTP_HEADER_WITH_URL);
         if (matcher.find()) {
