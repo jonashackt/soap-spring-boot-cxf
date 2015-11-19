@@ -23,7 +23,7 @@ public final class CxfLoggingSoapActionUtil {
     }
 
     private static String eliminateStartingUrl(String methodWithUrl) {
-        int lastSlash = methodWithUrl.lastIndexOf("/");
+        int lastSlash = methodWithUrl.lastIndexOf('/');
         return methodWithUrl.substring(lastSlash + 1);
     }
 

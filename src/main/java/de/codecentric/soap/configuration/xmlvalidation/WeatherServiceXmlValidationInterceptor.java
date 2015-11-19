@@ -31,8 +31,7 @@ public class WeatherServiceXmlValidationInterceptor extends AbstractSoapIntercep
 	    if (containsFaultIndicatingNotSchemeCompliantXml(faultCause, faultMessage)) { 
 	    	LOG.schemaValidationError(FaultConst.SCHEME_VALIDATION_ERROR, faultMessage);
 	    	WeatherSoapFaultHelper.buildWeatherFaultAndSet2SoapMessage(soapMessage, FaultConst.SCHEME_VALIDATION_ERROR);
-	    }	    
-	    if (containsFaultIndicatingSyntacticallyIncorrectXml(faultCause)) {
+	    } else if (containsFaultIndicatingSyntacticallyIncorrectXml(faultCause)) {
 	    	LOG.schemaValidationError(FaultConst.SYNTACTICALLY_INCORRECT_XML_ERROR, faultMessage);
 	    	WeatherSoapFaultHelper.buildWeatherFaultAndSet2SoapMessage(soapMessage, FaultConst.SYNTACTICALLY_INCORRECT_XML_ERROR);	        
 	    }
