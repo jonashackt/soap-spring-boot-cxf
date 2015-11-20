@@ -11,6 +11,9 @@ import de.codecentric.soap.common.FaultConst;
 
 public class SoapFrameworkLogger {
 
+    private static final String EL_FIELD_HTTP_HEADER_INBOUND = "http-header-inbound";
+    private static final String EL_FIELD_SOAP_MESSAGE_INBOUND = "soap-message-inbound";
+    
 	private Logger delegateLogger;
 	
 	private SoapFrameworkLogger() {};
@@ -24,14 +27,19 @@ public class SoapFrameworkLogger {
 	/*
 	 * Framework - 0xx
 	 */
+	// see https://github.com/logstash/logstash-logback-encoder/tree/logstash-logback-encoder-4.5#event-specific-custom-fields
+    // net.logstash.logback.marker.Markers.append() enables to directly push a field into elasticsearch, only for one message
+    
 	public void logHttpHeader(String headers) {
-		// see https://github.com/logstash/logstash-logback-encoder/tree/logstash-logback-encoder-4.5#event-specific-custom-fields
-		// net.logstash.logback.marker.Markers.append() enables to directly push a field into elasticsearch, only for one message
-		delegateLogger.info(append("http-header-inbound", headers), "000 >>> Header in Inbound-HTTP-Message: {}", headers);
+		delegateLogger.info(append(EL_FIELD_HTTP_HEADER_INBOUND, headers), "000 >>> Header in Inbound-HTTP-Message see Elasticsearch-Field '{}'", EL_FIELD_HTTP_HEADER_INBOUND);
 	}
 	
+	public void logSoapMessage(String headers) {
+        delegateLogger.info(append(EL_FIELD_SOAP_MESSAGE_INBOUND, headers), "001 >>> Inbound-SoapMessage, see Elasticsearch-Field '{}'", EL_FIELD_SOAP_MESSAGE_INBOUND);
+    }
+	
 	public void successfullyCalledServeEndpointWithMethod(String calledServiceMethod) {
-		logInfo("001", "The Serviceendpoint was called successfully with the Method '{}()' - handing over to internal processing.", calledServiceMethod);
+		logInfo("002", "The Serviceendpoint was called successfully with the Method '{}()' - handing over to internal processing.", calledServiceMethod);
 	}
 	
 	

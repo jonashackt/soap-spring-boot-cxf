@@ -8,6 +8,11 @@
     <logger name="org.apache.catalina" level="WARN"/>
     <logger name="org.apache.tomcat" level="WARN"/>
     <logger name="org.apache.coyote" level="WARN"/>
+    <!-- TODO: Test for Exceptions MailCap and JAXBGeneration at Endpoint-Initialisation -->
+    <logger name="javax.xml.bind" level="WARN" />
+    <logger name="com.sun.xml" level="WARN" />
+    <logger name="javax.activation" level="WARN" />
+    
     
     <!-- Logstash-Configuration -->
 	<!-- For details see https://github.com/logstash/logstash-logback-encoder/tree/logstash-logback-encoder-4.5 -->

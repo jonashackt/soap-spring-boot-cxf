@@ -12,20 +12,20 @@ public class LoggingInInterceptorXmlOnly extends LoggingInInterceptor {
 	
     @Override
     protected String formatLoggingMessage(LoggingMessage loggingMessage) {
-        StringBuilder buffer = new StringBuilder();
-        
         String headers = loggingMessage.getHeader().toString();
         
         String soapMethodName = CxfLoggingSoapActionUtil.extractSoapMethodNameFromHttpHeader(headers);
         MDC.put(SOAP_METHOD_LOG_NAME, soapMethodName);
         
-        LOG.logHttpHeader(headers);
-        
+        StringBuilder buffer = new StringBuilder();
         // Only write the Payload (SOAP-Xml) to Logger
         if (loggingMessage.getPayload().length() > 0) {
-            buffer.append("000 >>> Inbound Message:\n");
-            buffer.append(loggingMessage.getPayload());
+            LOG.logSoapMessage(loggingMessage.getPayload().toString());
         }
+        
+        LOG.logHttpHeader(headers);
+        buffer.append("Called Service Inbound");
+        
         return buffer.toString();
     }
 
