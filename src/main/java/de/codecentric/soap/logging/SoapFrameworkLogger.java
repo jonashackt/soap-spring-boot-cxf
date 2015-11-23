@@ -10,7 +10,6 @@ import de.codecentric.soap.common.BusinessException;
 import de.codecentric.soap.common.FaultConst;
 
 public class SoapFrameworkLogger {
-
     
 	private Logger delegateLogger;
 	
@@ -28,23 +27,21 @@ public class SoapFrameworkLogger {
 	// see https://github.com/logstash/logstash-logback-encoder/tree/logstash-logback-encoder-4.5#event-specific-custom-fields
     // net.logstash.logback.marker.Markers.append() enables to directly push a field into elasticsearch, only for one message
     
+	public void logInboundSoapMessage(String headers) {
+        delegateLogger.info(append(ElasticsearchField.SOAP_MESSAGE_INBOUND.getName(), headers),
+                "❯❯❯ ❯❯❯ Inbound-SoapMessage ❯❯❯ ❯❯❯");
+    }
+    
+    public void logOutboundSoapMessage(String headers) {
+        delegateLogger.info(append(ElasticsearchField.SOAP_MESSAGE_OUTBOUND.getName(), headers),
+                "❮❮❮ ❮❮❮ Outbound-SoapMessage ❮❮❮ ❮❮❮");
+    }
+	
 	public void logHttpHeader(String headers) {
 		delegateLogger.info(append(ElasticsearchField.HTTP_HEADER_INBOUND.getName(), headers),
 		        "001 >>> Header in Inbound-HTTP-Message see Elasticsearch-Field '{}'",
 		        ElasticsearchField.HTTP_HEADER_INBOUND.getName());
 	}
-	
-	public void logInboundSoapMessage(String headers) {
-        delegateLogger.info(append(ElasticsearchField.SOAP_MESSAGE_INBOUND.getName(), headers),
-                "❯❯❯ ❯❯❯ Inbound-SoapMessage, see Elasticsearch-Field '{}'",
-                ElasticsearchField.SOAP_MESSAGE_INBOUND.getName());
-    }
-	
-	public void logOutboundSoapMessage(String headers) {
-        delegateLogger.info(append(ElasticsearchField.SOAP_MESSAGE_OUTBOUND.getName(), headers),
-                "❮❮❮ ❮❮❮ Outbound-SoapMessage, see Elasticsearch-Field '{}'",
-                ElasticsearchField.SOAP_MESSAGE_OUTBOUND.getName());
-    }
 	
 	public void successfullyCalledServeEndpointWithMethod(String calledServiceMethod) {
 		logInfo("002", "The Serviceendpoint was called successfully with the Method '{}()' - handing over to internal processing.", calledServiceMethod);
