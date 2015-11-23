@@ -11,8 +11,6 @@ import de.codecentric.soap.common.FaultConst;
 
 public class SoapFrameworkLogger {
 
-    private static final String EL_FIELD_HTTP_HEADER_INBOUND = "http-header-inbound";
-    private static final String EL_FIELD_SOAP_MESSAGE_INBOUND = "soap-message-inbound";
     
 	private Logger delegateLogger;
 	
@@ -31,11 +29,21 @@ public class SoapFrameworkLogger {
     // net.logstash.logback.marker.Markers.append() enables to directly push a field into elasticsearch, only for one message
     
 	public void logHttpHeader(String headers) {
-		delegateLogger.info(append(EL_FIELD_HTTP_HEADER_INBOUND, headers), "000 >>> Header in Inbound-HTTP-Message see Elasticsearch-Field '{}'", EL_FIELD_HTTP_HEADER_INBOUND);
+		delegateLogger.info(append(ElasticsearchField.HTTP_HEADER_INBOUND.getName(), headers),
+		        "001 >>> Header in Inbound-HTTP-Message see Elasticsearch-Field '{}'",
+		        ElasticsearchField.HTTP_HEADER_INBOUND.getName());
 	}
 	
-	public void logSoapMessage(String headers) {
-        delegateLogger.info(append(EL_FIELD_SOAP_MESSAGE_INBOUND, headers), "001 >>> Inbound-SoapMessage, see Elasticsearch-Field '{}'", EL_FIELD_SOAP_MESSAGE_INBOUND);
+	public void logInboundSoapMessage(String headers) {
+        delegateLogger.info(append(ElasticsearchField.SOAP_MESSAGE_INBOUND.getName(), headers),
+                "❯❯❯ ❯❯❯ Inbound-SoapMessage, see Elasticsearch-Field '{}'",
+                ElasticsearchField.SOAP_MESSAGE_INBOUND.getName());
+    }
+	
+	public void logOutboundSoapMessage(String headers) {
+        delegateLogger.info(append(ElasticsearchField.SOAP_MESSAGE_OUTBOUND.getName(), headers),
+                "❮❮❮ ❮❮❮ Outbound-SoapMessage, see Elasticsearch-Field '{}'",
+                ElasticsearchField.SOAP_MESSAGE_OUTBOUND.getName());
     }
 	
 	public void successfullyCalledServeEndpointWithMethod(String calledServiceMethod) {

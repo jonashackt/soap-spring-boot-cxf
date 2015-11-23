@@ -1,0 +1,19 @@
+package de.codecentric.soap.logging;
+
+public enum ElasticsearchField {
+
+    SOAP_METHOD_LOG_NAME("soap-method-name"),
+    HTTP_HEADER_INBOUND("http-header-inbound"),
+    SOAP_MESSAGE_INBOUND("soap-message-inbound"),
+    SOAP_MESSAGE_OUTBOUND("soap-message-outbound");
+    
+    private String fieldname;
+    
+    private ElasticsearchField(String fieldname) {
+       this.fieldname = fieldname; 
+    }
+    
+    public String getName() {
+        return fieldname;
+    }
+}

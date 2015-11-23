@@ -13,8 +13,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import de.codecentric.soap.logging.LogCorrelationFilter;
-import de.codecentric.soap.logging.LoggingInInterceptorXmlOnly;
-import de.codecentric.soap.logging.LoggingOutInterceptorXmlOnly;
+import de.codecentric.soap.logging.LoggingInInterceptorSlf4jSoapMsgExtractor;
+import de.codecentric.soap.logging.LoggingOutInterceptorSlf4jSoapMsgExtractor;
 
 @Configuration
 @Profile("logsoapmessages")
@@ -34,14 +34,14 @@ public class WebServiceMessageLoggerConfiguration {
 
 	@Bean
 	public AbstractLoggingInterceptor logInInterceptor() {
-	    LoggingInInterceptor logInInterceptor = new LoggingInInterceptorXmlOnly();
+	    LoggingInInterceptor logInInterceptor = new LoggingInInterceptorSlf4jSoapMsgExtractor();
 		// The In-Messages are pretty without setting it, when setting it Apache CXF throws empty lines into the In-Messages
 		return logInInterceptor; 
 	}
 	
 	@Bean
 	public AbstractLoggingInterceptor logOutInterceptor() {
-		LoggingOutInterceptor logOutInterceptor = new LoggingOutInterceptorXmlOnly();
+		LoggingOutInterceptor logOutInterceptor = new LoggingOutInterceptorSlf4jSoapMsgExtractor();
 		logOutInterceptor.setPrettyLogging(true);
 		return logOutInterceptor; 
 	}
