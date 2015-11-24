@@ -29,12 +29,12 @@ public class SoapFrameworkLogger {
     
 	public void logInboundSoapMessage(String headers) {
         delegateLogger.info(append(ElasticsearchField.SOAP_MESSAGE_INBOUND.getName(), headers),
-                "❯❯❯ ❯❯❯ Inbound-SoapMessage ❯❯❯ ❯❯❯");
+                "===[> Inbound-SoapMessage ===[>");
     }
     
     public void logOutboundSoapMessage(String headers) {
         delegateLogger.info(append(ElasticsearchField.SOAP_MESSAGE_OUTBOUND.getName(), headers),
-                "❮❮❮ ❮❮❮ Outbound-SoapMessage ❮❮❮ ❮❮❮");
+                "<]=== Outbound-SoapMessage <]===");
     }
 	
 	public void logHttpHeader(String headers) {
