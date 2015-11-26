@@ -1,10 +1,14 @@
-package de.codecentric.soap.logging;
+package de.codecentric.soap.logging.soapmsg;
 
 import java.util.logging.Logger;
 
 import org.apache.cxf.interceptor.LoggingInInterceptor;
 import org.apache.cxf.interceptor.LoggingMessage;
 import org.slf4j.MDC;
+
+import de.codecentric.soap.logging.CxfLoggingSoapActionUtil;
+import de.codecentric.soap.logging.ElasticsearchField;
+import de.codecentric.soap.logging.SoapFrameworkLogger;
 
 public class LoggingInInterceptorSlf4jSoapMsgExtractor extends LoggingInInterceptor {
 

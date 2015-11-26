@@ -1,8 +1,10 @@
-package de.codecentric.soap.logging;
+package de.codecentric.soap.logging.soapmsg;
 
 import org.apache.cxf.interceptor.LoggingInInterceptor;
 import org.apache.cxf.interceptor.LoggingMessage;
 import org.slf4j.MDC;
+
+import de.codecentric.soap.logging.CxfLoggingSoapActionUtil;
 
 public class LoggingInInterceptorXmlOnly extends LoggingInInterceptor {
 

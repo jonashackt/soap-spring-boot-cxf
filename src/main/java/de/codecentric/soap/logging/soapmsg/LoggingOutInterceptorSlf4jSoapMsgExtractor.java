@@ -1,9 +1,11 @@
-package de.codecentric.soap.logging;
+package de.codecentric.soap.logging.soapmsg;
 
 import java.util.logging.Logger;
 
 import org.apache.cxf.interceptor.LoggingMessage;
 import org.apache.cxf.interceptor.LoggingOutInterceptor;
+
+import de.codecentric.soap.logging.SoapFrameworkLogger;
 
 public class LoggingOutInterceptorSlf4jSoapMsgExtractor extends LoggingOutInterceptor {
 

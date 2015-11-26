@@ -13,8 +13,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import de.codecentric.soap.logging.LogCorrelationFilter;
-import de.codecentric.soap.logging.LoggingInInterceptorSlf4jSoapMsgExtractor;
-import de.codecentric.soap.logging.LoggingOutInterceptorSlf4jSoapMsgExtractor;
+import de.codecentric.soap.logging.soapmsg.LoggingInInterceptorSlf4jSoapMsgExtractor;
+import de.codecentric.soap.logging.soapmsg.LoggingOutInterceptorSlf4jSoapMsgExtractor;
 
 @Configuration
 @Profile("logsoapmessages")

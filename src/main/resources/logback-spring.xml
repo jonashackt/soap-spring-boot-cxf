@@ -3,6 +3,7 @@
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
     <logger name="org.springframework" level="WARN"/>
     <logger name="de.codecentric.soap" level="DEBUG"/>
+    <logger name="de.codecentric.soap.logging.soapmsg" level="INFO"/>
     <logger name="org.apache.cxf" level="INFO"/>
     <logger name="org.apache.pdfbox.util.PDFStreamEngine" level="INFO"/>
 
