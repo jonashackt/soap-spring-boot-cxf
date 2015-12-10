@@ -75,15 +75,17 @@ If if you can´t wait to start or the tutorials are [tldr;], then import my [kib
 * Example of Controller and Mappers, that map to and from an internal Domain-Model - for loose coupling between generated JAXB-Classes and Backends
 * Facade-Mode, that only returns Dummy-Responses, if configured
 * Logging-Framework for centralization of logging and message-creation, including chance to define individial logging-Ids
-* Loganalysis with ELK-Stack
+* Webservice-Method that returns a PDF-File (you can view the base64-encoded String inside the Webservice´ Response with a small Angular/Boot-App I wrote for that: [base64gular])
+* PDF-Test with asserts of the PDF-contents via [Pdfbox]
+* Deployment to [Heroku], with inspiration from my colleague´s [blogpost] - see it in action (maybe you have to wait a while, cause it´s just a free Heroku-Dyno) [here] - or call it via [SOAP-UI]
+
+### Done´s with Loganalysis with ELK-Stack
 * Correlate all Log-Messages (Selfmade + ApacheCXFs SOAP-Messages) within the Scope of one Service-Consumer`s Call in Kibana via logback´s [MDC], placed in a Servlet-Filter
 * Log SOAP-Messages to logfile (configurable)
 * Log SOAP-Messages only to Elasticsearch-Field, not Console (other Implementation)
 * Extract SOAP-Service-Method for Loganalysis
 * SOAP-Messages-Only logged and formatted for Analysis
-* Webservice-Method that returns a PDF-File (you can view the base64-encoded String inside the Webservice´ Response with a small Angular/Boot-App I wrote for that: [base64gular])
-* PDF-Test with asserts of the PDF-contents via [Pdfbox]
-* Deployment to [Heroku], with inspiration from my colleague´s [blogpost] - see it in action (maybe you have to wait a while, cause it´s just a free Heroku-Dyno) [here] - or call it via [SOAP-UI]
+* Added anonymize-logstash-filter for personal data in SOAP-Messages (e.g. for production environments in german companies)
 
 ### Todo's
 
