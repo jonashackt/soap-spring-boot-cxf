@@ -99,9 +99,9 @@ For that purpose there´s no silver bullet out there and one has to choose the r
 
 In our Usecase we have fields, that have to be checked for internal purposes and rules to apply onto these. So I decided to go with two DMN-Decision-Tables:
 
-![WeatherFields2Check-DMN](https://github.com/jonashackt/soap-spring-boot-cxf/blob/master/weatherFields2CheckDMN.png)
+![WeatherFields2Check-DMN](https://github.com/jonashackt/soap-spring-boot-cxf/blob/feature/plausibility-check-with-DMN/weatherFields2CheckDMN.png)
 
-![WeatherRules-DMN](https://github.com/jonashackt/soap-spring-boot-cxf/blob/master/weatherFields2CheckDMN.png)
+![WeatherRules-DMN](https://github.com/jonashackt/soap-spring-boot-cxf/blob/feature/plausibility-check-with-DMN/weatherRulesDMN.png)
 
 
 ## Todo's
