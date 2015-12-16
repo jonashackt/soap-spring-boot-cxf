@@ -10,9 +10,9 @@ import de.codecentric.namespace.weatherservice.general.WeatherReturn;
 import de.codecentric.soap.backend.WeatherBackend;
 import de.codecentric.soap.common.BusinessException;
 import de.codecentric.soap.internalmodel.GeneralOutlook;
-import de.codecentric.soap.internalmodel.Site;
+import de.codecentric.soap.internalmodel.Weather;
 import de.codecentric.soap.logging.SoapFrameworkLogger;
-import de.codecentric.soap.transformation.GetByZIPInMapper;
+import de.codecentric.soap.transformation.GetCityForecastByZIPIn;
 import de.codecentric.soap.transformation.GetCityForecastByZIPOutMapper;
 import de.codecentric.soap.transformation.GetCityWeatherByZIPOutMapper;
 import de.codecentric.soap.transformation.GetWeatherInformationOutMapper;
@@ -35,19 +35,19 @@ public class WeatherServiceControllerImpl implements WeatherServiceController {
 	@Override
 	public ForecastReturn getCityForecastByZIP(ForecastRequest forecastRequest) throws BusinessException {
 	    LOG.transformIncomingJaxbObjects2InternalModel();
-		Site site = GetByZIPInMapper.mapRequest2Zip(forecastRequest);
+		Weather weather = GetCityForecastByZIPIn.mapRequest2Weather(forecastRequest);
 		
 		LOG.checkInternalModelsFunctionalPlausibilityAfterRequest();
-		checkPlausibilityGetCityForecastByZIP(site);
+		checkPlausibilityGetCityForecastByZIP(weather);
 		
 		LOG.callBackendWithInternalModel();
-		GeneralOutlook generalOutlook = weatherBackend.generateGeneralOutlook(site);
+		GeneralOutlook generalOutlook = weatherBackend.generateGeneralOutlook(weather);
 		
 		LOG.transformInternalModel2OutgoingJaxbObjects();
 		return GetCityForecastByZIPOutMapper.mapGeneralOutlook2Forecast(generalOutlook);
 	}
 
-	private void checkPlausibilityGetCityForecastByZIP(Site site) throws BusinessException {
+	private void checkPlausibilityGetCityForecastByZIP(Weather site) throws BusinessException {
 		//TODO:
 		if(false)
 			throw new BusinessException("Error");
@@ -56,7 +56,7 @@ public class WeatherServiceControllerImpl implements WeatherServiceController {
 	@Override
 	public WeatherReturn getCityWeatherByZIP(ForecastRequest forecastRequest) throws BusinessException {
 	    LOG.transformIncomingJaxbObjects2InternalModel();
-		Site site = GetByZIPInMapper.mapRequest2Zip(forecastRequest);
+		Weather site = GetCityForecastByZIPIn.mapRequest2Weather(forecastRequest);
 				
 		LOG.callBackendWithInternalModel();
 		GeneralOutlook generalOutlook = weatherBackend.generateGeneralOutlook(site);

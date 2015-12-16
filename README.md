@@ -47,7 +47,23 @@ Sometimes, you are in need of a facade-mode, where your implementation doesn´t 
 
 For this Scenario, Spring´s powerful but yet easy to use [Profile-Mechanism] will serve you well. In combination with using org.springframework.core.io.Resource to load your Dummy-Response-Files instead of Java´s NIO.2 (that could [fuck you up] because of classloader-differences in other environments than your local machine), your done with that task quite fast.
 
-### Loganalysis with [ELK-Stack]
+
+### Done´s
+* No XML-configuration, also for undocumented CXF-details :)
+* Readable Namespace-Prefixes
+* Testcases with Apache CXF
+* Custom SoapFault, when non-schmeme-compliant or syntactically incorrect XML is send to the service
+* Tests with Raw HTTP-Client for Reaction on syntactically incorrect XML
+* Custom Exception in Weather-WSDL/XSDs
+* Example of Controller and Mappers, that map to and from an internal Domain-Model - for loose coupling between generated JAXB-Classes and Backends
+* Facade-Mode, that only returns Dummy-Responses, if configured
+* Logging-Framework for centralization of logging and message-creation, including chance to define individial logging-Ids
+* Webservice-Method that returns a PDF-File (you can view the base64-encoded String inside the Webservice´ Response with a small Angular/Boot-App I wrote for that: [base64gular])
+* PDF-Test with asserts of the PDF-contents via [Pdfbox]
+* Deployment to [Heroku], with inspiration from my colleague´s [blogpost] - see it in action (maybe you have to wait a while, cause it´s just a free Heroku-Dyno) [here] - or call it via [SOAP-UI]
+
+
+## Loganalysis with [ELK-Stack]
 
 If you´re going some steps further into a more production-ready environment, you´ll need a more indepth view what´s going on with your SOAP-Infrastructure. I used the [ELK-Stack] with Logstash -> Elasticsearch -> Kibana. I used the [logstash-logback-encoder] for getting JSONized Logoutputs directly into logstash´s input-phase.
 
@@ -65,19 +81,6 @@ After having set up your ELK-Stack and logs are transferred via logstash into El
 If if you can´t wait to start or the tutorials are [tldr;], then import my [kibana_export.json](https://github.com/jonashackt/soap-spring-boot-cxf/blob/master/kibana_export.json) as an example.
 
 
-### Done´s
-* No XML-configuration, also for undocumented CXF-details :)
-* Readable Namespace-Prefixes
-* Testcases with Apache CXF
-* Custom SoapFault, when non-schmeme-compliant or syntactically incorrect XML is send to the service
-* Tests with Raw HTTP-Client for Reaction on syntactically incorrect XML
-* Custom Exception in Weather-WSDL/XSDs
-* Example of Controller and Mappers, that map to and from an internal Domain-Model - for loose coupling between generated JAXB-Classes and Backends
-* Facade-Mode, that only returns Dummy-Responses, if configured
-* Logging-Framework for centralization of logging and message-creation, including chance to define individial logging-Ids
-* Webservice-Method that returns a PDF-File (you can view the base64-encoded String inside the Webservice´ Response with a small Angular/Boot-App I wrote for that: [base64gular])
-* PDF-Test with asserts of the PDF-contents via [Pdfbox]
-* Deployment to [Heroku], with inspiration from my colleague´s [blogpost] - see it in action (maybe you have to wait a while, cause it´s just a free Heroku-Dyno) [here] - or call it via [SOAP-UI]
 
 ### Done´s with Loganalysis with ELK-Stack
 * Correlate all Log-Messages (Selfmade + ApacheCXFs SOAP-Messages) within the Scope of one Service-Consumer`s Call in Kibana via logback´s [MDC], placed in a Servlet-Filter
@@ -87,7 +90,14 @@ If if you can´t wait to start or the tutorials are [tldr;], then import my [kib
 * SOAP-Messages-Only logged and formatted for Analysis
 * Added anonymize-logstash-filter for personal data in SOAP-Messages (e.g. for production environments in german companies)
 
-### Todo's
+
+
+## Rules with DMN
+
+A very common problem of projects that implement SOAP-Services is, that an internal Domain-Model differs from the externally defined XML-Schema defined Model, where the JAXB-Classes are generated from. Often according to that the need for Validation of data, that comes from transformation from the SOAP-Message, arises. There are many approaches to do that, e.g. BeanValidation and others. The problem with these straight and easy-at-first approaches is, that the functional complexity is often higher, than thought in the first place.
+
+
+## Todo's
 
 * Spring Boot Starter CXF
 * Functional plausibility check of request-data with [decision tables]

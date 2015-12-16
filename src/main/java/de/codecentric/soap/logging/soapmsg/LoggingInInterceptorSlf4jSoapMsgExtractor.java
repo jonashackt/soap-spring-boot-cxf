@@ -12,7 +12,7 @@ import de.codecentric.soap.logging.SoapFrameworkLogger;
 
 public class LoggingInInterceptorSlf4jSoapMsgExtractor extends LoggingInInterceptor {
 
-    private static final SoapFrameworkLogger LOG = SoapFrameworkLogger.getLogger(LoggingInInterceptorXmlOnly.class);
+    private static final SoapFrameworkLogger LOG = SoapFrameworkLogger.getLogger(LoggingInInterceptorSlf4jSoapMsgExtractor.class);
     
     @Override
     protected void log(Logger logger, String message) {

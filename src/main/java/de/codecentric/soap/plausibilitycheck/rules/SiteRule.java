@@ -6,7 +6,7 @@ import org.easyrules.annotation.Rule;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-import de.codecentric.soap.internalmodel.Site;
+import de.codecentric.soap.internalmodel.Weather;
 
 /**
  * When Sites` flagColor is mandatory {@value #flagcolorMandatory} but is Null or the postalcode doesn´t match {@value #postalcodeReqex},
@@ -19,7 +19,7 @@ public class SiteRule {
 
     public static final String ERRORTEXT = "Site´s data isn´t valid!";
     
-    private Site site;
+    private Weather site;
     private String postalcodeReqex;
     private boolean flagcolorMandatory;
     
@@ -35,7 +35,7 @@ public class SiteRule {
         
     }
     
-    public void setSite(Site site) {
+    public void setSite(Weather site) {
         this.site = site;
     }
 
