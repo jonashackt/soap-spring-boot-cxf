@@ -94,7 +94,14 @@ If if you can´t wait to start or the tutorials are [tldr;], then import my [kib
 
 ## Rules with DMN
 
-A very common problem of projects that implement SOAP-Services is, that an internal Domain-Model differs from the externally defined XML-Schema defined Model, where the JAXB-Classes are generated from. Often according to that the need for Validation of data, that comes from transformation from the SOAP-Message, arises. There are many approaches to do that, e.g. BeanValidation and others. The problem with these straight and easy-at-first approaches is, that the functional complexity is often higher, than thought in the first place.
+A very common problem of projects that implement SOAP-Services is, that an internal Domain-Model differs from the externally defined XML-Schema defined Model, where the JAXB-Classes are generated from. Often according to that the need for Validation of data, that comes from transformation from the SOAP-Message, arises. There are many approaches to do that, e.g. BeanValidation and others. The problem with these straight and easy-at-first approaches is, that the functional complexity is often higher, than thought in the first place. And usually in validating complex SOAP-Requests for Backend-compatibility it is.
+For that purpose there´s no silver bullet out there and one has to choose the right thing for this particual problem. One approach, that I implement, was the use of a neat small but yet powerful Rulesengine - not one of theses huge complex one´s, that [Martin Fowler mentioned](http://martinfowler.com/bliki/RulesEngine.html). It´s a quite young one: [camunda´s DMN Engine](https://github.com/camunda/camunda-engine-dmn) which implements OMG´s [DMN-Standard](http://www.omg.org/spec/DMN/)
+
+In our Usecase we have fields, that have to be checked for internal purposes and rules to apply onto these. So I decided to go with two DMN-Decision-Tables:
+
+![WeatherFields2Check-DMN](https://github.com/jonashackt/soap-spring-boot-cxf/blob/master/weatherFields2CheckDMN.png)
+
+![WeatherRules-DMN](https://github.com/jonashackt/soap-spring-boot-cxf/blob/master/weatherFields2CheckDMN.png)
 
 
 ## Todo's
