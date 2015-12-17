@@ -67,6 +67,13 @@ public class SoapFrameworkLogger {
 		logInfo("103", "Check internal models functional plausibility after Request");
 	}
 	
+	/*
+	 * Plausibility-Checking - 3xx
+	 */
+	public void plausibilityCheckSuccessful() {
+        logInfo("300", "Plausibility-Check was successful.");
+    }
+	
 	
 	/*
 	 * Facade-Mode - 5xx
@@ -74,6 +81,9 @@ public class SoapFrameworkLogger {
 	public <T> void facadeModeReturningDummyResponseWithResponseType(Class<T> responseType) {
 		logDebug("501", "Facade-Mode: Returning Dummy-Response with ResponseType {}", responseType);
 	}
+	public BusinessException plausibilityCheckDidntPass(Throwable cause) {
+        return new BusinessException(logDebugAndBuildExceptionMessage("502", "Plausibilitycheck of inbound Request-Data did not pass: {}", cause.getMessage()), cause);
+    }
 	
 	
 	/*

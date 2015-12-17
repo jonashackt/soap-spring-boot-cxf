@@ -12,6 +12,7 @@ import de.codecentric.soap.common.BusinessException;
 import de.codecentric.soap.internalmodel.GeneralOutlook;
 import de.codecentric.soap.internalmodel.Weather;
 import de.codecentric.soap.logging.SoapFrameworkLogger;
+import de.codecentric.soap.plausibilitycheck.PlausibilityChecker;
 import de.codecentric.soap.transformation.GetCityForecastByZIPIn;
 import de.codecentric.soap.transformation.GetCityForecastByZIPOutMapper;
 import de.codecentric.soap.transformation.GetCityWeatherByZIPOutMapper;
@@ -32,25 +33,22 @@ public class WeatherServiceControllerImpl implements WeatherServiceController {
 	@Autowired
 	private WeatherBackend weatherBackend;
 	
+	@Autowired
+	private PlausibilityChecker plausibilityChecker;
+	
 	@Override
 	public ForecastReturn getCityForecastByZIP(ForecastRequest forecastRequest) throws BusinessException {
 	    LOG.transformIncomingJaxbObjects2InternalModel();
 		Weather weather = GetCityForecastByZIPIn.mapRequest2Weather(forecastRequest);
 		
 		LOG.checkInternalModelsFunctionalPlausibilityAfterRequest();
-		checkPlausibilityGetCityForecastByZIP(weather);
+		plausibilityChecker.checkGetCityForecastByZIP(weather);
 		
 		LOG.callBackendWithInternalModel();
 		GeneralOutlook generalOutlook = weatherBackend.generateGeneralOutlook(weather);
 		
 		LOG.transformInternalModel2OutgoingJaxbObjects();
 		return GetCityForecastByZIPOutMapper.mapGeneralOutlook2Forecast(generalOutlook);
-	}
-
-	private void checkPlausibilityGetCityForecastByZIP(Weather site) throws BusinessException {
-		//TODO:
-		if(false)
-			throw new BusinessException("Error");
 	}
 	
 	@Override

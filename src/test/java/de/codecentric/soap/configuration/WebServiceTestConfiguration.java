@@ -9,6 +9,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 import de.codecentric.namespace.weatherservice.WeatherService;
 import de.codecentric.soap.common.BusinessException;
+import de.codecentric.soap.endpoint.WeatherServiceEndpoint;
 import de.codecentric.soap.soaprawclient.SoapRawClient;
 
 @Configuration
@@ -34,6 +35,7 @@ public class WebServiceTestConfiguration {
 		jaxWsFactory.setAddress(buildUrl());
 		return (WeatherService) jaxWsFactory.create();
 	}
+
 	
 	private String buildUrl() {
 		// return something like http://localhost:8084/soap-api/WeatherSoapService

@@ -19,12 +19,12 @@ import de.codecentric.namespace.weatherservice.WeatherException;
 import de.codecentric.namespace.weatherservice.WeatherService;
 import de.codecentric.namespace.weatherservice.general.ForecastReturn;
 import de.codecentric.namespace.weatherservice.general.GetCityForecastByZIP;
-import de.codecentric.soap.SoapApplication;
+import de.codecentric.soap.SoapTestApplication;
 import de.codecentric.soap.common.BusinessException;
 import de.codecentric.soap.common.XmlUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes=SoapApplication.class)
+@SpringApplicationConfiguration(classes=SoapTestApplication.class)
 //@WebIntegrationTest-Configuration "server.port:XYZ" overrides the config of the embedded server, that is used (and re-used) in the Tests 
 //If you want to log the actual SOAP-Messages, e.g. by using TCP/IP-Monitor in Eclipse, just change port/url in dev-test.properties 
 @WebIntegrationTest("server.port:8093")
