@@ -31,7 +31,15 @@ public final class GetCityForecastByZIPIn {
     }
 	
 	private static Product mapProduct(ProductName productName) {
-        return Product.valueOf(productName.name());
+        if(Product.ForecastBasic.getName().equals(productName.value())) {
+            return Product.ForecastBasic;
+        } else if (Product.ForecastProfessional.getName().equals(productName.value())) {
+            return Product.ForecastProfessional;
+        } else if (Product.ForecastUltimateXL.equals(productName.value())) {
+            return Product.ForecastUltimateXL;
+        } else {
+            return Product.Unknown;
+        }
     }
 
     private static MethodOfPayment mapPayment(String methodOfPayment) {

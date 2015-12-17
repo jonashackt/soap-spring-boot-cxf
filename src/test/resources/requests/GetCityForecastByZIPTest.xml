@@ -8,9 +8,9 @@
             <gen:flagcolor>bluewhite</gen:flagcolor>
             <gen:productName>ForecastBasic</gen:productName>
             <gen:ForecastCustomer>
-			<gen:Age>30</gen:Age>
-			<gen:Contribution>5000</gen:Contribution>
-			<gen:MethodOfPayment>Paypal</gen:MethodOfPayment>
+				<gen:Age>30</gen:Age>
+				<gen:Contribution>5000</gen:Contribution>
+				<gen:MethodOfPayment>Paypal</gen:MethodOfPayment>
             </gen:ForecastCustomer>
          </gen:ForecastRequest>
       </gen:GetCityForecastByZIP>
