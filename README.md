@@ -119,11 +119,11 @@ In our Usecase we have Fields described in the internal Domain-Model, that have 
 
 The first "weatherFields2Check.dmn" inherits rule to check, if the current field must be checked in the next step:
 
-![WeatherFields2Check-DMN](https://github.com/jonashackt/soap-spring-boot-cxf/blob/feature/plausibility-check-with-DMN/weatherFields2CheckDMN.png)
+![WeatherFields2Check-DMN](https://github.com/jonashackt/soap-spring-boot-cxf/blob/master/weatherFields2CheckDMN.png)
 
 If the field has to be checked, the actual functional plausibility rules are applied - depending on the Product again:
 
-![WeatherRules-DMN](https://github.com/jonashackt/soap-spring-boot-cxf/blob/feature/plausibility-check-with-DMN/weatherRulesDMN.png)
+![WeatherRules-DMN](https://github.com/jonashackt/soap-spring-boot-cxf/blob/master/weatherRulesDMN.png)
 
 For now, you have to separate Rules with different datatypes to different Decisiontable-columns.
 
