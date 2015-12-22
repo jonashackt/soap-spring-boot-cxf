@@ -28,6 +28,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.codecentric.soap.SoapApplication;
+import de.codecentric.soap.internalmodel.MethodOfPayment;
 import de.codecentric.soap.internalmodel.Product;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -180,4 +181,47 @@ public class WeatherRulesTests {
         assertNotNull(resultWeatherRules.getSingleResult());
         assertEquals("data valid", resultWeatherRules.getSingleResult().getSingleEntry());
 	}
+	
+	@Test
+    public void methodOfPaymentCheckWrong() {
+        // Given
+        VariableMap variables = Variables
+                .putValue(PRODUCT, "")
+                .putValue(FIELDNAME, "methodOfPayment")
+                .putValue(SHOULD_BE_CHECKED, true)
+                .putValue(RULENUMBER, 0)
+                .putValue(RULEWORDS, "Cash");
+        // When
+        DmnDecisionTableResult result = dmnEngine.evaluateDecisionTable(weatherRules, variables);
+        // Then
+        assertTrue("Resultset should be empty, for Data is noch valid", result.isEmpty());
+        
+        // Given
+        variables = Variables
+                .putValue(PRODUCT, "")
+                .putValue(FIELDNAME, "methodOfPayment")
+                .putValue(SHOULD_BE_CHECKED, true)
+                .putValue(RULENUMBER, 0)
+                .putValue(RULEWORDS, "MasterCard");
+        // When
+        result = dmnEngine.evaluateDecisionTable(weatherRules, variables);
+        // Then
+        assertTrue("Resultset should be empty, for Data is noch valid", result.isEmpty());
+    }
+	
+	@Test
+    public void methodOfPaymentCheckCorrect() {
+        // Given
+        VariableMap variables = Variables
+                .putValue(PRODUCT, "")
+                .putValue(FIELDNAME, "methodOfPayment")
+                .putValue(SHOULD_BE_CHECKED, true)
+                .putValue(RULENUMBER, 0)
+                .putValue(RULEWORDS, MethodOfPayment.Paypal.getName());
+        // When
+        DmnDecisionTableResult result = dmnEngine.evaluateDecisionTable(weatherRules, variables);
+        // Then
+        assertNotNull(result.getSingleResult());
+        assertEquals("data valid", result.getSingleResult().getSingleEntry());
+    }
 }

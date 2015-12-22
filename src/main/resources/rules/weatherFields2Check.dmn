@@ -91,7 +91,7 @@
       <rule id="row-422052177-24">
         <inputEntry id="UnaryTests_00ru1d7">        <text><![CDATA["ForecastProfessional"]]></text>
 </inputEntry>
-        <inputEntry id="UnaryTests_05z92lj">        <text><![CDATA["getCityWeatherByZIP"]]></text>
+        <inputEntry id="UnaryTests_05z92lj">        <text></text>
 </inputEntry>
         <inputEntry id="UnaryTests_1kawcqo">        <text><![CDATA["methodOfPayment"]]></text>
 </inputEntry>

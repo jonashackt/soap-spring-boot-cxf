@@ -1,11 +1,12 @@
 package de.codecentric.soap.endpoint;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.containsString;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.Base64;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.util.PDFTextStripper;
@@ -23,6 +24,7 @@ import de.codecentric.namespace.weatherservice.general.ForecastReturn;
 import de.codecentric.namespace.weatherservice.general.WeatherInformationReturn;
 import de.codecentric.soap.configuration.ApplicationTestConfiguration;
 import de.codecentric.soap.internalmodel.MethodOfPayment;
+import de.codecentric.soap.plausibilitycheck.PlausibilityChecker;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=ApplicationTestConfiguration.class)
@@ -54,8 +56,30 @@ public class WeatherServiceEndpointTest {
 		
 		// Then
 		assertNotNull(forecastReturn);
+		assertEquals(true, forecastReturn.isSuccess());
 		assertEquals("Weimar", forecastReturn.getCity());
 		assertEquals("22%", forecastReturn.getForecastResult().getForecast().get(0).getProbabilityOfPrecipiation().getDaytime());
+		
+		// Given
+		forecastRequest.setZIP("99999");
+		// When
+		forecastReturn = weatherServiceEndpoint.getCityForecastByZIP(forecastRequest);
+		// Then
+		assertNotNull(forecastReturn);
+		assertEquals("A wrong ZIP should lead to Success=false", false, forecastReturn.isSuccess());
+        assertThat(forecastReturn.getResponseText(), containsString(PlausibilityChecker.ERROR_TEXT));
+        
+        // Given
+        forecastRequest.setProductName(ProductName.FORECAST_PROFESSIONAL);
+        forecastRequest.setZIP("46537");
+        customer.setMethodOfPayment("Cash");
+        forecastRequest.setForecastCustomer(customer);
+        // When
+        forecastReturn = weatherServiceEndpoint.getCityForecastByZIP(forecastRequest);
+        // Then
+        assertNotNull(forecastReturn);
+        assertEquals("Unsupported MethodOfPayment should lead to Success=false", false, forecastReturn.isSuccess());
+        assertThat(forecastReturn.getResponseText(), containsString(PlausibilityChecker.ERROR_TEXT));
 	}
 	
 	@Test
