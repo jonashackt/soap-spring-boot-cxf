@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import de.codecentric.soap.common.BusinessException;
 import de.codecentric.soap.internalmodel.GeneralOutlook;
-import de.codecentric.soap.internalmodel.Site;
+import de.codecentric.soap.internalmodel.Weather;
 import de.codecentric.soap.logging.SoapFrameworkLogger;
 
 @Service
@@ -21,7 +21,7 @@ public class WeatherBackend {
 	@Value(value="classpath:responses/forecast.pdf")
 	private Resource forecastPdf;
 	
-	public GeneralOutlook generateGeneralOutlook(Site postcode) {      
+	public GeneralOutlook generateGeneralOutlook(Weather postcode) {      
 		/*
 		 * Some incredible Businesslogic...
 		 */

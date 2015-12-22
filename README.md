@@ -23,7 +23,7 @@ I reached my aim to not use any XML-configuration, but it was harder than i thou
 
 ### HowTo Use
 
-Run "mvn clean install"-command at command-line, to ensure that all necessary Java-Classes & JAXB-Bindings are generated
+Run "mvn clean package"-command at command-line, to ensure that all necessary Java-Classes & JAXB-Bindings are generated
 
 Then, you could use Spring Boot with maven to expose your SOAP-Webservices
 ```sh
@@ -47,7 +47,23 @@ Sometimes, you are in need of a facade-mode, where your implementation doesn´t 
 
 For this Scenario, Spring´s powerful but yet easy to use [Profile-Mechanism] will serve you well. In combination with using org.springframework.core.io.Resource to load your Dummy-Response-Files instead of Java´s NIO.2 (that could [fuck you up] because of classloader-differences in other environments than your local machine), your done with that task quite fast.
 
-### Loganalysis with [ELK-Stack]
+
+### Done´s
+* No XML-configuration, also for undocumented CXF-details :)
+* Readable Namespace-Prefixes
+* Testcases with Apache CXF
+* Custom SoapFault, when non-schmeme-compliant or syntactically incorrect XML is send to the service
+* Tests with Raw HTTP-Client for Reaction on syntactically incorrect XML
+* Custom Exception in Weather-WSDL/XSDs
+* Example of Controller and Mappers, that map to and from an internal Domain-Model - for loose coupling between generated JAXB-Classes and Backends
+* Facade-Mode, that only returns Dummy-Responses, if configured
+* Logging-Framework for centralization of logging and message-creation, including chance to define individial logging-Ids
+* Webservice-Method that returns a PDF-File (you can view the base64-encoded String inside the Webservice´ Response with a small Angular/Boot-App I wrote for that: [base64gular])
+* PDF-Test with asserts of the PDF-contents via [Pdfbox]
+* Deployment to [Heroku], with inspiration from my colleague´s [blogpost] - see it in action (maybe you have to wait a while, cause it´s just a free Heroku-Dyno) [here] - or call it via [SOAP-UI]
+
+
+## Loganalysis with [ELK-Stack]
 
 If you´re going some steps further into a more production-ready environment, you´ll need a more indepth view what´s going on with your SOAP-Infrastructure. I used the [ELK-Stack] with Logstash -> Elasticsearch -> Kibana. I used the [logstash-logback-encoder] for getting JSONized Logoutputs directly into logstash´s input-phase.
 
@@ -65,19 +81,6 @@ After having set up your ELK-Stack and logs are transferred via logstash into El
 If if you can´t wait to start or the tutorials are [tldr;], then import my [kibana_export.json](https://github.com/jonashackt/soap-spring-boot-cxf/blob/master/kibana_export.json) as an example.
 
 
-### Done´s
-* No XML-configuration, also for undocumented CXF-details :)
-* Readable Namespace-Prefixes
-* Testcases with Apache CXF
-* Custom SoapFault, when non-schmeme-compliant or syntactically incorrect XML is send to the service
-* Tests with Raw HTTP-Client for Reaction on syntactically incorrect XML
-* Custom Exception in Weather-WSDL/XSDs
-* Example of Controller and Mappers, that map to and from an internal Domain-Model - for loose coupling between generated JAXB-Classes and Backends
-* Facade-Mode, that only returns Dummy-Responses, if configured
-* Logging-Framework for centralization of logging and message-creation, including chance to define individial logging-Ids
-* Webservice-Method that returns a PDF-File (you can view the base64-encoded String inside the Webservice´ Response with a small Angular/Boot-App I wrote for that: [base64gular])
-* PDF-Test with asserts of the PDF-contents via [Pdfbox]
-* Deployment to [Heroku], with inspiration from my colleague´s [blogpost] - see it in action (maybe you have to wait a while, cause it´s just a free Heroku-Dyno) [here] - or call it via [SOAP-UI]
 
 ### Done´s with Loganalysis with ELK-Stack
 * Correlate all Log-Messages (Selfmade + ApacheCXFs SOAP-Messages) within the Scope of one Service-Consumer`s Call in Kibana via logback´s [MDC], placed in a Servlet-Filter
@@ -87,10 +90,47 @@ If if you can´t wait to start or the tutorials are [tldr;], then import my [kib
 * SOAP-Messages-Only logged and formatted for Analysis
 * Added anonymize-logstash-filter for personal data in SOAP-Messages (e.g. for production environments in german companies)
 
-### Todo's
+
+
+## Functional plausibility check of request-data in the internal Domain-Model
+
+A very common problem of projects that implement SOAP-Webservices: the internal Domain-Model differs from the externally defined Model (the XML-Schema/XSD, that´s imported into the WSDL). This leads to mapping data from the generated JAXB-Classes to the internal Domain-Model, which could be handled simply in Java. But the internal Domain-Model´s data has to be validated after that mapping - e.g. to make sure, everything is correct and functionally plausible for further processing when backend-Systems are called. 
+
+IMHO this topic isn´t covered well in the tutorial-landscape - the very least you can find is the hint to use [JSR303/349 Bean Validation], which is quite fast to apply but also quite limited, when it comes to more complex scenarios. And having multiple SOAP-Methods described in multiple Webservices with a multitude of fields that shouldn´t be null (and aren´t described as such in the XML-Schema) and lot´s of plausibilty to check depending on the former, you are in complexity hell. Than all research points you to the ongoing war of the [pros and cons to use RuleEngines](in deed, [Martin Fowler has something to say about that]) and trying to setup something like Drools (including the attempt to reduce Drools predominant complexity by building your own [spring-boot-starter-drools]). After getting into that trouble, you begin to hate all RulesEngines and try to build something yourself or use [EasyRules] with the problems pointed out well in [this presentation].
+
+But i´am sorry, the complexity will stay there and you will get so many rule-classes and tests to handle, that you find you´re self in serious trouble, if your project is under pressure to release - which fore sure is the case, if you went through all this.
+
+Finally your domain-expert will visit you, showing a nice Excel-Table, which contains everything we discussed above - still relatively long - but much shorter than all your classes developed by hand - and you didn´t cover 10% of it by now. Maybe at this point you remember something you learned back in the days of your study - [decision tables]. The domain expert found the simplest solution possible for this complex problem with easy. Would´nt it be nice, if you had something like that - without the need to use something complex and hard to develop like Drools?
+
+[JSR303/349 Bean Validation]:https://en.wikipedia.org/wiki/Bean_Validation
+[Martin Fowler has something to say about that]:http://martinfowler.com/bliki/RulesEngine.html
+[pros and cons to use RuleEngines]:http://stackoverflow.com/questions/775170/when-should-you-not-use-a-rules-engine
+[spring-boot-starter-drools]:https://github.com/jonashackt/spring-boot-starter-drools
+[EasyRules]:http://www.easyrules.org/
+[this presentation]:https://speakerdeck.com/benas/easy-rules
+[decision tables]:https://en.wikipedia.org/wiki/Decision_table
+
+
+## Rules with DMN-Decision Tables compliant to the OMG-Standard
+
+One approach is to check the request-data with [decision tables]. For that I used a neat small but yet powerful Engine, which is quite a young one: [camunda´s DMN Engine](https://github.com/camunda/camunda-engine-dmn). It implements OMG´s [DMN-Standard](http://www.omg.org/spec/DMN/).
+
+In our Usecase we have Fields described in the internal Domain-Model, that have to be checked depending on the called WebService-Method and the Product. So I decided to go with two DMN-Decision-Tables:
+
+The first "weatherFields2Check.dmn" inherits rule to check, if the current field must be checked in the next step:
+
+![WeatherFields2Check-DMN](https://github.com/jonashackt/soap-spring-boot-cxf/blob/feature/plausibility-check-with-DMN/weatherFields2CheckDMN.png)
+
+If the field has to be checked, the actual functional plausibility rules are applied - depending on the Product again:
+
+![WeatherRules-DMN](https://github.com/jonashackt/soap-spring-boot-cxf/blob/feature/plausibility-check-with-DMN/weatherRulesDMN.png)
+
+For now, you have to separate Rules with different datatypes to different Decisiontable-columns.
+
+
+## Todo's
 
 * Spring Boot Starter CXF
-* Functional plausibility check of request-data with [decision tables]
 * Configure Servicename in logback.xml from static fields
 * Fault Tolerance with Hystrix (e.g. to avoid problems because of accumulated TimeOuts)
 

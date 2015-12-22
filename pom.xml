@@ -20,6 +20,7 @@
 		<apache.httpclient>4.3.6</apache.httpclient>
 		<easyrules.version>2.0.0</easyrules.version>
 		<pdfbox.version>1.8.10</pdfbox.version>
+		<camunda.version>7.4.0</camunda.version>
 		<!-- Analysis Tools for CI -->
 		<build-plugin.jacoco.version>0.7.5.201505241946</build-plugin.jacoco.version>
 		<build-plugin.coveralls.version>3.1.0</build-plugin.coveralls.version>
@@ -52,10 +53,26 @@
 		</dependency>
 		
 		<!-- Easyrules -->
+		<!-- TODO: migrate to DMN -->
 		<dependency>
 			<groupId>org.easyrules</groupId>
 			<artifactId>easyrules-core</artifactId>
 			<version>${easyrules.version}</version>
+		</dependency>
+		
+		<!-- camunda DMN Engine -->
+		<dependency>
+	      <groupId>org.camunda.bpm.dmn</groupId>
+	      <artifactId>camunda-engine-dmn-bom</artifactId>
+	      <version>${camunda.version}</version>
+	      <type>pom</type>
+	      <scope>import</scope>
+	    </dependency>
+		
+		<dependency>
+		  <groupId>org.camunda.bpm.dmn</groupId>
+		  <artifactId>camunda-engine-dmn</artifactId>
+		  <version>${camunda.version}</version>
 		</dependency>
 		
 		<!-- Testing -->

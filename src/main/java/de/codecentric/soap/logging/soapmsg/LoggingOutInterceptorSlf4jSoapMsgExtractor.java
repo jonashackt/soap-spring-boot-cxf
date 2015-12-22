@@ -9,7 +9,7 @@ import de.codecentric.soap.logging.SoapFrameworkLogger;
 
 public class LoggingOutInterceptorSlf4jSoapMsgExtractor extends LoggingOutInterceptor {
 
-    private static final SoapFrameworkLogger LOG = SoapFrameworkLogger.getLogger(LoggingInInterceptorXmlOnly.class);
+    private static final SoapFrameworkLogger LOG = SoapFrameworkLogger.getLogger(LoggingOutInterceptorSlf4jSoapMsgExtractor.class);
     
     @Override
     protected void log(Logger logger, String message) {
@@ -21,7 +21,8 @@ public class LoggingOutInterceptorSlf4jSoapMsgExtractor extends LoggingOutInterc
     protected String formatLoggingMessage(LoggingMessage loggingMessage) {
         // Only write the Payload (SOAP-Xml) to Logger
         if (loggingMessage.getPayload().length() > 0) {
-            LOG.logOutboundSoapMessage(loggingMessage.getPayload().toString());
+            LOG.logOutboundSoapMessage(loggingMessage.getPayload().toString().replaceAll("(?<=<dtypes:Data xmime:contentType=\"application/pdf\">)[^><]+(?=</dtypes:Data>)", "PdfFiltered"));
+            
         }
         
         // This is just hook into CXF and get the SOAP-Message.

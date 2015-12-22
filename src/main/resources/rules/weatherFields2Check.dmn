@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn11.xsd" id="definitions" name="definitions" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="weatherFields2Check" name="Weatherfields to check">
+    <decisionTable id="decisionTable" hitPolicy="FIRST">
+      <input id="InputClause_1kxjrcg" label="Product">
+        <inputExpression id="LiteralExpression_1pmyta3" typeRef="string">        <text>product</text>
+</inputExpression>
+      </input>
+      <input id="input1" label="WebService Method">
+        <inputExpression id="inputExpression1" typeRef="string">        <text>servicemethod</text>
+</inputExpression>
+      </input>
+      <input id="InputClause_1yk3oao" label="FieldName">
+        <inputExpression id="LiteralExpression_0fjeud2" typeRef="string">        <text>fieldname</text>
+</inputExpression>
+      </input>
+      <output id="OutputClause_0g147cb" label="Should be checked" name="check" typeRef="boolean" />
+      <rule id="row-422052177-4">
+        <description>ZIP should always be checked</description>
+        <inputEntry id="UnaryTests_13qahou">        <text></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_1iaq550">        <text></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_0ks31b7">        <text><![CDATA["postalCode"]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_0uagtms">        <text>true</text>
+</outputEntry>
+      </rule>
+      <rule id="row-422052177-5">
+        <description>flagcolor should never be checked</description>
+        <inputEntry id="UnaryTests_0v4a7ef">        <text></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_1dyge9s">        <text></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_1p8byrw">        <text><![CDATA["flagcolor"]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_13fnt70">        <text>false</text>
+</outputEntry>
+      </rule>
+      <rule id="row-422052177-7">
+        <description>If the Product is ForecastBasic and the fieldname is age, than it should not be checked, regardless of the called Method</description>
+        <inputEntry id="UnaryTests_1ofkxsk">        <text><![CDATA["ForecastBasic"]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_0fhia94">        <text></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_1mjmu5t">        <text><![CDATA["age"]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_02zzayk">        <text>false</text>
+</outputEntry>
+      </rule>
+      <rule id="row-422052177-8">
+        <inputEntry id="UnaryTests_1hsbwa1">        <text><![CDATA["ForecastBasic"]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_171i5bt">        <text></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_0gqrbgy">        <text><![CDATA["contribution"]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_00xt278">        <text>false</text>
+</outputEntry>
+      </rule>
+      <rule id="row-422052177-9">
+        <inputEntry id="UnaryTests_0edxepm">        <text><![CDATA["ForecastBasic"]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_0pm16nw">        <text></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_062lyy1">        <text><![CDATA["methodOfPayment"]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_1294kvr">        <text>false</text>
+</outputEntry>
+      </rule>
+      <rule id="table-879832527-8">
+        <inputEntry id="UnaryTests_18sftq6">        <text><![CDATA["ForecastProfessional"]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_0ihq0je">        <text></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_078zwpb">        <text><![CDATA["age"]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_0f1te95">        <text>true</text>
+</outputEntry>
+      </rule>
+      <rule id="row-422052177-23">
+        <inputEntry id="UnaryTests_1vgiu4c">        <text><![CDATA["ForecastProfessional"]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_1sw2vat">        <text><![CDATA["getCityForecastByZIP"]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_0lnczq6">        <text><![CDATA["contribution"]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_0kwz7s0">        <text>false</text>
+</outputEntry>
+      </rule>
+      <rule id="row-422052177-24">
+        <inputEntry id="UnaryTests_00ru1d7">        <text><![CDATA["ForecastProfessional"]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_05z92lj">        <text></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_1kawcqo">        <text><![CDATA["methodOfPayment"]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_0d0u2yq">        <text>true</text>
+</outputEntry>
+      </rule>
+      <rule id="row-422052177-25">
+        <description>all the Fields in getWeatherInformation should be checked</description>
+        <inputEntry id="UnaryTests_021aolo">        <text><![CDATA["ForecastProfessional"]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_1ji3tu4">        <text><![CDATA["getWeatherInformation"]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_1bof18s">        <text></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_1opgtat">        <text>true</text>
+</outputEntry>
+      </rule>
+      <rule id="row-422052177-26">
+        <description>all the Fields regardless of the called Method should be checked</description>
+        <inputEntry id="UnaryTests_0kj08nm">        <text><![CDATA["ForecastUltimateXL"]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_1m370ja">        <text></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_1esy9rq">        <text></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_177iyaz">        <text>true</text>
+</outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>
