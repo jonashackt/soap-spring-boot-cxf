@@ -23,7 +23,7 @@ I reached my aim to not use any XML-configuration, but it was harder than i thou
 
 ### HowTo Use
 
-Run "mvn clean install"-command at command-line, to ensure that all necessary Java-Classes & JAXB-Bindings are generated
+Run "mvn clean package"-command at command-line, to ensure that all necessary Java-Classes & JAXB-Bindings are generated
 
 Then, you could use Spring Boot with maven to expose your SOAP-Webservices
 ```sh
@@ -92,22 +92,45 @@ If if you can´t wait to start or the tutorials are [tldr;], then import my [kib
 
 
 
-## Rules with DMN
+## Functional plausibility check of request-data in the internal Domain-Model
 
-A very common problem of projects that implement SOAP-Services is, that an internal Domain-Model differs from the externally defined XML-Schema defined Model, where the JAXB-Classes are generated from. Often according to that the need for Validation of data, that comes from transformation from the SOAP-Message, arises. There are many approaches to do that, e.g. BeanValidation and others. The problem with these straight and easy-at-first approaches is, that the functional complexity is often higher, than thought in the first place. And usually in validating complex SOAP-Requests for Backend-compatibility it is.
-For that purpose there´s no silver bullet out there and one has to choose the right thing for this particual problem. One approach, that I implement, was the use of a neat small but yet powerful Rulesengine - not one of theses huge complex one´s, that [Martin Fowler mentioned](http://martinfowler.com/bliki/RulesEngine.html). It´s a quite young one: [camunda´s DMN Engine](https://github.com/camunda/camunda-engine-dmn) which implements OMG´s [DMN-Standard](http://www.omg.org/spec/DMN/)
+A very common problem of projects that implement SOAP-Webservices: the internal Domain-Model differs from the externally defined Model (the XML-Schema/XSD, that´s imported into the WSDL). This leads to mapping data from the generated JAXB-Classes to the internal Domain-Model, which could be handled simply in Java. But the internal Domain-Model´s data has to be validated after that mapping - e.g. to make sure, everything is correct and functionally plausible for further processing when backend-Systems are called. 
 
-In our Usecase we have fields, that have to be checked for internal purposes and rules to apply onto these. So I decided to go with two DMN-Decision-Tables:
+IMHO this topic isn´t covered well in the tutorial-landscape - the very least you can find is the hint to use [JSR303/349 Bean Validation], which is quite fast to apply but also quite limited, when it comes to more complex scenarios. And having multiple SOAP-Methods described in multiple Webservices with a multitude of fields that shouldn´t be null (and aren´t described as such in the XML-Schema) and lot´s of plausibilty to check depending on the former, you are in complexity hell. Than all research points you to the ongoing war of the [pros and cons to use RuleEngines](in deed, [Martin Fowler has something to say about that]) and trying to setup something like Drools (including the attempt to reduce Drools predominant complexity by building your own [spring-boot-starter-drools]). After getting into that trouble, you begin to hate all RulesEngines and try to build something yourself or use [EasyRules] with the problems pointed out well in [this presentation].
+
+But i´am sorry, the complexity will stay there and you will get so many rule-classes and tests to handle, that you find you´re self in serious trouble, if your project is under pressure to release - which fore sure is the case, if you went through all this.
+
+Finally your domain-expert will visit you, showing a nice Excel-Table, which contains everything we discussed above - still relatively long - but much shorter than all your classes developed by hand - and you didn´t cover 10% of it by now. Maybe at this point you remember something you learned back in the days of your study - [decision tables]. The domain expert found the simplest solution possible for this complex problem with easy. Would´nt it be nice, if you had something like that - without the need to use something complex and hard to develop like Drools?
+
+[JSR303/349 Bean Validation]:https://en.wikipedia.org/wiki/Bean_Validation
+[Martin Fowler has something to say about that]:http://martinfowler.com/bliki/RulesEngine.html
+[pros and cons to use RuleEngines]:http://stackoverflow.com/questions/775170/when-should-you-not-use-a-rules-engine
+[spring-boot-starter-drools]:https://github.com/jonashackt/spring-boot-starter-drools
+[EasyRules]:http://www.easyrules.org/
+[this presentation]:https://speakerdeck.com/benas/easy-rules
+[decision tables]:https://en.wikipedia.org/wiki/Decision_table
+
+
+## Rules with DMN-Decision Tables compliant to the OMG-Standard
+
+One approach is to check the request-data with [decision tables]. For that I used a neat small but yet powerful Engine, which is quite a young one: [camunda´s DMN Engine](https://github.com/camunda/camunda-engine-dmn). It implements OMG´s [DMN-Standard](http://www.omg.org/spec/DMN/).
+
+In our Usecase we have Fields described in the internal Domain-Model, that have to be checked depending on the called WebService-Method and the Product. So I decided to go with two DMN-Decision-Tables:
+
+The first "weatherFields2Check.dmn" inherits rule to check, if the current field must be checked in the next step:
 
 ![WeatherFields2Check-DMN](https://github.com/jonashackt/soap-spring-boot-cxf/blob/feature/plausibility-check-with-DMN/weatherFields2CheckDMN.png)
 
+If the field has to be checked, the actual functional plausibility rules are applied - depending on the Product again:
+
 ![WeatherRules-DMN](https://github.com/jonashackt/soap-spring-boot-cxf/blob/feature/plausibility-check-with-DMN/weatherRulesDMN.png)
+
+For now, you have to separate Rules with different datatypes to different Decisiontable-columns.
 
 
 ## Todo's
 
 * Spring Boot Starter CXF
-* Functional plausibility check of request-data with [decision tables]
 * Configure Servicename in logback.xml from static fields
 * Fault Tolerance with Hystrix (e.g. to avoid problems because of accumulated TimeOuts)
 

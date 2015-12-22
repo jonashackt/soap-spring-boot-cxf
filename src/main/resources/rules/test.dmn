@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn11.xsd" id="definitions" name="definitions" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="states2ship" name="States to ship to">
+    <decisionTable id="decisionTable">
+      <input id="input1" label="State">
+        <inputExpression id="inputExpression1" typeRef="string">        <text>state</text>
+</inputExpression>
+      </input>
+      <input id="InputClause_0ga1zhg" label="Product">
+        <inputExpression id="LiteralExpression_10nhd96" typeRef="string">        <text>product</text>
+</inputExpression>
+      </input>
+      <input id="InputClause_07ceuil" label="Postalcode">
+        <inputExpression id="LiteralExpression_1iuxja2" typeRef="string">        <text>zip</text>
+</inputExpression>
+      </input>
+      <output id="output1" label="Check Result" name="result" typeRef="string" />
+      <output id="OutputClause_0rsmsly" label="Reason" name="reason" typeRef="string" />
+      <rule id="row-422052177-18">
+        <inputEntry id="UnaryTests_0xrrvej">        <text><![CDATA["France"]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_0pmpjvg">        <text><![CDATA["RedCar"]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_0h6fb9j" expressionLanguage="Groovy">        <text><![CDATA[import de.jonashackt.dmndemo.PostalcodeChecker
+return PostalcodeChecker.isValidPostalcode(cellInput);]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_0p8hqsx">        <text><![CDATA["notok"]]></text>
+</outputEntry>
+        <outputEntry id="LiteralExpression_0qtwa4r">        <text><![CDATA["sorry, no shipment possible"]]></text>
+</outputEntry>
+      </rule>
+      <rule id="row-422052177-19">
+        <inputEntry id="UnaryTests_0d243z1">        <text><![CDATA["France"]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_1t9gfnk">        <text><![CDATA["BlueCar"]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_05ljrsq">        <text><![CDATA[import de.jonashackt.dmndemo.PostalcodeChecker
+return PostalcodeCecker.isValidPostalcode(cellinput); ]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_0ycqaas">        <text><![CDATA["ok"]]></text>
+</outputEntry>
+        <outputEntry id="LiteralExpression_05xb26h">        <text><![CDATA["yeah, have fun with your new car"]]></text>
+</outputEntry>
+      </rule>
+      <rule id="row-422052177-20">
+        <inputEntry id="UnaryTests_0bygm5t">        <text><![CDATA["Germany"]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_148g68d">        <text><![CDATA["BlueCar"]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_15xzybo">        <text></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_1is5x2k">        <text><![CDATA["ok"]]></text>
+</outputEntry>
+        <outputEntry id="LiteralExpression_1bdtdz5">        <text><![CDATA["yeah, have fun with your new car"]]></text>
+</outputEntry>
+      </rule>
+      <rule id="row-422052177-21">
+        <inputEntry id="UnaryTests_0kdd0ks">        <text><![CDATA["Germany"]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_1hvem6k">        <text><![CDATA["RedCar"]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_0fwa22q">        <text></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_1oc6iix">        <text><![CDATA["notok"]]></text>
+</outputEntry>
+        <outputEntry id="LiteralExpression_0k5387l">        <text><![CDATA["We´re working hard, to make shipment of RedCars possible in Germany soon"]]></text>
+</outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>
