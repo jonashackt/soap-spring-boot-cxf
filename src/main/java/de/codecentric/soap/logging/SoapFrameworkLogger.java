@@ -47,6 +47,10 @@ public class SoapFrameworkLogger {
 		logInfo("002", "The Serviceendpoint was called successfully with the Method '{}()' - handing over to internal processing.", calledServiceMethod);
 	}
 	
+	public void logCallTime(String calltime) {
+        logInfo("009", "Calltime: {}", calltime);
+    }
+	
 	
 	/*
 	 * Controller procedure - 1xx

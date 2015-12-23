@@ -89,6 +89,7 @@ If if you can´t wait to start or the tutorials are [tldr;], then import my [kib
 * Extract SOAP-Service-Method for Loganalysis
 * SOAP-Messages-Only logged and formatted for Analysis
 * Added anonymize-logstash-filter for personal data in SOAP-Messages (e.g. for production environments in german companies)
+* Dead simple Calltime-Logging
 
 
 
@@ -133,6 +134,7 @@ For now, you have to separate Rules with different datatypes to different Decisi
 * Spring Boot Starter CXF
 * Configure Servicename in logback.xml from static fields
 * Fault Tolerance with Hystrix (e.g. to avoid problems because of accumulated TimeOuts)
+
 
 
 

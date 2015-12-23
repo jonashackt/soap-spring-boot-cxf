@@ -34,23 +34,37 @@ import org.slf4j.MDC;
  */
 public class LogCorrelationFilter implements Filter {
 
-    public static final String ID_KEY = "service-call-id";
+    private static final SoapFrameworkLogger LOG = SoapFrameworkLogger.getLogger(LogCorrelationFilter.class);
     
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {}
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        // dead simple call-time logging
+        long timeInbound = System.currentTimeMillis();
+        
         // Put an unique-Logging-Id to the logback Mapped Diagnostic Context to correlate
         // against one Customer-Request, see http://logback.qos.ch/manual/mdc.html
-        MDC.put(ID_KEY, generateUUID());
+        MDC.put(ElasticsearchField.ID_KEY.getName(), generateUUID());
         try {
             chain.doFilter(request, response);
         } finally {
+            logCallTime(timeInbound);
+            
             // finally remove unique-Logging-Id, so that it could´nt be accidentally
             // reused for another Consumer-Request
-            MDC.remove(ID_KEY);
+            MDC.remove(ElasticsearchField.ID_KEY.getName());
         }       
+    }
+
+    private void logCallTime(long timeInbound) {
+        // dead simple call-time logging
+        long timeOutbound = System.currentTimeMillis();
+        long calltime = timeOutbound - timeInbound;
+        MDC.put(ElasticsearchField.TIME_CALLTIME.getName(), String.valueOf(calltime));
+        
+        LOG.logCallTime(String.valueOf(calltime));
     }
 
     private String generateUUID() {
