@@ -7,8 +7,6 @@ public enum ElasticsearchField {
     SOAP_MESSAGE_INBOUND("soap-message-inbound"),
     SOAP_MESSAGE_OUTBOUND("soap-message-outbound"),
     ID_KEY("service-call-id"),
-    TIME_INBOUND("time-inbound"),
-    TIME_OUTBOUND("time-outbound"),
     TIME_CALLTIME("time-calltime");
     
     private String fieldname;
