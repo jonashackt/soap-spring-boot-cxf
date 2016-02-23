@@ -13,16 +13,18 @@
    </parent>
    
    <properties>
-  		<cxf.version>3.1.4</cxf.version>
+  		<cxf.version>3.1.5</cxf.version>
 		<!-- use UTF-8 for everything -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<apache.httpclient>4.3.6</apache.httpclient>
-		<pdfbox.version>1.8.10</pdfbox.version>
+		<fluent-hc.version>4.5.1</fluent-hc.version>
+		<pdfbox.version>1.8.11</pdfbox.version>
 		<camunda.version>7.4.0</camunda.version>
+		<logstash-logback-encoder.version>4.6</logstash-logback-encoder.version>
+		<commons-io.version>2.4</commons-io.version>
 		<!-- Analysis Tools for CI -->
 		<build-plugin.jacoco.version>0.7.5.201505241946</build-plugin.jacoco.version>
-		<build-plugin.coveralls.version>3.1.0</build-plugin.coveralls.version>
+		<build-plugin.coveralls.version>4.1.0</build-plugin.coveralls.version>
 		<!-- Exclude generated JAXB-Java-Classes from Sonar-Analysis -->
 		<sonar.exclusions>**/target/generated-sources/wsdlimport/**</sonar.exclusions>
    </properties>
@@ -80,7 +82,7 @@
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>fluent-hc</artifactId>
-			<version>${apache.httpclient}</version>
+			<version>${fluent-hc.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -110,14 +112,14 @@
 		<dependency>
 		  <groupId>net.logstash.logback</groupId>
 		  <artifactId>logstash-logback-encoder</artifactId>
-		  <version>4.5</version>
+		  <version>${logstash-logback-encoder.version}</version>
 		</dependency>
 		
 		<!-- Fileconverting for PDF-reading -->		
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.4</version>
+			<version>${commons-io.version}</version>
 		</dependency>
 
    </dependencies>
