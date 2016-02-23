@@ -96,7 +96,7 @@ public class WeatherServiceEndpointTest {
 		String textInPdf = extractPdfText(pdf);
 		assertThat(textInPdf, containsString("Weather in your city"));
 		assertThat(textInPdf, containsString("Weimar"));
-		assertThat(textInPdf, containsString("18.1 °C"));
+		assertThat(textInPdf, containsString("18.1"));
 		assertThat(textInPdf, containsString("Wind Gentle Breeze 3.6 m/s"));
 		assertThat(textInPdf, containsString("West-southwest"));
 		assertThat(textInPdf, containsString("Cloudiness scattered clouds"));
