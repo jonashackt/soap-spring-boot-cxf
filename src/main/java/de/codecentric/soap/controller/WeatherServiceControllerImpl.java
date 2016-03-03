@@ -13,7 +13,7 @@ import de.codecentric.soap.internalmodel.GeneralOutlook;
 import de.codecentric.soap.internalmodel.Weather;
 import de.codecentric.soap.logging.SoapFrameworkLogger;
 import de.codecentric.soap.plausibilitycheck.PlausibilityChecker;
-import de.codecentric.soap.transformation.GetCityForecastByZIPIn;
+import de.codecentric.soap.transformation.GetCityForecastByZIPInMapper;
 import de.codecentric.soap.transformation.GetCityForecastByZIPOutMapper;
 import de.codecentric.soap.transformation.GetCityWeatherByZIPOutMapper;
 import de.codecentric.soap.transformation.GetWeatherInformationOutMapper;
@@ -39,7 +39,7 @@ public class WeatherServiceControllerImpl implements WeatherServiceController {
 	@Override
 	public ForecastReturn getCityForecastByZIP(ForecastRequest forecastRequest) throws BusinessException {
 	    LOG.transformIncomingJaxbObjects2InternalModel();
-		Weather weather = GetCityForecastByZIPIn.mapRequest2Weather(forecastRequest);
+		Weather weather = GetCityForecastByZIPInMapper.mapRequest2Weather(forecastRequest);
 		
 		LOG.checkInternalModelsFunctionalPlausibilityAfterRequest();
 		plausibilityChecker.checkGetCityForecastByZIP(weather);
@@ -54,7 +54,7 @@ public class WeatherServiceControllerImpl implements WeatherServiceController {
 	@Override
 	public WeatherReturn getCityWeatherByZIP(ForecastRequest forecastRequest) throws BusinessException {
 	    LOG.transformIncomingJaxbObjects2InternalModel();
-		Weather site = GetCityForecastByZIPIn.mapRequest2Weather(forecastRequest);
+		Weather site = GetCityForecastByZIPInMapper.mapRequest2Weather(forecastRequest);
 				
 		LOG.callBackendWithInternalModel();
 		GeneralOutlook generalOutlook = weatherBackend.generateGeneralOutlook(site);

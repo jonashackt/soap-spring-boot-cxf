@@ -8,10 +8,10 @@ import de.codecentric.soap.internalmodel.Product;
 import de.codecentric.soap.internalmodel.User;
 import de.codecentric.soap.internalmodel.Weather;
 
-public final class GetCityForecastByZIPIn {
+public final class GetCityForecastByZIPInMapper {
 
 	// private Constructor for Utility-Class
-	private GetCityForecastByZIPIn() {};
+	private GetCityForecastByZIPInMapper() {};
 	
 	public static Weather mapRequest2Weather(ForecastRequest forecastRequest) {
 		Weather weather = new Weather();

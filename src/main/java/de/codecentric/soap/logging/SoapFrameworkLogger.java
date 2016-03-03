@@ -74,7 +74,7 @@ public class SoapFrameworkLogger {
 	/*
 	 * Plausibility-Checking - 3xx
 	 */
-	public void plausibilityCheckSuccessful() {
+	public void plausibilityCheckSuccessfulWithoutErrors() {
         logInfo("300", "Plausibility-Check was successful.");
     }
 	

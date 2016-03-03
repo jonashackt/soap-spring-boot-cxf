@@ -21,7 +21,7 @@ public class WeatherBackend {
 	@Value(value="classpath:responses/forecast.pdf")
 	private Resource forecastPdf;
 	
-	public GeneralOutlook generateGeneralOutlook(Weather postcode) {      
+	public GeneralOutlook generateGeneralOutlook(Weather weather) {      
 		/*
 		 * Some incredible Businesslogic...
 		 */

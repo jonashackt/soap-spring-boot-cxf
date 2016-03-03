@@ -22,7 +22,7 @@
         <inputExpression id="LiteralExpression_01zneaq" typeRef="string">        <text>rulewords</text>
 </inputExpression>
       </input>
-      <output id="output1" label="Compliant?" name="compliant" typeRef="string" />
+      <output id="output1" label="Error-Message" name="errorMsg" typeRef="string" />
       <rule id="table-879832527-6">
         <description>As the smallest Postalcode in Germany is 01001 and 99999 we check for that</description>
         <inputEntry id="UnaryTests_1k6ope3">        <text></text>
@@ -31,11 +31,11 @@
 </inputEntry>
         <inputEntry id="UnaryTests_0x2t4gr">        <text>true</text>
 </inputEntry>
-        <inputEntry id="UnaryTests_110l25e">        <text>[1001..99998]</text>
+        <inputEntry id="UnaryTests_110l25e">        <text>not([1001..99998])</text>
 </inputEntry>
         <inputEntry id="UnaryTests_1fn2cv0">        <text></text>
 </inputEntry>
-        <outputEntry id="LiteralExpression_0x49i3x">        <text><![CDATA["data valid"]]></text>
+        <outputEntry id="LiteralExpression_0x49i3x">        <text><![CDATA["The postalcode isn´t in the correct range between 01001 and 99999"]]></text>
 </outputEntry>
       </rule>
       <rule id="row-422052177-1">
@@ -45,25 +45,26 @@
 </inputEntry>
         <inputEntry id="UnaryTests_1l8rrpi">        <text>true</text>
 </inputEntry>
-        <inputEntry id="UnaryTests_1vbf0jb">        <text>[18..80]</text>
+        <inputEntry id="UnaryTests_1vbf0jb">        <text>not([18..80])</text>
 </inputEntry>
         <inputEntry id="UnaryTests_0q2j4w9">        <text></text>
 </inputEntry>
-        <outputEntry id="LiteralExpression_0fxbo3y">        <text><![CDATA["data valid"]]></text>
+        <outputEntry id="LiteralExpression_0fxbo3y">        <text><![CDATA["the age isn´t in the correct range"]]></text>
 </outputEntry>
       </rule>
       <rule id="row-422052177-2">
+        <description></description>
         <inputEntry id="UnaryTests_1snmdth">        <text><![CDATA["ForecastProfessional"]]></text>
 </inputEntry>
         <inputEntry id="UnaryTests_1bl5gp7">        <text><![CDATA["contribution"]]></text>
 </inputEntry>
         <inputEntry id="UnaryTests_0rv3m36">        <text>true</text>
 </inputEntry>
-        <inputEntry id="UnaryTests_1np1f76">        <text><![CDATA[<= 500]]></text>
+        <inputEntry id="UnaryTests_1np1f76">        <text><![CDATA[not(<= 500)]]></text>
 </inputEntry>
         <inputEntry id="UnaryTests_01kqxgv">        <text></text>
 </inputEntry>
-        <outputEntry id="LiteralExpression_0ow8eml">        <text><![CDATA["data valid"]]></text>
+        <outputEntry id="LiteralExpression_0ow8eml">        <text><![CDATA["the contribution is too low for this product"]]></text>
 </outputEntry>
       </rule>
       <rule id="table-879832527-10">
@@ -74,11 +75,11 @@
 </inputEntry>
         <inputEntry id="UnaryTests_111lnu4">        <text>true</text>
 </inputEntry>
-        <inputEntry id="UnaryTests_1qqtxij">        <text><![CDATA[<= 10000]]></text>
+        <inputEntry id="UnaryTests_1qqtxij">        <text><![CDATA[not(<= 10000)]]></text>
 </inputEntry>
         <inputEntry id="UnaryTests_1sus59v">        <text></text>
 </inputEntry>
-        <outputEntry id="LiteralExpression_0l1ykeb">        <text><![CDATA["data valid"]]></text>
+        <outputEntry id="LiteralExpression_0l1ykeb">        <text><![CDATA["the contribution is too low for this product"]]></text>
 </outputEntry>
       </rule>
       <rule id="row-422052177-3">
@@ -90,23 +91,9 @@
 </inputEntry>
         <inputEntry id="UnaryTests_0z25pox">        <text></text>
 </inputEntry>
-        <inputEntry id="UnaryTests_0syekl5">        <text><![CDATA["Paypal", "Bitcoin"]]></text>
+        <inputEntry id="UnaryTests_0syekl5">        <text><![CDATA[not("Paypal", "Bitcoin")]]></text>
 </inputEntry>
-        <outputEntry id="LiteralExpression_0s67zj6">        <text><![CDATA["data valid"]]></text>
-</outputEntry>
-      </rule>
-      <rule id="row-422052177-22">
-        <inputEntry id="UnaryTests_1poswd7">        <text></text>
-</inputEntry>
-        <inputEntry id="UnaryTests_0m9loew">        <text></text>
-</inputEntry>
-        <inputEntry id="UnaryTests_0wswl9b">        <text>false</text>
-</inputEntry>
-        <inputEntry id="UnaryTests_1w494py">        <text></text>
-</inputEntry>
-        <inputEntry id="UnaryTests_0013xh3">        <text></text>
-</inputEntry>
-        <outputEntry id="LiteralExpression_0iftbl3">        <text><![CDATA["data valid"]]></text>
+        <outputEntry id="LiteralExpression_0s67zj6">        <text><![CDATA["Sorry, we don´t support this method of payment"]]></text>
 </outputEntry>
       </rule>
     </decisionTable>

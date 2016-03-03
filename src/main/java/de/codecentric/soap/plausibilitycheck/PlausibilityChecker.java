@@ -1,11 +1,5 @@
 package de.codecentric.soap.plausibilitycheck;
 
-import static de.codecentric.soap.plausibilitycheck.decisions.WeatherFields2Check.FIELDNAME;
-import static de.codecentric.soap.plausibilitycheck.decisions.WeatherFields2Check.PRODUCT;
-import static de.codecentric.soap.plausibilitycheck.decisions.WeatherFields2Check.RULENUMBER;
-import static de.codecentric.soap.plausibilitycheck.decisions.WeatherFields2Check.RULEWORDS;
-import static de.codecentric.soap.plausibilitycheck.decisions.WeatherFields2Check.SERVICE_METHOD;
-import static de.codecentric.soap.plausibilitycheck.decisions.WeatherFields2Check.SHOULD_BE_CHECKED;
 
 import java.io.IOException;
 
@@ -28,6 +22,14 @@ import de.codecentric.soap.logging.SoapFrameworkLogger;
 @Component
 public class PlausibilityChecker {
 
+    public static final String PRODUCT = "product";
+    public static final String SERVICE_METHOD = "servicemethod";
+    public static final String FIELDNAME = "fieldname";
+    
+    public static final String SHOULD_BE_CHECKED = "check";
+    public static final String RULENUMBER = "rulenumber";
+    public static final String RULEWORDS = "rulewords";
+    
     private static final SoapFrameworkLogger LOG = SoapFrameworkLogger.getLogger(PlausibilityChecker.class);
     
     public static final String ERROR_TEXT = "Data in SOAP-Request is not valid for backend-processing!";
@@ -86,14 +88,11 @@ public class PlausibilityChecker {
     private void checkInWeatherRulesIfDataValid(VariableMap variables) throws BusinessException {
         DmnDecisionTableResult resultWeatherRules = dmnEngine.evaluateDecisionTable(weatherRules, variables);
         
-        if(resultWeatherRules.getSingleResult() != null
-                && "data valid".equals(resultWeatherRules.getSingleResult().getSingleEntry())) {
-            // do nothing, everything is fine
-            LOG.plausibilityCheckSuccessful();
-        } else {
-            //TODO: Rewrite from DMN-Messages
-            throw LOG.plausibilityCheckDidntPass(variables.get(FIELDNAME).toString(), new BusinessException(ERROR_TEXT));
+        if(!resultWeatherRules.isEmpty()) {
+            String errorMsg = resultWeatherRules.getFirstResult().getEntry("errorMsg");
+            throw LOG.plausibilityCheckDidntPass(variables.get(FIELDNAME).toString(), new BusinessException(errorMsg));
         }
+        LOG.plausibilityCheckSuccessfulWithoutErrors();
     }
     
     private boolean shouldFieldBeChecked(Weather weather, String webServiceMethod2CheckFor, String fieldName) throws BusinessException {

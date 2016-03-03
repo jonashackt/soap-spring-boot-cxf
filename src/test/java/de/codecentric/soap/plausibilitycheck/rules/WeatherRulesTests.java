@@ -1,11 +1,11 @@
 package de.codecentric.soap.plausibilitycheck.rules;
 
-import static de.codecentric.soap.plausibilitycheck.decisions.WeatherFields2Check.FIELDNAME;
-import static de.codecentric.soap.plausibilitycheck.decisions.WeatherFields2Check.PRODUCT;
-import static de.codecentric.soap.plausibilitycheck.decisions.WeatherFields2Check.RULENUMBER;
-import static de.codecentric.soap.plausibilitycheck.decisions.WeatherFields2Check.RULEWORDS;
-import static de.codecentric.soap.plausibilitycheck.decisions.WeatherFields2Check.SERVICE_METHOD;
-import static de.codecentric.soap.plausibilitycheck.decisions.WeatherFields2Check.SHOULD_BE_CHECKED;
+import static de.codecentric.soap.plausibilitycheck.PlausibilityChecker.FIELDNAME;
+import static de.codecentric.soap.plausibilitycheck.PlausibilityChecker.PRODUCT;
+import static de.codecentric.soap.plausibilitycheck.PlausibilityChecker.RULENUMBER;
+import static de.codecentric.soap.plausibilitycheck.PlausibilityChecker.RULEWORDS;
+import static de.codecentric.soap.plausibilitycheck.PlausibilityChecker.SERVICE_METHOD;
+import static de.codecentric.soap.plausibilitycheck.PlausibilityChecker.SHOULD_BE_CHECKED;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
