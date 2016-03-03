@@ -31,7 +31,10 @@ public final class GetCityForecastByZIPInMapper {
     }
 	
 	private static Product mapProduct(ProductName productName) {
-        if(Product.ForecastBasic.getName().equals(productName.value())) {
+		if(productName == null) {
+			return Product.Unknown;
+		}
+		else if(Product.ForecastBasic.getName().equals(productName.value())) {
             return Product.ForecastBasic;
         } else if (Product.ForecastProfessional.getName().equals(productName.value())) {
             return Product.ForecastProfessional;
