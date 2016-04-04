@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.codecentric.soap</groupId>
   <artifactId>soap-spring-boot-cxf</artifactId>
-  <version>0.0.7-SNAPSHOT</version>
+  <version>0.0.8-SNAPSHOT</version>
   <name>soap-spring-boot-cxf</name>
   <description>Sample Project for producing &amp; testing a SOAP-WSDL-driven Service with Spring Boot, Apache CXF &amp; JAXB</description>
   
@@ -113,6 +113,13 @@
 		  <groupId>net.logstash.logback</groupId>
 		  <artifactId>logstash-logback-encoder</artifactId>
 		  <version>${logstash-logback-encoder.version}</version>
+		  <!-- Exclude older version of logback-core for conflicting with newer in spring-boot, see https://github.com/logstash/logstash-logback-encoder/issues/153 -->
+		  <exclusions>
+            	<exclusion>
+            		<artifactId>logback-core</artifactId>
+            		<groupId>ch.qos.logback</groupId>
+            	</exclusion>
+            </exclusions>
 		</dependency>
 		
 		<!-- Fileconverting for PDF-reading -->		
