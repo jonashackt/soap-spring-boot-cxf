@@ -29,6 +29,7 @@ public class PlausibilityChecker {
     public static final String SHOULD_BE_CHECKED = "check";
     public static final String RULENUMBER = "rulenumber";
     public static final String RULEWORDS = "rulewords";
+    public static final String ERROR_MSG = "errorMsg";
     
     private static final SoapFrameworkLogger LOG = SoapFrameworkLogger.getLogger(PlausibilityChecker.class);
     

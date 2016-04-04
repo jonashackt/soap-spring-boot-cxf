@@ -24,7 +24,6 @@ import de.codecentric.namespace.weatherservice.general.ForecastReturn;
 import de.codecentric.namespace.weatherservice.general.WeatherInformationReturn;
 import de.codecentric.soap.configuration.ApplicationTestConfiguration;
 import de.codecentric.soap.internalmodel.MethodOfPayment;
-import de.codecentric.soap.plausibilitycheck.PlausibilityChecker;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=ApplicationTestConfiguration.class)
@@ -67,7 +66,7 @@ public class WeatherServiceEndpointTest {
 		// Then
 		assertNotNull(forecastReturn);
 		assertEquals("A wrong ZIP should lead to Success=false", false, forecastReturn.isSuccess());
-        assertThat(forecastReturn.getResponseText(), containsString(PlausibilityChecker.ERROR_TEXT));
+        assertThat(forecastReturn.getResponseText(), containsString("The postalcode isn´t in the correct range between 01001 and 99999"));
         
         // Given
         forecastRequest.setProductName(ProductName.FORECAST_PROFESSIONAL);
@@ -79,7 +78,7 @@ public class WeatherServiceEndpointTest {
         // Then
         assertNotNull(forecastReturn);
         assertEquals("Unsupported MethodOfPayment should lead to Success=false", false, forecastReturn.isSuccess());
-        assertThat(forecastReturn.getResponseText(), containsString(PlausibilityChecker.ERROR_TEXT));
+        assertThat(forecastReturn.getResponseText(), containsString("Sorry, we don´t support this method of payment"));
 	}
 	
 	@Test

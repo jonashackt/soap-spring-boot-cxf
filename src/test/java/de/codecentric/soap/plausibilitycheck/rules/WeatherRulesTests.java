@@ -1,13 +1,16 @@
 package de.codecentric.soap.plausibilitycheck.rules;
 
+import static de.codecentric.soap.plausibilitycheck.PlausibilityChecker.ERROR_MSG;
 import static de.codecentric.soap.plausibilitycheck.PlausibilityChecker.FIELDNAME;
 import static de.codecentric.soap.plausibilitycheck.PlausibilityChecker.PRODUCT;
 import static de.codecentric.soap.plausibilitycheck.PlausibilityChecker.RULENUMBER;
 import static de.codecentric.soap.plausibilitycheck.PlausibilityChecker.RULEWORDS;
 import static de.codecentric.soap.plausibilitycheck.PlausibilityChecker.SERVICE_METHOD;
 import static de.codecentric.soap.plausibilitycheck.PlausibilityChecker.SHOULD_BE_CHECKED;
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
@@ -107,8 +110,7 @@ public class WeatherRulesTests {
 	    // When
 	    DmnDecisionTableResult result = dmnEngine.evaluateDecisionTable(weatherRules, variables);
 	    // Then
-	    assertNotNull(result.getSingleResult());
-	    assertEquals("data valid", result.getSingleResult().getSingleEntry());
+	    assertTrue("Resultset should be empty, for Data is not valid", result.isEmpty());
 	}
 	
 	@Test
@@ -123,7 +125,9 @@ public class WeatherRulesTests {
 	    // When
         DmnDecisionTableResult result = dmnEngine.evaluateDecisionTable(weatherRules, variables);
         // Then
-        assertTrue("Resultset should be empty, for Data is noch valid", result.isEmpty());
+        assertNotNull(result.getFirstResult());
+        String errorMsg = result.getFirstResult().getEntry(ERROR_MSG);
+        assertThat(errorMsg, containsString("The postalcode isn´t in the correct range between 01001 and 99999"));
         
         // Given
         variables = Variables
@@ -135,7 +139,9 @@ public class WeatherRulesTests {
         // When
         result = dmnEngine.evaluateDecisionTable(weatherRules, variables);
         // Then
-        assertTrue("Resultset should be empty, for Data is noch valid", result.isEmpty());
+        assertNotNull(result.getFirstResult());
+        errorMsg = result.getFirstResult().getEntry(ERROR_MSG);
+        assertThat(errorMsg, containsString("The postalcode isn´t in the correct range between 01001 and 99999"));
         
         // Given
         variables = Variables
@@ -147,7 +153,9 @@ public class WeatherRulesTests {
         // When
         result = dmnEngine.evaluateDecisionTable(weatherRules, variables);
         // Then
-        assertTrue("Resultset should be empty, for Data is noch valid", result.isEmpty());
+        assertNotNull(result.getFirstResult());
+        errorMsg = result.getFirstResult().getEntry(ERROR_MSG);
+        assertThat(errorMsg, containsString("The postalcode isn´t in the correct range between 01001 and 99999"));
     }
 	
 	@Test
@@ -178,8 +186,7 @@ public class WeatherRulesTests {
         DmnDecisionTableResult resultWeatherRules = dmnEngine.evaluateDecisionTable(weatherRules, variables);
         
         // Then
-        assertNotNull(resultWeatherRules.getSingleResult());
-        assertEquals("data valid", resultWeatherRules.getSingleResult().getSingleEntry());
+        assertTrue("Resultset should be empty, for Data is not valid", resultWeatherRules.isEmpty());
 	}
 	
 	@Test
@@ -194,7 +201,9 @@ public class WeatherRulesTests {
         // When
         DmnDecisionTableResult result = dmnEngine.evaluateDecisionTable(weatherRules, variables);
         // Then
-        assertTrue("Resultset should be empty, for Data is noch valid", result.isEmpty());
+        assertNotNull(result.getFirstResult());
+        String errorMsg = result.getFirstResult().getEntry(ERROR_MSG);
+        assertThat(errorMsg, containsString("Sorry, we don´t support this method of payment"));
         
         // Given
         variables = Variables
@@ -206,7 +215,9 @@ public class WeatherRulesTests {
         // When
         result = dmnEngine.evaluateDecisionTable(weatherRules, variables);
         // Then
-        assertTrue("Resultset should be empty, for Data is noch valid", result.isEmpty());
+        assertNotNull(result.getFirstResult());
+        errorMsg = result.getFirstResult().getEntry(ERROR_MSG);
+        assertThat(errorMsg, containsString("Sorry, we don´t support this method of payment"));
     }
 	
 	@Test
@@ -221,7 +232,6 @@ public class WeatherRulesTests {
         // When
         DmnDecisionTableResult result = dmnEngine.evaluateDecisionTable(weatherRules, variables);
         // Then
-        assertNotNull(result.getSingleResult());
-        assertEquals("data valid", result.getSingleResult().getSingleEntry());
+        assertTrue("Resultset should be empty, for Data is not valid", result.isEmpty());
     }
 }

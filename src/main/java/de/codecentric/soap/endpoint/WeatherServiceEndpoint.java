@@ -7,7 +7,6 @@ import javax.xml.ws.WebServiceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import de.codecentric.namespace.weatherservice.WeatherService;
-import de.codecentric.namespace.weatherservice.datatypes.WeatherOverviewPdf;
 import de.codecentric.namespace.weatherservice.general.ForecastRequest;
 import de.codecentric.namespace.weatherservice.general.ForecastReturn;
 import de.codecentric.namespace.weatherservice.general.WeatherInformationReturn;
