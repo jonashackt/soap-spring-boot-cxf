@@ -140,14 +140,17 @@
 	        <!-- Generate Java-Classes inkl. JAXB-Bindings from WSDL & imported XSD -->
 	        <!-- See Doku at https://jax-ws-commons.java.net/jaxws-maven-plugin/usage.html -->
 			<plugin>
-				<groupId>org.jvnet.jax-ws-commons</groupId>
+				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jaxws-maven-plugin</artifactId>
-				<version>2.3</version>
+				<version>2.4.1</version>
 				<configuration>
 					<!-- See https://jax-ws-commons.java.net/jaxws-maven-plugin/wsimport-mojo.html -->
-					<wsdlUrls>
-						<wsdlUrl>src/main/resources/service-api-definition/Weather1.0.wsdl</wsdlUrl>
-					</wsdlUrls>
+					<wsdlDirectory>src/main/resources/service-api-definition/</wsdlDirectory>
+					<!-- This is very useful to not generate something like
+					wsdlLocation = "file:/Users/myuser/devfolder/cxf-spring-boot-starter/src/test/resources/wsdl/Weather1.0.wsdl"
+					into the @WebServiceClient generated Class. This could break stuff, e.g. when u build on Jenkins
+					and then try to deploy on a Linux server, where the path is completely different -->
+					<wsdlLocation>http://www.codecentric.de/weatherservice/</wsdlLocation>
 					<sourceDestDir>target/generated-sources/wsdlimport/Weather1.0</sourceDestDir>
 					<!-- For accessing the imported schema, see https://netbeans.org/bugzilla/show_bug.cgi?id=241570 -->
 					<vmArgs>
@@ -228,42 +231,7 @@
                 <version>${build-plugin.coveralls.version}</version>
             </plugin>
 		</plugins>
-        <pluginManagement>
-        	<!-- Really ugly - neede to solve Maven Eclipse Plugin m2e issue... Argh! -->
-        	<plugins>
-        		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-        		<plugin>
-        			<groupId>org.eclipse.m2e</groupId>
-        			<artifactId>lifecycle-mapping</artifactId>
-        			<version>1.0.0</version>
-        			<configuration>
-        				<lifecycleMappingMetadata>
-        					<pluginExecutions>
-        						<pluginExecution>
-        							<pluginExecutionFilter>
-        								<groupId>
-        									org.jvnet.jax-ws-commons
-        								</groupId>
-        								<artifactId>
-        									jaxws-maven-plugin
-        								</artifactId>
-        								<versionRange>
-        									[2.3,)
-        								</versionRange>
-        								<goals>
-        									<goal>wsimport</goal>
-        								</goals>
-        							</pluginExecutionFilter>
-        							<action>
-        								<execute/>
-        							</action>
-        						</pluginExecution>
-        					</pluginExecutions>
-        				</lifecycleMappingMetadata>
-        			</configuration>
-        		</plugin>
-        	</plugins>
-        </pluginManagement>
+
     </build>
     
     <repositories>

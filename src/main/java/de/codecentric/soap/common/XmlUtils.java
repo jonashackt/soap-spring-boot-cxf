@@ -144,7 +144,7 @@ public final class XmlUtils {
 		return documentBuilder;
 	}
 	
-	public static Document marhallJaxbElement(Object jaxbElement) throws BusinessException {
+	public static Document marhallJaxbElementIntoDocument(Object jaxbElement) throws BusinessException {
 		Document jaxbDoc = null;
 		try {
 			Marshaller marshaller = setUpMarshaller(jaxbElement.getClass());

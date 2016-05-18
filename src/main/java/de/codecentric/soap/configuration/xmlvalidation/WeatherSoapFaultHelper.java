@@ -28,7 +28,7 @@ public final class WeatherSoapFaultHelper {
 	private static Element createFaultDetailWithWeatherException(String originalFaultMessage,  FaultConst faultContent) {
 		Element weatherExceptionElementAppended = null;
 		try {
-			Document weatherExcecption = XmlUtils.marhallJaxbElement(WeatherOutError.createWeatherException(faultContent, originalFaultMessage));
+			Document weatherExcecption = XmlUtils.marhallJaxbElementIntoDocument(WeatherOutError.createWeatherException(faultContent, originalFaultMessage));
 			// As the Root-Element is deleted while adding the WeatherException to the Fault-Details, we have to use a Workaround:
 	    	// we append it to a new Element, which then gets deleted again
 	    	weatherExceptionElementAppended = XmlUtils.appendAsChildElement2NewElement(weatherExcecption);
