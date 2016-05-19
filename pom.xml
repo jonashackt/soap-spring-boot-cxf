@@ -150,7 +150,7 @@
 					wsdlLocation = "file:/Users/myuser/devfolder/cxf-spring-boot-starter/src/test/resources/wsdl/Weather1.0.wsdl"
 					into the @WebServiceClient generated Class. This could break stuff, e.g. when u build on Jenkins
 					and then try to deploy on a Linux server, where the path is completely different -->
-					<wsdlLocation>http://www.codecentric.de/weatherservice/</wsdlLocation>
+					<wsdlLocation>/service-api-definition/Weather1.0.wsdl</wsdlLocation>
 					<sourceDestDir>target/generated-sources/wsdlimport/Weather1.0</sourceDestDir>
 					<!-- For accessing the imported schema, see https://netbeans.org/bugzilla/show_bug.cgi?id=241570 -->
 					<vmArgs>

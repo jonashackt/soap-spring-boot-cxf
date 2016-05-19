@@ -13,6 +13,7 @@ import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import de.codecentric.namespace.weatherservice.Weather;
 import de.codecentric.namespace.weatherservice.WeatherService;
 import de.codecentric.soap.configuration.xmlvalidation.WeatherServiceXmlValidationInterceptor;
 import de.codecentric.soap.endpoint.WeatherServiceEndpoint;
@@ -50,12 +51,19 @@ public class WebServiceConfiguration {
     
     @Bean
     public Endpoint endpoint() {
-    	EndpointImpl endpoint = new EndpointImpl(springBus(), weatherService());
-    	endpoint.publish(SERVICE_NAME_URL_PATH);
-    	endpoint.setWsdlLocation("Weather1.0.wsdl");
-    	// Interceptor for custom Schema-validation-SoapFault-Response
-    	endpoint.getOutFaultInterceptors().add(soapInterceptor());
-    	return endpoint;
+        EndpointImpl endpoint = new EndpointImpl(springBus(), weatherService());
+        // Interceptor for custom Schema-validation-SoapFault-Response
+        endpoint.setServiceName(weather().getServiceName());
+        endpoint.setWsdlLocation(weather().getWSDLDocumentLocation().toString());
+        endpoint.publish(SERVICE_NAME_URL_PATH);
+        endpoint.getOutFaultInterceptors().add(soapInterceptor());
+        return endpoint;
+    }
+    
+    @Bean
+    public Weather weather() {
+        // Needed for correct ServiceName & WSDLLocation to publish contract first incl. original WSDL
+        return new Weather();
     }
     
     @Bean
