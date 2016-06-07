@@ -1,4 +1,4 @@
-package de.codecentric.soap.configuration.xmlvalidation;
+package de.codecentric.soap.configuration.customsoapfaults;
 
 import org.apache.cxf.binding.soap.SoapMessage;
 import org.apache.cxf.interceptor.Fault;

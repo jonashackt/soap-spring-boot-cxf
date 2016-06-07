@@ -1,4 +1,4 @@
-package de.codecentric.soap.configuration.xmlvalidation;
+package de.codecentric.soap.configuration.customsoapfaults;
 
 
 import javax.xml.bind.UnmarshalException;
@@ -14,11 +14,11 @@ import com.ctc.wstx.exc.WstxUnexpectedCharException;
 import de.codecentric.soap.common.FaultConst;
 import de.codecentric.soap.logging.SoapFrameworkLogger;
 
-public class WeatherServiceXmlValidationInterceptor extends AbstractSoapInterceptor {
+public class WeatherServiceCustomSoapFaultInterceptor extends AbstractSoapInterceptor {
 
-	private static final SoapFrameworkLogger LOG = SoapFrameworkLogger.getLogger(WeatherServiceXmlValidationInterceptor.class);
+	private static final SoapFrameworkLogger LOG = SoapFrameworkLogger.getLogger(WeatherServiceCustomSoapFaultInterceptor.class);
 	
-	public WeatherServiceXmlValidationInterceptor() {
+	public WeatherServiceCustomSoapFaultInterceptor() {
 		super(Phase.PRE_STREAM);
 	}
 	

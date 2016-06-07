@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 
 import de.codecentric.namespace.weatherservice.Weather;
 import de.codecentric.namespace.weatherservice.WeatherService;
-import de.codecentric.soap.configuration.xmlvalidation.WeatherServiceXmlValidationInterceptor;
+import de.codecentric.soap.configuration.customsoapfaults.WeatherServiceCustomSoapFaultInterceptor;
 import de.codecentric.soap.endpoint.WeatherServiceEndpoint;
 
 @Configuration
@@ -68,7 +68,7 @@ public class WebServiceConfiguration {
     
     @Bean
     public AbstractSoapInterceptor soapInterceptor() {
-    	return new WeatherServiceXmlValidationInterceptor();
+    	return new WeatherServiceCustomSoapFaultInterceptor();
     }
 
 }
