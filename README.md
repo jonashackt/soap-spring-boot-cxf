@@ -132,7 +132,6 @@ For now, you have to separate Rules with different datatypes to different Decisi
 
 ## Todo's
 
-* Spring Boot Starter CXF
 * Configure Servicename in logback.xml from static fields
 * Fault Tolerance with Hystrix (e.g. to avoid problems because of accumulated TimeOuts)
 

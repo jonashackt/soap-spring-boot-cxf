@@ -27,13 +27,13 @@ public class SoapFrameworkLogger {
 	// see https://github.com/logstash/logstash-logback-encoder/tree/logstash-logback-encoder-4.5#event-specific-custom-fields
     // net.logstash.logback.marker.Markers.append() enables to directly push a field into elasticsearch, only for one message
     
-	public void logInboundSoapMessage(String headers) {
-        delegateLogger.info(append(ElasticsearchField.SOAP_MESSAGE_INBOUND.getName(), headers),
+	public void logInboundSoapMessage(String inboundSoapMessage) {
+        delegateLogger.info(append(ElasticsearchField.SOAP_MESSAGE_INBOUND.getName(), inboundSoapMessage),
                 "===[> Inbound-SoapMessage ===[>");
     }
     
-    public void logOutboundSoapMessage(String headers) {
-        delegateLogger.info(append(ElasticsearchField.SOAP_MESSAGE_OUTBOUND.getName(), headers),
+    public void logOutboundSoapMessage(String outboundSoapMessage) {
+        delegateLogger.info(append(ElasticsearchField.SOAP_MESSAGE_OUTBOUND.getName(), outboundSoapMessage),
                 "<]=== Outbound-SoapMessage <]===");
     }
 	
