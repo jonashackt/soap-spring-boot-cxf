@@ -13,8 +13,10 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.w3._2005._05.xmlmime.Base64Binary;
 
 import de.codecentric.namespace.weatherservice.datatypes.ProductName;
@@ -25,8 +27,8 @@ import de.codecentric.namespace.weatherservice.general.WeatherInformationReturn;
 import de.codecentric.soap.configuration.ApplicationTestConfiguration;
 import de.codecentric.soap.internalmodel.MethodOfPayment;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes=ApplicationTestConfiguration.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = ApplicationTestConfiguration.class)
 public class WeatherServiceEndpointTest {
 
 	/*

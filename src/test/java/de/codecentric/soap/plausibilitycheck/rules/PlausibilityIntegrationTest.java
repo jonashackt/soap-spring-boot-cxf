@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.Resource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -21,10 +22,13 @@ import de.codecentric.namespace.weatherservice.general.GetCityForecastByZIP;
 import de.codecentric.soap.SoapTestApplication;
 import de.codecentric.soap.common.BusinessException;
 import de.codecentric.soap.common.XmlUtils;
+import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes=SoapTestApplication.class)
-@WebIntegrationTest("server.port:8093") // This Configuration overrides the config of the embedded server, that is used (and re-used) in the Tests 
+@RunWith(SpringRunner.class)
+@SpringBootTest(
+		classes=SoapTestApplication.class,
+		webEnvironment= SpringBootTest.WebEnvironment.DEFINED_PORT,
+		properties = { "server.port:8093"})
 public class PlausibilityIntegrationTest {
     
     @Value(value="classpath:requests/plausibility/GetCityForecastByZIPPostalcodeToLong.xml")

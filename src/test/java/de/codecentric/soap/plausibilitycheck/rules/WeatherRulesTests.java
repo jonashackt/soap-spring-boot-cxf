@@ -27,15 +27,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.Resource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.codecentric.soap.SoapApplication;
 import de.codecentric.soap.internalmodel.MethodOfPayment;
 import de.codecentric.soap.internalmodel.Product;
+import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = SoapApplication.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = SoapApplication.class)
 public class WeatherRulesTests {
 
     @Value("classpath:rules/weatherFields2Check.dmn")

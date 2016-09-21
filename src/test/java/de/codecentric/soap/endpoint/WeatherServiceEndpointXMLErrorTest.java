@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.Resource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -19,12 +20,13 @@ import de.codecentric.soap.common.BusinessException;
 import de.codecentric.soap.common.FaultConst;
 import de.codecentric.soap.soaprawclient.SoapRawClient;
 import de.codecentric.soap.soaprawclient.SoapRawClientResponse;
+import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes=SoapTestApplication.class)
-// @WebIntegrationTest-Configuration "server.port:XYZ" overrides the config of the embedded server, that is used (and re-used) in the Tests 
-// If you want to log the actual SOAP-Messages, e.g. by using TCP/IP-Monitor in Eclipse, just change port/url in dev-test.properties 
-@WebIntegrationTest("server.port:8093") 
+@RunWith(SpringRunner.class)
+@SpringBootTest(
+		classes=SoapTestApplication.class,
+		webEnvironment= SpringBootTest.WebEnvironment.DEFINED_PORT,
+		properties = { "server.port:8093"})
 public class WeatherServiceEndpointXMLErrorTest {
 
 	@Autowired
