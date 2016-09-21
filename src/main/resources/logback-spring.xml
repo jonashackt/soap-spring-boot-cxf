@@ -10,7 +10,7 @@
     <!-- Logstash-Configuration -->
 	<!-- For details see https://github.com/logstash/logstash-logback-encoder -->
 	<appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-		<destination>192.168.99.100:5000</destination>
+		<destination>localhost:5000</destination>
 		<!-- encoder is required -->
 	   <encoder class="net.logstash.logback.encoder.LogstashEncoder">
 	   	<includeCallerData>true</includeCallerData>
