@@ -13,7 +13,7 @@
    </parent>
    
    <properties>
-  		<cxf.version>3.1.7</cxf.version>
+  		<cxf.version>3.1.8</cxf.version>
 		<!-- use UTF-8 for everything -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
