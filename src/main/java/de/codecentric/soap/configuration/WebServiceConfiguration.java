@@ -27,13 +27,11 @@ public class WebServiceConfiguration {
 	public static final String SERVICE_LIST_TITLE = "BigWeatherCompanies´ List of Weather Services";
 	
 	@Bean
-    public ServletRegistrationBean dispatcherServlet() {
-        CXFServlet cxfServlet = new CXFServlet();
-        ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(cxfServlet, SERVLET_MAPPING_URL_PATH + "/*");
+    public ServletRegistrationBean cxfServlet() {
+        ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new CXFServlet(), SERVLET_MAPPING_URL_PATH + "/*");
         // Add custom Title to CXF´s ServiceList
         Map<String, String> initParameters = servletRegistrationBean.getInitParameters();
         initParameters.put("service-list-title", SERVICE_LIST_TITLE);
-        
         return servletRegistrationBean;
     }
     
@@ -53,7 +51,10 @@ public class WebServiceConfiguration {
     @Bean
     public Endpoint endpoint() {
         EndpointImpl endpoint = new EndpointImpl(springBus(), weatherService());
-        // Interceptor for custom Schema-validation-SoapFault-Response
+        // CXF JAX-WS implementation relies on the correct ServiceName as QName-Object with
+        // the name-Attribute´s text <wsdl:service name="Weather"> and the targetNamespace
+        // "http://www.codecentric.de/namespace/weatherservice/"
+        // Also the WSDLLocation must be set
         endpoint.setServiceName(weather().getServiceName());
         endpoint.setWsdlLocation(weather().getWSDLDocumentLocation().toString());
         endpoint.publish(SERVICE_NAME_URL_PATH);
