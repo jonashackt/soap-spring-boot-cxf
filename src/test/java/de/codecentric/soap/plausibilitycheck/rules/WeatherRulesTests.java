@@ -1,20 +1,8 @@
 package de.codecentric.soap.plausibilitycheck.rules;
 
-import static de.codecentric.soap.plausibilitycheck.PlausibilityChecker.ERROR_MSG;
-import static de.codecentric.soap.plausibilitycheck.PlausibilityChecker.FIELDNAME;
-import static de.codecentric.soap.plausibilitycheck.PlausibilityChecker.PRODUCT;
-import static de.codecentric.soap.plausibilitycheck.PlausibilityChecker.RULENUMBER;
-import static de.codecentric.soap.plausibilitycheck.PlausibilityChecker.RULEWORDS;
-import static de.codecentric.soap.plausibilitycheck.PlausibilityChecker.SERVICE_METHOD;
-import static de.codecentric.soap.plausibilitycheck.PlausibilityChecker.SHOULD_BE_CHECKED;
-import static org.hamcrest.Matchers.containsString;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
-import java.io.IOException;
-
+import de.codecentric.soap.SoapApplication;
+import de.codecentric.soap.internalmodel.MethodOfPayment;
+import de.codecentric.soap.internalmodel.Product;
 import org.camunda.bpm.dmn.engine.DmnDecision;
 import org.camunda.bpm.dmn.engine.DmnDecisionTableResult;
 import org.camunda.bpm.dmn.engine.DmnEngine;
@@ -26,15 +14,15 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.Resource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import de.codecentric.soap.SoapApplication;
-import de.codecentric.soap.internalmodel.MethodOfPayment;
-import de.codecentric.soap.internalmodel.Product;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.io.IOException;
+
+import static de.codecentric.soap.plausibilitycheck.PlausibilityChecker.*;
+import static org.hamcrest.Matchers.containsString;
+import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SoapApplication.class)
