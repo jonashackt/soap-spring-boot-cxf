@@ -11,7 +11,7 @@ import de.codecentric.soap.backend.WeatherBackend;
 import de.codecentric.soap.controller.WeatherServiceController;
 import de.codecentric.soap.controller.WeatherServiceControllerImpl;
 import de.codecentric.soap.endpoint.WeatherServiceEndpoint;
-import de.codecentric.soap.plausibilitycheck.PlausibilityChecker;
+import de.codecentric.soap.rules.PlausibilityChecker;
 
 @Configuration
 public class ApplicationTestConfiguration {

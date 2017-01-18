@@ -33,26 +33,26 @@ public class WeatherServiceFacadeSystemTest {
 	@Autowired
 	private WeatherService weatherService;
 
-	@Value(value="classpath:requests/GetCityForecastByZIPTest.xml")
-	private Resource getCityForecastByZIPTestXml;
+	@Value(value="classpath:requests/rules/GetCityForecastByZIPActivateFacadeMode.xml")
+	private Resource getCityForecastByZIPActivateFacadeModeXml;
 
 	@Value(value="classpath:requests/GetCityWeatherByZIP.xml")
 	private Resource getCityWeatherByZIPXml;
 
 
 	@Test
-	public void getCityForecastByZIP_should_respond_with_Dummy_Response() throws BusinessException, WeatherException, IOException {
-		GetCityForecastByZIP getCityForecastByZIP = XmlUtils.readSoapMessageFromStreamAndUnmarshallBody2Object(
-				getCityForecastByZIPTestXml.getInputStream(), GetCityForecastByZIP.class);
+	public void getCityForecastByZIP_should_respond_with_Facade_Response() throws BusinessException, WeatherException, IOException {
+		GetCityForecastByZIP getCityForecastByZIPActivateFacadeMode = XmlUtils.readSoapMessageFromStreamAndUnmarshallBody2Object(
+				getCityForecastByZIPActivateFacadeModeXml.getInputStream(), GetCityForecastByZIP.class);
 		
-		ForecastReturn forecastReturn = weatherService.getCityForecastByZIP(getCityForecastByZIP.getForecastRequest());
+		ForecastReturn forecastReturn = weatherService.getCityForecastByZIP(getCityForecastByZIPActivateFacadeMode.getForecastRequest());
 		
 		assertNotNull(forecastReturn);
 		assertEquals("WeimarFacade", forecastReturn.getCity());
 	}
 
 	@Test
-	public void getCityWeatherByZIP_should_Not_respond_with_Dummy_Response() throws BusinessException, WeatherException, IOException {
+	public void getCityWeatherByZIP_should_Not_respond_with_Facade_Response() throws BusinessException, WeatherException, IOException {
 		GetCityWeatherByZIP getCityWeatherByZIP = XmlUtils.readSoapMessageFromStreamAndUnmarshallBody2Object(
 				getCityWeatherByZIPXml.getInputStream(), GetCityWeatherByZIP.class);
 

@@ -3,16 +3,16 @@ package de.codecentric.soap.configuration;
 import java.io.IOException;
 
 import de.codecentric.soap.controller.WeatherServiceControllerFacadeAspect;
+import de.codecentric.soap.rules.Rules;
 import org.camunda.bpm.dmn.engine.DmnEngine;
 import org.camunda.bpm.dmn.engine.DmnEngineConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 
 import de.codecentric.soap.backend.WeatherBackend;
 import de.codecentric.soap.controller.WeatherServiceController;
 import de.codecentric.soap.controller.WeatherServiceControllerImpl;
-import de.codecentric.soap.plausibilitycheck.PlausibilityChecker;
+import de.codecentric.soap.rules.PlausibilityChecker;
 
 @Configuration
 public class ApplicationConfiguration {
@@ -35,6 +35,11 @@ public class ApplicationConfiguration {
 	@Bean
 	public PlausibilityChecker plausibilityChecker() throws IOException {
 	    return new PlausibilityChecker();
+	}
+
+	@Bean
+	public Rules rules() {
+		return new Rules();
 	}
 	
 	@Bean

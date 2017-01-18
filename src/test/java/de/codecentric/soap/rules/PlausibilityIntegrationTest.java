@@ -1,4 +1,4 @@
-package de.codecentric.soap.plausibilitycheck.rules;
+package de.codecentric.soap.rules;
 
 import de.codecentric.namespace.weatherservice.WeatherException;
 import de.codecentric.namespace.weatherservice.WeatherService;
@@ -27,7 +27,7 @@ import static org.junit.Assert.assertNotNull;
 		properties = { "server.port:8093"})
 public class PlausibilityIntegrationTest {
     
-    @Value(value="classpath:requests/plausibility/GetCityForecastByZIPPostalcodeToLong.xml")
+    @Value(value="classpath:requests/rules/GetCityForecastByZIPPostalcodeToLong.xml")
     private Resource getCityForecastByZipPostalcodeToLongXml;
     
 	@Autowired

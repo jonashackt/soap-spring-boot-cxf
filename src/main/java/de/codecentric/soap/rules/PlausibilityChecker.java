@@ -1,4 +1,4 @@
-package de.codecentric.soap.plausibilitycheck;
+package de.codecentric.soap.rules;
 
 
 import java.io.IOException;
@@ -22,15 +22,6 @@ import de.codecentric.soap.logging.SoapFrameworkLogger;
 @Component
 public class PlausibilityChecker {
 
-    public static final String PRODUCT = "product";
-    public static final String SERVICE_METHOD = "servicemethod";
-    public static final String FIELDNAME = "fieldname";
-    
-    public static final String SHOULD_BE_CHECKED = "check";
-    public static final String RULENUMBER = "rulenumber";
-    public static final String RULEWORDS = "rulewords";
-    public static final String ERROR_MSG = "errorMsg";
-    
     private static final SoapFrameworkLogger LOG = SoapFrameworkLogger.getLogger(PlausibilityChecker.class);
     
     public static final String ERROR_TEXT = "Data in SOAP-Request is not valid for backend-processing!";
@@ -64,11 +55,11 @@ public class PlausibilityChecker {
         String fieldName = "postalCode";
 
         VariableMap variables = Variables
-                .putValue(PRODUCT, weather.getProduct().getName())
-                .putValue(FIELDNAME, fieldName)
-                .putValue(SHOULD_BE_CHECKED, shouldFieldBeChecked(weather, webServiceMethod2CheckFor, fieldName))
-                .putValue(RULENUMBER, weather.getPostalCode())
-                .putValue(RULEWORDS, "");
+                .putValue(RuleKeys.PRODUCT, weather.getProduct().getName())
+                .putValue(RuleKeys.FIELDNAME, fieldName)
+                .putValue(RuleKeys.SHOULD_BE_CHECKED, shouldFieldBeChecked(weather, webServiceMethod2CheckFor, fieldName))
+                .putValue(RuleKeys.RULENUMBER, weather.getPostalCode())
+                .putValue(RuleKeys.RULEWORDS, "");
 
         checkInWeatherRulesIfDataValid(variables);
     }
@@ -77,11 +68,11 @@ public class PlausibilityChecker {
         String fieldName = "methodOfPayment";
         
         VariableMap variables = Variables
-                .putValue(PRODUCT, weather.getProduct().getName())
-                .putValue(FIELDNAME, fieldName)
-                .putValue(SHOULD_BE_CHECKED, shouldFieldBeChecked(weather, webServiceMethod2CheckFor, fieldName))
-                .putValue(RULENUMBER, 0)
-                .putValue(RULEWORDS, weather.getUser().getMethodOfPayment().getName());
+                .putValue(RuleKeys.PRODUCT, weather.getProduct().getName())
+                .putValue(RuleKeys.FIELDNAME, fieldName)
+                .putValue(RuleKeys.SHOULD_BE_CHECKED, shouldFieldBeChecked(weather, webServiceMethod2CheckFor, fieldName))
+                .putValue(RuleKeys.RULENUMBER, 0)
+                .putValue(RuleKeys.RULEWORDS, weather.getUser().getMethodOfPayment().getName());
 
         checkInWeatherRulesIfDataValid(variables);
     }
@@ -91,16 +82,16 @@ public class PlausibilityChecker {
         
         if(!resultWeatherRules.isEmpty()) {
             String errorMsg = resultWeatherRules.getFirstResult().getEntry("errorMsg");
-            throw LOG.plausibilityCheckDidntPass(variables.get(FIELDNAME).toString(), new BusinessException(errorMsg));
+            throw LOG.plausibilityCheckDidntPass(variables.get(RuleKeys.FIELDNAME).toString(), new BusinessException(errorMsg));
         }
         LOG.plausibilityCheckSuccessfulWithoutErrors();
     }
     
     private boolean shouldFieldBeChecked(Weather weather, String webServiceMethod2CheckFor, String fieldName) throws BusinessException {
         VariableMap variables = Variables
-                .putValue(PRODUCT, weather.getProduct().getName())
-                .putValue(SERVICE_METHOD, webServiceMethod2CheckFor)
-                .putValue(FIELDNAME, fieldName);
+                .putValue(RuleKeys.PRODUCT, weather.getProduct().getName())
+                .putValue(RuleKeys.SERVICE_METHOD, webServiceMethod2CheckFor)
+                .putValue(RuleKeys.FIELDNAME, fieldName);
         
         DmnDecisionTableResult resultWeatherFields2Check = dmnEngine.evaluateDecisionTable(weatherFields2Check, variables);
 

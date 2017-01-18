@@ -12,7 +12,7 @@ import de.codecentric.soap.common.BusinessException;
 import de.codecentric.soap.internalmodel.GeneralOutlook;
 import de.codecentric.soap.internalmodel.Weather;
 import de.codecentric.soap.logging.SoapFrameworkLogger;
-import de.codecentric.soap.plausibilitycheck.PlausibilityChecker;
+import de.codecentric.soap.rules.PlausibilityChecker;
 import de.codecentric.soap.transformation.GetCityForecastByZIPInMapper;
 import de.codecentric.soap.transformation.GetCityForecastByZIPOutMapper;
 import de.codecentric.soap.transformation.GetCityWeatherByZIPOutMapper;

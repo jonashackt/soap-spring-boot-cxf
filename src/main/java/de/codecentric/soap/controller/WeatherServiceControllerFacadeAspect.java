@@ -4,9 +4,11 @@ import de.codecentric.namespace.weatherservice.general.*;
 import de.codecentric.soap.common.BusinessException;
 import de.codecentric.soap.common.XmlUtils;
 import de.codecentric.soap.logging.SoapFrameworkLogger;
+import de.codecentric.soap.rules.Rules;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
@@ -23,7 +25,10 @@ import java.io.IOException;
 public class WeatherServiceControllerFacadeAspect {
     	
     private static final SoapFrameworkLogger LOG = SoapFrameworkLogger.getLogger(WeatherServiceControllerFacadeAspect.class);
-	
+
+    @Autowired
+    private Rules rules;
+
     @Value(value="classpath:responses/GetCityForecastByZIPDummyResponse.xml")
     private Resource dummyResponseGetCityForecastByZIP;
     
@@ -33,14 +38,10 @@ public class WeatherServiceControllerFacadeAspect {
     @Value(value="classpath:responses/GetWeatherInformationDummyResponse.xml")
     private Resource dummyResponseGetWeatherInformation;
 
-	// TODO: Write DMN
-	private boolean facadeMode = true;
-
 	@Around("execution(* de.codecentric.soap.controller.WeatherServiceControllerImpl.getCityForecastByZIP(de.codecentric.namespace.weatherservice.general.ForecastRequest)) && args(forecastRequest)")
 	public Object getCityForecastByZIP(ProceedingJoinPoint proceedingJoinPoint, ForecastRequest forecastRequest) throws Throwable {
-	    if(facadeMode){
+	    if(rules.activateFacadeMode(forecastRequest)){
 			LOG.facadeModeReturningDummyResponseWithResponseType(ForecastReturn.class);
-			System.out.println("forecastRequest has this flagcolor: " + forecastRequest.getFlagcolor());
 			return getResponseObjectFromFile(dummyResponseGetCityForecastByZIP, GetCityForecastByZIPResponse.class).getGetCityForecastByZIPResult();
 		} else {
 			return proceedingJoinPoint.proceed();

@@ -1,4 +1,4 @@
-package de.codecentric.soap.plausibilitycheck.rules;
+package de.codecentric.soap.rules;
 
 import de.codecentric.soap.SoapApplication;
 import de.codecentric.soap.internalmodel.MethodOfPayment;
@@ -20,13 +20,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
 
-import static de.codecentric.soap.plausibilitycheck.PlausibilityChecker.*;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SoapApplication.class)
-public class WeatherRulesTests {
+public class PlausibilityTests {
 
     @Value("classpath:rules/weatherFields2Check.dmn")
     private Resource weatherFields2CheckFile;
@@ -53,9 +52,9 @@ public class WeatherRulesTests {
 	public void zipShouldAlwaysBeChecked() {		
 	    // Given
 	    VariableMap variables = Variables
-	            .putValue(PRODUCT, Product.ForecastProfessional.getName())
-	            .putValue(SERVICE_METHOD, "getCityForecastByZIP")
-	            .putValue(FIELDNAME, "postalCode");
+	            .putValue(RuleKeys.PRODUCT, Product.ForecastProfessional.getName())
+	            .putValue(RuleKeys.SERVICE_METHOD, "getCityForecastByZIP")
+	            .putValue(RuleKeys.FIELDNAME, "postalCode");
 	    // When
 	    DmnDecisionTableResult result = dmnEngine.evaluateDecisionTable(weatherFields2Check, variables);
 	    // Then
@@ -64,9 +63,9 @@ public class WeatherRulesTests {
 	    
 	    // Given
 	    variables = Variables
-                .putValue(PRODUCT, Product.ForecastUltimateXL.getName())
-                .putValue(SERVICE_METHOD, "getCityWeatherByZIP")
-                .putValue(FIELDNAME, "postalCode");
+                .putValue(RuleKeys.PRODUCT, Product.ForecastUltimateXL.getName())
+                .putValue(RuleKeys.SERVICE_METHOD, "getCityWeatherByZIP")
+                .putValue(RuleKeys.FIELDNAME, "postalCode");
 	    // When
         result = dmnEngine.evaluateDecisionTable(weatherFields2Check, variables);
         // Then
@@ -78,9 +77,9 @@ public class WeatherRulesTests {
 	public void forecastProfessionalContribution() {
 	    // Given
 	    VariableMap variables = Variables
-	            .putValue(PRODUCT, Product.ForecastProfessional.getName())
-	            .putValue(SERVICE_METHOD, "getCityForecastByZIP")
-	            .putValue(FIELDNAME, "contribution");
+	            .putValue(RuleKeys.PRODUCT, Product.ForecastProfessional.getName())
+	            .putValue(RuleKeys.SERVICE_METHOD, "getCityForecastByZIP")
+	            .putValue(RuleKeys.FIELDNAME, "contribution");
 	    // When
 	    DmnDecisionTableResult result = dmnEngine.evaluateDecisionTable(weatherFields2Check, variables);
 	    // Then
@@ -92,11 +91,11 @@ public class WeatherRulesTests {
 	public void postalCodeValid() {
 	    // Given
 	    VariableMap variables = Variables
-	            .putValue(PRODUCT, Product.ForecastProfessional.getName())
-	            .putValue(FIELDNAME, "postalCode")
-	            .putValue(SHOULD_BE_CHECKED, true)
-	            .putValue(RULENUMBER, 99423)
-	            .putValue(RULEWORDS, "");
+	            .putValue(RuleKeys.PRODUCT, Product.ForecastProfessional.getName())
+	            .putValue(RuleKeys.FIELDNAME, "postalCode")
+	            .putValue(RuleKeys.SHOULD_BE_CHECKED, true)
+	            .putValue(RuleKeys.RULENUMBER, 99423)
+	            .putValue(RuleKeys.RULEWORDS, "");
 	    // When
 	    DmnDecisionTableResult result = dmnEngine.evaluateDecisionTable(weatherRules, variables);
 	    // Then
@@ -107,44 +106,44 @@ public class WeatherRulesTests {
     public void postalCodeNotValid() {
         // Given
 	    VariableMap variables = Variables
-                .putValue(PRODUCT, Product.ForecastBasic.getName())
-                .putValue(FIELDNAME, "postalCode")
-                .putValue(SHOULD_BE_CHECKED, true)
-                .putValue(RULENUMBER, 9942388)
-                .putValue(RULEWORDS, "");
+                .putValue(RuleKeys.PRODUCT, Product.ForecastBasic.getName())
+                .putValue(RuleKeys.FIELDNAME, "postalCode")
+                .putValue(RuleKeys.SHOULD_BE_CHECKED, true)
+                .putValue(RuleKeys.RULENUMBER, 9942388)
+                .putValue(RuleKeys.RULEWORDS, "");
 	    // When
         DmnDecisionTableResult result = dmnEngine.evaluateDecisionTable(weatherRules, variables);
         // Then
         assertNotNull(result.getFirstResult());
-        String errorMsg = result.getFirstResult().getEntry(ERROR_MSG);
+        String errorMsg = result.getFirstResult().getEntry(RuleKeys.ERROR_MSG);
         assertThat(errorMsg, containsString("The postalcode isn´t in the correct range between 01001 and 99999"));
         
         // Given
         variables = Variables
-                .putValue(PRODUCT, Product.ForecastProfessional.getName())
-                .putValue(FIELDNAME, "postalCode")
-                .putValue(SHOULD_BE_CHECKED, true)
-                .putValue(RULENUMBER, 1000)
-                .putValue(RULEWORDS, "");
+                .putValue(RuleKeys.PRODUCT, Product.ForecastProfessional.getName())
+                .putValue(RuleKeys.FIELDNAME, "postalCode")
+                .putValue(RuleKeys.SHOULD_BE_CHECKED, true)
+                .putValue(RuleKeys.RULENUMBER, 1000)
+                .putValue(RuleKeys.RULEWORDS, "");
         // When
         result = dmnEngine.evaluateDecisionTable(weatherRules, variables);
         // Then
         assertNotNull(result.getFirstResult());
-        errorMsg = result.getFirstResult().getEntry(ERROR_MSG);
+        errorMsg = result.getFirstResult().getEntry(RuleKeys.ERROR_MSG);
         assertThat(errorMsg, containsString("The postalcode isn´t in the correct range between 01001 and 99999"));
         
         // Given
         variables = Variables
-                .putValue(PRODUCT, Product.ForecastProfessional.getName())
-                .putValue(FIELDNAME, "postalCode")
-                .putValue(SHOULD_BE_CHECKED, true)
-                .putValue(RULENUMBER, 100000)
-                .putValue(RULEWORDS, "");
+                .putValue(RuleKeys.PRODUCT, Product.ForecastProfessional.getName())
+                .putValue(RuleKeys.FIELDNAME, "postalCode")
+                .putValue(RuleKeys.SHOULD_BE_CHECKED, true)
+                .putValue(RuleKeys.RULENUMBER, 100000)
+                .putValue(RuleKeys.RULEWORDS, "");
         // When
         result = dmnEngine.evaluateDecisionTable(weatherRules, variables);
         // Then
         assertNotNull(result.getFirstResult());
-        errorMsg = result.getFirstResult().getEntry(ERROR_MSG);
+        errorMsg = result.getFirstResult().getEntry(RuleKeys.ERROR_MSG);
         assertThat(errorMsg, containsString("The postalcode isn´t in the correct range between 01001 and 99999"));
     }
 	
@@ -152,9 +151,9 @@ public class WeatherRulesTests {
 	public void checkPostalcodeDependendOn2DecisionTables() {
 	    // Given
 	    VariableMap variables = Variables
-                .putValue(PRODUCT, Product.ForecastProfessional.getName())
-                .putValue(SERVICE_METHOD, "getCityForecastByZIP")
-                .putValue(FIELDNAME, "postalCode");
+                .putValue(RuleKeys.PRODUCT, Product.ForecastProfessional.getName())
+                .putValue(RuleKeys.SERVICE_METHOD, "getCityForecastByZIP")
+                .putValue(RuleKeys.FIELDNAME, "postalCode");
 	    // When
         DmnDecisionTableResult resultWeatherFields2Check = dmnEngine.evaluateDecisionTable(weatherFields2Check, variables);
         
@@ -166,11 +165,11 @@ public class WeatherRulesTests {
         assertEquals(true, shouldFieldBeChecked);
         
         variables = Variables
-                .putValue(PRODUCT, Product.ForecastProfessional.getName())
-                .putValue(FIELDNAME, "postalCode")
-                .putValue(SHOULD_BE_CHECKED, shouldFieldBeChecked)
-                .putValue(RULENUMBER, 99423)
-                .putValue(RULEWORDS, "");
+                .putValue(RuleKeys.PRODUCT, Product.ForecastProfessional.getName())
+                .putValue(RuleKeys.FIELDNAME, "postalCode")
+                .putValue(RuleKeys.SHOULD_BE_CHECKED, shouldFieldBeChecked)
+                .putValue(RuleKeys.RULENUMBER, 99423)
+                .putValue(RuleKeys.RULEWORDS, "");
 
         // When
         DmnDecisionTableResult resultWeatherRules = dmnEngine.evaluateDecisionTable(weatherRules, variables);
@@ -183,30 +182,30 @@ public class WeatherRulesTests {
     public void methodOfPaymentCheckWrong() {
         // Given
         VariableMap variables = Variables
-                .putValue(PRODUCT, "")
-                .putValue(FIELDNAME, "methodOfPayment")
-                .putValue(SHOULD_BE_CHECKED, true)
-                .putValue(RULENUMBER, 0)
-                .putValue(RULEWORDS, "Cash");
+                .putValue(RuleKeys.PRODUCT, "")
+                .putValue(RuleKeys.FIELDNAME, "methodOfPayment")
+                .putValue(RuleKeys.SHOULD_BE_CHECKED, true)
+                .putValue(RuleKeys.RULENUMBER, 0)
+                .putValue(RuleKeys.RULEWORDS, "Cash");
         // When
         DmnDecisionTableResult result = dmnEngine.evaluateDecisionTable(weatherRules, variables);
         // Then
         assertNotNull(result.getFirstResult());
-        String errorMsg = result.getFirstResult().getEntry(ERROR_MSG);
+        String errorMsg = result.getFirstResult().getEntry(RuleKeys.ERROR_MSG);
         assertThat(errorMsg, containsString("Sorry, we don´t support this method of payment"));
         
         // Given
         variables = Variables
-                .putValue(PRODUCT, "")
-                .putValue(FIELDNAME, "methodOfPayment")
-                .putValue(SHOULD_BE_CHECKED, true)
-                .putValue(RULENUMBER, 0)
-                .putValue(RULEWORDS, "MasterCard");
+                .putValue(RuleKeys.PRODUCT, "")
+                .putValue(RuleKeys.FIELDNAME, "methodOfPayment")
+                .putValue(RuleKeys.SHOULD_BE_CHECKED, true)
+                .putValue(RuleKeys.RULENUMBER, 0)
+                .putValue(RuleKeys.RULEWORDS, "MasterCard");
         // When
         result = dmnEngine.evaluateDecisionTable(weatherRules, variables);
         // Then
         assertNotNull(result.getFirstResult());
-        errorMsg = result.getFirstResult().getEntry(ERROR_MSG);
+        errorMsg = result.getFirstResult().getEntry(RuleKeys.ERROR_MSG);
         assertThat(errorMsg, containsString("Sorry, we don´t support this method of payment"));
     }
 	
@@ -214,11 +213,11 @@ public class WeatherRulesTests {
     public void methodOfPaymentCheckCorrect() {
         // Given
         VariableMap variables = Variables
-                .putValue(PRODUCT, "")
-                .putValue(FIELDNAME, "methodOfPayment")
-                .putValue(SHOULD_BE_CHECKED, true)
-                .putValue(RULENUMBER, 0)
-                .putValue(RULEWORDS, MethodOfPayment.Paypal.getName());
+                .putValue(RuleKeys.PRODUCT, "")
+                .putValue(RuleKeys.FIELDNAME, "methodOfPayment")
+                .putValue(RuleKeys.SHOULD_BE_CHECKED, true)
+                .putValue(RuleKeys.RULENUMBER, 0)
+                .putValue(RuleKeys.RULEWORDS, MethodOfPayment.Paypal.getName());
         // When
         DmnDecisionTableResult result = dmnEngine.evaluateDecisionTable(weatherRules, variables);
         // Then

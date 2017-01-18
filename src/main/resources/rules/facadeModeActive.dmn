@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn11.xsd" id="definitions" name="definitions" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="facadeModeActive" name="Facade Mode Activation">
+    <decisionTable id="decisionTable">
+      <input id="InputClause_0gfmuws" label="PostalCode">
+        <inputExpression id="LiteralExpression_0he47sz" typeRef="string">        <text>zip</text>
+</inputExpression>
+      </input>
+      <input id="InputClause_0ooycrk" label="Flagcolor">
+        <inputExpression id="LiteralExpression_1q9hru7" typeRef="string">        <text>flagcolor</text>
+</inputExpression>
+      </input>
+      <output id="OutputClause_1ke3zzi" label="Facade mode active?" name="active" typeRef="boolean" />
+      <rule id="table-879832527-6">
+        <description>With this incoming paramters, the facade mode is active</description>
+        <inputEntry id="UnaryTests_1k6ope3">        <text><![CDATA["42697"]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_0o2tv7o">        <text><![CDATA["red"]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_1nbwkn3">        <text>true</text>
+</outputEntry>
+      </rule>
+      <rule id="row-422052177-1">
+        <description>With all other paramters, the facade mode isn´t activated.</description>
+        <inputEntry id="UnaryTests_1lo1748">        <text><![CDATA[not("42697")]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_0rqe04g">        <text></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_0l0vcwu">        <text>false</text>
+</outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>
