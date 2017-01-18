@@ -46,7 +46,7 @@ UseCases i came across developing e.g. the custom SoapFaults on incorrect XML-me
 
 Sometimes, you are in need of a facade-mode, where your implementation doesn´t call real backends and only returns Dummy-Responses. E.g. when you want to protect your backends when load is getting to high for them (not for your server :), that is based on solid Spring-technology) or even if you want to build up a new environment, where your backends are not available right from the start. And you want this configurable, so you can react fast, when needed.
 
-For this Scenario, Spring´s powerful but yet easy to use [Profile-Mechanism] will serve you well. In combination with using org.springframework.core.io.Resource to load your Dummy-Response-Files instead of Java´s NIO.2 (that could [fuck you up] because of classloader-differences in other environments than your local machine), your done with that task quite fast.
+For this Scenario, Spring´s powerful [Aspect oriented programming (AOP)] mechanism will serve you well. In combination with using org.springframework.core.io.Resource to load your Dummy-Response-Files instead of Java´s NIO.2 (that could [fuck you up] because of classloader-differences in other environments than your local machine), your done with that task quite fast.
 
 
 ### Done´s
@@ -149,7 +149,7 @@ For now, you have to separate Rules with different datatypes to different Decisi
 [Weather-Service]:http://wsf.cdyne.com/WeatherWS/Weather.asmx
 [Tomcat]:http://tomcat.apache.org/
 [decision tables]:https://en.wikipedia.org/wiki/Decision_table
-[Profile-Mechanism]:http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-profiles.html
+[Aspect oriented programming (AOP)]:https://docs.spring.io/spring/docs/current/spring-framework-reference/html/aop.html
 [fuck you up]:https://github.com/jonashackt/springbootreadfilejar
 [ELK-Stack]:https://www.elastic.co/products
 [logstash-logback-encoder]:https://github.com/logstash/logstash-logback-encoder/tree/logstash-logback-encoder-4.5
