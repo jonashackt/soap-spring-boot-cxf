@@ -2,6 +2,7 @@ package de.codecentric.soap.configuration;
 
 import java.io.IOException;
 
+import de.codecentric.soap.controller.WeatherServiceControllerFacadeAspect;
 import org.camunda.bpm.dmn.engine.DmnEngine;
 import org.camunda.bpm.dmn.engine.DmnEngineConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -14,12 +15,16 @@ import de.codecentric.soap.controller.WeatherServiceControllerImpl;
 import de.codecentric.soap.plausibilitycheck.PlausibilityChecker;
 
 @Configuration
-@Profile("standard")
 public class ApplicationConfiguration {
 
 	@Bean
 	public WeatherServiceController weatherServiceController() {
 		return new WeatherServiceControllerImpl();
+	}
+
+	@Bean
+	public WeatherServiceControllerFacadeAspect weatherServiceControllerFacadeAspect() {
+		return new WeatherServiceControllerFacadeAspect();
 	}
 	
 	@Bean

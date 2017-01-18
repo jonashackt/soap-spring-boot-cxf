@@ -4,7 +4,7 @@
          <general:GetCityForecastByZIPResult>
             <general:Success>true</general:Success>
             <general:State>Deutschland</general:State>
-            <general:City>Weimar</general:City>
+            <general:City>WeimarFacade</general:City>
             <general:WeatherStationCity>Weimar</general:WeatherStationCity>
             <general:ForecastResult>
                <dtypes:Forecast>

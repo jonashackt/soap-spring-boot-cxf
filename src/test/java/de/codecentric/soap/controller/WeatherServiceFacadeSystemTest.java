@@ -1,10 +1,12 @@
-package de.codecentric.soap.endpoint;
+package de.codecentric.soap.controller;
 
 
 import de.codecentric.namespace.weatherservice.WeatherException;
 import de.codecentric.namespace.weatherservice.WeatherService;
 import de.codecentric.namespace.weatherservice.general.ForecastReturn;
 import de.codecentric.namespace.weatherservice.general.GetCityForecastByZIP;
+import de.codecentric.namespace.weatherservice.general.GetCityWeatherByZIP;
+import de.codecentric.namespace.weatherservice.general.WeatherReturn;
 import de.codecentric.soap.SoapTestApplication;
 import de.codecentric.soap.common.BusinessException;
 import de.codecentric.soap.common.XmlUtils;
@@ -26,26 +28,37 @@ import static org.junit.Assert.assertNotNull;
 		classes=SoapTestApplication.class,
 		webEnvironment= SpringBootTest.WebEnvironment.DEFINED_PORT,
 		properties = { "server.port:8093"})
-public class WeatherServiceEndpointIntegrationTest {
+public class WeatherServiceFacadeSystemTest {
 	
 	@Autowired
 	private WeatherService weatherService;
 
 	@Value(value="classpath:requests/GetCityForecastByZIPTest.xml")
-	private Resource GetCityForecastByZIPTestXml;
-	
+	private Resource getCityForecastByZIPTestXml;
+
+	@Value(value="classpath:requests/GetCityWeatherByZIP.xml")
+	private Resource getCityWeatherByZIPXml;
+
+
 	@Test
-	public void getCityForecastByZIP() throws BusinessException, WeatherException, IOException {
-		// Given
+	public void getCityForecastByZIP_should_respond_with_Dummy_Response() throws BusinessException, WeatherException, IOException {
 		GetCityForecastByZIP getCityForecastByZIP = XmlUtils.readSoapMessageFromStreamAndUnmarshallBody2Object(
-				GetCityForecastByZIPTestXml.getInputStream(), GetCityForecastByZIP.class);
+				getCityForecastByZIPTestXml.getInputStream(), GetCityForecastByZIP.class);
 		
-		// When
 		ForecastReturn forecastReturn = weatherService.getCityForecastByZIP(getCityForecastByZIP.getForecastRequest());
 		
-		// Then
 		assertNotNull(forecastReturn);
-		assertEquals("Weimar", forecastReturn.getCity());
-		assertEquals("22%", forecastReturn.getForecastResult().getForecast().get(0).getProbabilityOfPrecipiation().getDaytime());
+		assertEquals("WeimarFacade", forecastReturn.getCity());
+	}
+
+	@Test
+	public void getCityWeatherByZIP_should_Not_respond_with_Dummy_Response() throws BusinessException, WeatherException, IOException {
+		GetCityWeatherByZIP getCityWeatherByZIP = XmlUtils.readSoapMessageFromStreamAndUnmarshallBody2Object(
+				getCityWeatherByZIPXml.getInputStream(), GetCityWeatherByZIP.class);
+
+		WeatherReturn weatherReturn = weatherService.getCityWeatherByZIP(getCityWeatherByZIP.getForecastRequest());
+
+		assertNotNull(weatherReturn);
+		assertEquals("Weimar", weatherReturn.getCity());
 	}
 }

@@ -29,7 +29,7 @@ import de.codecentric.soap.transformation.GetWeatherInformationOutMapper;
 public class WeatherServiceControllerImpl implements WeatherServiceController {
     
     private static final SoapFrameworkLogger LOG = SoapFrameworkLogger.getLogger(WeatherServiceControllerImpl.class);
-	
+
 	@Autowired
 	private WeatherBackend weatherBackend;
 	

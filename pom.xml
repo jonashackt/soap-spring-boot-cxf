@@ -70,6 +70,12 @@
 		  <artifactId>camunda-engine-dmn</artifactId>
 		  <version>${camunda.version}</version>
 		</dependency>
+
+		<!-- Facade mode -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
 		
 		<!-- Testing -->
 		<dependency>
