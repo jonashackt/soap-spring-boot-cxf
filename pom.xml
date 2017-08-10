@@ -9,24 +9,24 @@
   <parent>
        <groupId>org.springframework.boot</groupId>
        <artifactId>spring-boot-starter-parent</artifactId>
-       <version>1.5.1.RELEASE</version>
+       <version>1.5.6.RELEASE</version>
    </parent>
    
    <properties>
-  		<cxf.version>3.1.9</cxf.version>
+  		<cxf.version>3.1.12</cxf.version>
 		<!-- use UTF-8 for everything -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<fluent-hc.version>4.5.2</fluent-hc.version>
-		<pdfbox.version>2.0.4</pdfbox.version>
-		<camunda.version>7.6.0</camunda.version>
-		<logstash-logback-encoder.version>4.8</logstash-logback-encoder.version>
+		<fluent-hc.version>4.5.3</fluent-hc.version>
+		<pdfbox.version>2.0.7</pdfbox.version>
+		<camunda.version>7.7.0</camunda.version>
+		<logstash-logback-encoder.version>4.11</logstash-logback-encoder.version>
 	   	<!-- Overriding SpringBoot 1.3.4ff´s logback 1.1.7, because of http://jira.qos.ch/browse/LOGBACK-1164 which
                     is only fixed in the unreleased 1.1.8  -->
 	   	<logback.version>1.1.6</logback.version>
 		<commons-io.version>2.5</commons-io.version>
 		<!-- Analysis Tools for CI -->
-		<build-plugin.jacoco.version>0.7.8</build-plugin.jacoco.version>
+		<build-plugin.jacoco.version>0.7.9</build-plugin.jacoco.version>
 		<build-plugin.coveralls.version>4.3.0</build-plugin.coveralls.version>
 		<!-- Exclude generated JAXB-Java-Classes from Sonar-Analysis -->
 		<sonar.exclusions>**/target/generated-sources/wsdlimport/**</sonar.exclusions>
@@ -151,7 +151,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jaxws-maven-plugin</artifactId>
-				<version>2.4.1</version>
+				<version>2.5</version>
 				<configuration>
 					<!-- See http://www.mojohaus.org/jaxws-maven-plugin/wsimport-mojo.html -->
 					<wsdlDirectory>${basedir}/src/main/resources/service-api-definition/</wsdlDirectory>
@@ -179,7 +179,7 @@
 			    	<dependency>
 			            <groupId>org.jvnet.jaxb2_commons</groupId>
 			            <artifactId>jaxb2-namespace-prefix</artifactId>
-			            <version>1.2</version>
+			            <version>1.3</version>
 			        </dependency>
 				</dependencies>
 				<executions>

@@ -1,24 +1,5 @@
 package de.codecentric.soap.endpoint;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.text.PDFTextStripper;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.w3._2005._05.xmlmime.Base64Binary;
-
 import de.codecentric.namespace.weatherservice.datatypes.ProductName;
 import de.codecentric.namespace.weatherservice.general.ForecastCustomer;
 import de.codecentric.namespace.weatherservice.general.ForecastRequest;
@@ -26,6 +7,20 @@ import de.codecentric.namespace.weatherservice.general.ForecastReturn;
 import de.codecentric.namespace.weatherservice.general.WeatherInformationReturn;
 import de.codecentric.soap.configuration.ApplicationTestConfiguration;
 import de.codecentric.soap.internalmodel.MethodOfPayment;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.w3._2005._05.xmlmime.Base64Binary;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+
+import static org.hamcrest.Matchers.containsString;
+import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ApplicationTestConfiguration.class)
